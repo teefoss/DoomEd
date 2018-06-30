@@ -7,6 +7,69 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3010A6FF20E708860007A544 /* FloatingPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A68420E7086F0007A544 /* FloatingPanel.m */; };
+		3010A70020E708860007A544 /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A68520E7086F0007A544 /* MapView.m */; };
+		3010A70120E708860007A544 /* TextureEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A68720E7086F0007A544 /* TextureEdit.m */; };
+		3010A70220E708860007A544 /* SectorEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A68820E7086F0007A544 /* SectorEditView.m */; };
+		3010A70320E708860007A544 /* Coordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A68920E708700007A544 /* Coordinator.m */; };
+		3010A70420E708860007A544 /* PB.project in Resources */ = {isa = PBXBuildFile; fileRef = 3010A68A20E708700007A544 /* PB.project */; };
+		3010A70620E708860007A544 /* DEStart.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A68E20E708700007A544 /* DEStart.snd */; };
+		3010A70720E708860007A544 /* DoomEd.iconheader in Resources */ = {isa = PBXBuildFile; fileRef = 3010A69020E708710007A544 /* DoomEd.iconheader */; };
+		3010A70820E708860007A544 /* MapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69120E708710007A544 /* MapWindow.m */; };
+		3010A70A20E708860007A544 /* ThingPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69320E708710007A544 /* ThingPanel.m */; };
+		3010A70B20E708860007A544 /* pathops.pswm in Resources */ = {isa = PBXBuildFile; fileRef = 3010A69520E708720007A544 /* pathops.pswm */; };
+		3010A70D20E708860007A544 /* DoomProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69820E708720007A544 /* DoomProject.m */; };
+		3010A70E20E708860007A544 /* Timing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69920E708720007A544 /* Timing.m */; };
+		3010A70F20E708860007A544 /* TextLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69A20E708730007A544 /* TextLog.m */; };
+		3010A71020E708860007A544 /* LineSpecialRemapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69C20E708730007A544 /* LineSpecialRemapper.m */; };
+		3010A71120E708860007A544 /* Drip.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A69D20E708730007A544 /* Drip.snd */; };
+		3010A71220E708860007A544 /* EditWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69E20E708730007A544 /* EditWorld.m */; };
+		3010A71320E708860007A544 /* FindLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A69F20E708730007A544 /* FindLine.m */; };
+		3010A71420E708860007A544 /* Wadfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6A020E708740007A544 /* Wadfile.m */; };
+		3010A71520E708860007A544 /* PreferencePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6A320E708740007A544 /* PreferencePanel.m */; };
+		3010A71720E708860007A544 /* ThingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6A720E708750007A544 /* ThingWindow.m */; };
+		3010A71820E708860007A544 /* wraps.psw in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6A820E708760007A544 /* wraps.psw */; };
+		3010A71920E708860007A544 /* lbmfunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6AB20E708760007A544 /* lbmfunctions.m */; };
+		3010A71A20E708860007A544 /* D_Ratdie.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6AF20E708770007A544 /* D_Ratdie.snd */; };
+		3010A71B20E708860007A544 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6B020E708770007A544 /* Makefile */; };
+		3010A71C20E708860007A544 /* DoomEd.app in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6B220E708780007A544 /* DoomEd.app */; };
+		3010A71E20E708860007A544 /* TexturePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6B420E708780007A544 /* TexturePalette.m */; };
+		3010A71F20E708860007A544 /* ThermoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6B520E708780007A544 /* ThermoView.m */; };
+		3010A72020E708860007A544 /* BlockWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6B620E708780007A544 /* BlockWorld.m */; };
+		3010A72120E708860007A544 /* FlatRemapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6B720E708790007A544 /* FlatRemapper.m */; };
+		3010A72220E708860007A544 /* ThingStripper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6B920E708790007A544 /* ThingStripper.m */; };
+		3010A72420E708860007A544 /* MapViewDraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6BB20E7087A0007A544 /* MapViewDraw.m */; };
+		3010A72520E708860007A544 /* DoomEd_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6BD20E7087A0007A544 /* DoomEd_main.m */; };
+		3010A72620E708860007A544 /* ThingPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6BE20E7087A0007A544 /* ThingPalette.m */; };
+		3010A72720E708860007A544 /* Pop.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6BF20E7087A0007A544 /* Pop.snd */; };
+		3010A72820E708860007A544 /* SectorEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6C120E7087B0007A544 /* SectorEditor.m */; };
+		3010A72920E708860007A544 /* D_EPain.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6C220E7087B0007A544 /* D_EPain.snd */; };
+		3010A72B20E708860007A544 /* FlatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6C420E7087B0007A544 /* FlatsView.m */; };
+		3010A72C20E708860007A544 /* SpecialListWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6C520E7087B0007A544 /* SpecialListWindow.m */; };
+		3010A72D20E708860007A544 /* ThingPalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6C620E7087C0007A544 /* ThingPalView.m */; };
+		3010A72E20E708860007A544 /* LinePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6C720E7087C0007A544 /* LinePanel.m */; };
+		3010A72F20E708860007A544 /* pathops.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6CB20E7087C0007A544 /* pathops.m */; };
+		3010A73020E708860007A544 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6CD20E7087D0007A544 /* Thumbs.db */; };
+		3010A73220E708860007A544 /* TexturePalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6D120E7087E0007A544 /* TexturePalView.m */; };
+		3010A73420E708860007A544 /* SpecialList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6D620E7087E0007A544 /* SpecialList.m */; };
+		3010A73520E708860007A544 /* idfunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6D720E7087F0007A544 /* idfunctions.m */; };
+		3010A73620E708860007A544 /* ThingRemapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6D920E7087F0007A544 /* ThingRemapper.m */; };
+		3010A73720E708860007A544 /* Remapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6DA20E7087F0007A544 /* Remapper.m */; };
+		3010A73920E708860007A544 /* TexturePatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6DE20E708800007A544 /* TexturePatchView.m */; };
+		3010A73A20E708860007A544 /* ToolPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6E020E708800007A544 /* ToolPanel.m */; };
+		3010A73B20E708860007A544 /* DESave.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6E120E708810007A544 /* DESave.snd */; };
+		3010A73D20E708860007A544 /* TextureRemapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6E620E708810007A544 /* TextureRemapper.m */; };
+		3010A73E20E708860007A544 /* PB.gdbinit in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6E720E708820007A544 /* PB.gdbinit */; };
+		3010A74020E708860007A544 /* EWDoomSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6EC20E708830007A544 /* EWDoomSave.m */; };
+		3010A74120E708860007A544 /* EWLoadSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6EE20E708830007A544 /* EWLoadSave.m */; };
+		3010A74320E708860007A544 /* D_Dbite.snd in Resources */ = {isa = PBXBuildFile; fileRef = 3010A6F020E708830007A544 /* D_Dbite.snd */; };
+		3010A74520E708860007A544 /* MapViewResp.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6F220E708840007A544 /* MapViewResp.m */; };
+		3010A74720E708860007A544 /* SettingsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6F620E708840007A544 /* SettingsPanel.m */; };
+		3010A74820E708860007A544 /* TextureWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6F720E708850007A544 /* TextureWindow.m */; };
+		3010A74920E708860007A544 /* TextureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6F920E708850007A544 /* TextureView.m */; };
+		3010A74C20E708860007A544 /* PopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6FD20E708860007A544 /* PopScrollView.m */; };
+		3010A75120E70D390007A544 /* Storage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3010A74F20E70D380007A544 /* Storage.h */; };
+		3010A75220E70D390007A544 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A75020E70D380007A544 /* Storage.m */; };
 		30734C3720E707FE006C06E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30734C3620E707FE006C06E4 /* AppDelegate.m */; };
 		30734C3920E70801006C06E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3820E70801006C06E4 /* Assets.xcassets */; };
 		30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3A20E70801006C06E4 /* MainMenu.xib */; };
@@ -14,6 +77,114 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3010A68420E7086F0007A544 /* FloatingPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatingPanel.m; sourceTree = "<group>"; };
+		3010A68520E7086F0007A544 /* MapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
+		3010A68620E7086F0007A544 /* DoomProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoomProject.h; sourceTree = "<group>"; };
+		3010A68720E7086F0007A544 /* TextureEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureEdit.m; sourceTree = "<group>"; };
+		3010A68820E7086F0007A544 /* SectorEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectorEditView.m; sourceTree = "<group>"; };
+		3010A68920E708700007A544 /* Coordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coordinator.m; sourceTree = "<group>"; };
+		3010A68A20E708700007A544 /* PB.project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PB.project; sourceTree = "<group>"; };
+		3010A68B20E708700007A544 /* PopScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopScrollView.h; sourceTree = "<group>"; };
+		3010A68C20E708700007A544 /* SectorEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectorEditor.h; sourceTree = "<group>"; };
+		3010A68E20E708700007A544 /* DEStart.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = DEStart.snd; sourceTree = "<group>"; };
+		3010A68F20E708710007A544 /* SectorEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectorEditView.h; sourceTree = "<group>"; };
+		3010A69020E708710007A544 /* DoomEd.iconheader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DoomEd.iconheader; sourceTree = "<group>"; };
+		3010A69120E708710007A544 /* MapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapWindow.m; sourceTree = "<group>"; };
+		3010A69320E708710007A544 /* ThingPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingPanel.m; sourceTree = "<group>"; };
+		3010A69420E708720007A544 /* MapViewDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewDraw.h; sourceTree = "<group>"; };
+		3010A69520E708720007A544 /* pathops.pswm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pathops.pswm; sourceTree = "<group>"; };
+		3010A69620E708720007A544 /* pathops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pathops.h; sourceTree = "<group>"; };
+		3010A69820E708720007A544 /* DoomProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoomProject.m; sourceTree = "<group>"; };
+		3010A69920E708720007A544 /* Timing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timing.m; sourceTree = "<group>"; };
+		3010A69A20E708730007A544 /* TextLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextLog.m; sourceTree = "<group>"; };
+		3010A69B20E708730007A544 /* SettingsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPanel.h; sourceTree = "<group>"; };
+		3010A69C20E708730007A544 /* LineSpecialRemapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineSpecialRemapper.m; sourceTree = "<group>"; };
+		3010A69D20E708730007A544 /* Drip.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Drip.snd; sourceTree = "<group>"; };
+		3010A69E20E708730007A544 /* EditWorld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditWorld.m; sourceTree = "<group>"; };
+		3010A69F20E708730007A544 /* FindLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindLine.m; sourceTree = "<group>"; };
+		3010A6A020E708740007A544 /* Wadfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wadfile.m; sourceTree = "<group>"; };
+		3010A6A120E708740007A544 /* R_mapdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R_mapdef.h; sourceTree = "<group>"; };
+		3010A6A220E708740007A544 /* FlatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlatsView.h; path = ../../../../../Games/Doom/DoomEd/DoomEd/FlatsView.h; sourceTree = "<group>"; };
+		3010A6A320E708740007A544 /* PreferencePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencePanel.m; sourceTree = "<group>"; };
+		3010A6A420E708750007A544 /* Remapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Remapper.h; sourceTree = "<group>"; };
+		3010A6A520E708750007A544 /* ThermoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThermoView.h; sourceTree = "<group>"; };
+		3010A6A720E708750007A544 /* ThingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingWindow.m; sourceTree = "<group>"; };
+		3010A6A820E708760007A544 /* wraps.psw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wraps.psw; sourceTree = "<group>"; };
+		3010A6A920E708760007A544 /* PreferencePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencePanel.h; sourceTree = "<group>"; };
+		3010A6AA20E708760007A544 /* ThingPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingPanel.h; sourceTree = "<group>"; };
+		3010A6AB20E708760007A544 /* lbmfunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lbmfunctions.m; sourceTree = "<group>"; };
+		3010A6AC20E708760007A544 /* MapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapWindow.h; sourceTree = "<group>"; };
+		3010A6AD20E708770007A544 /* MapViewResp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewResp.h; sourceTree = "<group>"; };
+		3010A6AE20E708770007A544 /* TextureRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureRemapper.h; sourceTree = "<group>"; };
+		3010A6AF20E708770007A544 /* D_Ratdie.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_Ratdie.snd; sourceTree = "<group>"; };
+		3010A6B020E708770007A544 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		3010A6B120E708770007A544 /* MapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
+		3010A6B220E708780007A544 /* DoomEd.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = DoomEd.app; sourceTree = "<group>"; };
+		3010A6B420E708780007A544 /* TexturePalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturePalette.m; sourceTree = "<group>"; };
+		3010A6B520E708780007A544 /* ThermoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermoView.m; sourceTree = "<group>"; };
+		3010A6B620E708780007A544 /* BlockWorld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockWorld.m; sourceTree = "<group>"; };
+		3010A6B720E708790007A544 /* FlatRemapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatRemapper.m; sourceTree = "<group>"; };
+		3010A6B820E708790007A544 /* SpecialListWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialListWindow.h; sourceTree = "<group>"; };
+		3010A6B920E708790007A544 /* ThingStripper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingStripper.m; sourceTree = "<group>"; };
+		3010A6BB20E7087A0007A544 /* MapViewDraw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewDraw.m; sourceTree = "<group>"; };
+		3010A6BC20E7087A0007A544 /* FlatRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlatRemapper.h; sourceTree = "<group>"; };
+		3010A6BD20E7087A0007A544 /* DoomEd_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoomEd_main.m; sourceTree = "<group>"; };
+		3010A6BE20E7087A0007A544 /* ThingPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingPalette.m; sourceTree = "<group>"; };
+		3010A6BF20E7087A0007A544 /* Pop.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pop.snd; sourceTree = "<group>"; };
+		3010A6C020E7087A0007A544 /* SpecialList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialList.h; sourceTree = "<group>"; };
+		3010A6C120E7087B0007A544 /* SectorEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectorEditor.m; sourceTree = "<group>"; };
+		3010A6C220E7087B0007A544 /* D_EPain.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_EPain.snd; sourceTree = "<group>"; };
+		3010A6C420E7087B0007A544 /* FlatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatsView.m; sourceTree = "<group>"; };
+		3010A6C520E7087B0007A544 /* SpecialListWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialListWindow.m; sourceTree = "<group>"; };
+		3010A6C620E7087C0007A544 /* ThingPalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingPalView.m; sourceTree = "<group>"; };
+		3010A6C720E7087C0007A544 /* LinePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinePanel.m; sourceTree = "<group>"; };
+		3010A6C820E7087C0007A544 /* LineSpecialRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSpecialRemapper.h; sourceTree = "<group>"; };
+		3010A6C920E7087C0007A544 /* TexturePalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturePalette.h; sourceTree = "<group>"; };
+		3010A6CA20E7087C0007A544 /* lbmfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lbmfunctions.h; sourceTree = "<group>"; };
+		3010A6CB20E7087C0007A544 /* pathops.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pathops.m; sourceTree = "<group>"; };
+		3010A6CC20E7087D0007A544 /* TexturePalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturePalView.h; sourceTree = "<group>"; };
+		3010A6CD20E7087D0007A544 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
+		3010A6CE20E7087D0007A544 /* ThingPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingPalette.h; sourceTree = "<group>"; };
+		3010A6D020E7087D0007A544 /* Timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timing.h; sourceTree = "<group>"; };
+		3010A6D120E7087E0007A544 /* TexturePalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturePalView.m; sourceTree = "<group>"; };
+		3010A6D320E7087E0007A544 /* ThingRemapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingRemapper.h; sourceTree = "<group>"; };
+		3010A6D420E7087E0007A544 /* BlockWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockWorld.h; sourceTree = "<group>"; };
+		3010A6D520E7087E0007A544 /* ThingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingWindow.h; sourceTree = "<group>"; };
+		3010A6D620E7087E0007A544 /* SpecialList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialList.m; sourceTree = "<group>"; };
+		3010A6D720E7087F0007A544 /* idfunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = idfunctions.m; sourceTree = "<group>"; };
+		3010A6D820E7087F0007A544 /* Wadfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wadfile.h; sourceTree = "<group>"; };
+		3010A6D920E7087F0007A544 /* ThingRemapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingRemapper.m; sourceTree = "<group>"; };
+		3010A6DA20E7087F0007A544 /* Remapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Remapper.m; sourceTree = "<group>"; };
+		3010A6DB20E7087F0007A544 /* TexturePatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturePatchView.h; sourceTree = "<group>"; };
+		3010A6DC20E708800007A544 /* Coordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coordinator.h; sourceTree = "<group>"; };
+		3010A6DE20E708800007A544 /* TexturePatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TexturePatchView.m; sourceTree = "<group>"; };
+		3010A6DF20E708800007A544 /* LinePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinePanel.h; sourceTree = "<group>"; };
+		3010A6E020E708800007A544 /* ToolPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPanel.m; sourceTree = "<group>"; };
+		3010A6E120E708810007A544 /* DESave.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = DESave.snd; sourceTree = "<group>"; };
+		3010A6E220E708810007A544 /* TextureEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureEdit.h; sourceTree = "<group>"; };
+		3010A6E320E708810007A544 /* TextureWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureWindow.h; sourceTree = "<group>"; };
+		3010A6E520E708810007A544 /* ThingPalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingPalView.h; sourceTree = "<group>"; };
+		3010A6E620E708810007A544 /* TextureRemapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureRemapper.m; sourceTree = "<group>"; };
+		3010A6E720E708820007A544 /* PB.gdbinit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PB.gdbinit; sourceTree = "<group>"; };
+		3010A6E920E708820007A544 /* TextureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureView.h; sourceTree = "<group>"; };
+		3010A6EA20E708820007A544 /* ToolPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolPanel.h; sourceTree = "<group>"; };
+		3010A6EB20E708820007A544 /* EditWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditWorld.h; sourceTree = "<group>"; };
+		3010A6EC20E708830007A544 /* EWDoomSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWDoomSave.m; sourceTree = "<group>"; };
+		3010A6ED20E708830007A544 /* FindLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindLine.h; sourceTree = "<group>"; };
+		3010A6EE20E708830007A544 /* EWLoadSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWLoadSave.m; sourceTree = "<group>"; };
+		3010A6F020E708830007A544 /* D_Dbite.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_Dbite.snd; sourceTree = "<group>"; };
+		3010A6F220E708840007A544 /* MapViewResp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewResp.m; sourceTree = "<group>"; };
+		3010A6F420E708840007A544 /* FloatingPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingPanel.h; sourceTree = "<group>"; };
+		3010A6F520E708840007A544 /* idfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = idfunctions.h; sourceTree = "<group>"; };
+		3010A6F620E708840007A544 /* SettingsPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPanel.m; sourceTree = "<group>"; };
+		3010A6F720E708850007A544 /* TextureWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureWindow.m; sourceTree = "<group>"; };
+		3010A6F820E708850007A544 /* ThingStripper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingStripper.h; sourceTree = "<group>"; };
+		3010A6F920E708850007A544 /* TextureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureView.m; sourceTree = "<group>"; };
+		3010A6FB20E708850007A544 /* TextLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextLog.h; sourceTree = "<group>"; };
+		3010A6FD20E708860007A544 /* PopScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopScrollView.m; sourceTree = "<group>"; };
+		3010A74D20E70B2B0007A544 /* NXConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXConvert.h; sourceTree = "<group>"; };
+		3010A74F20E70D380007A544 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
+		3010A75020E70D380007A544 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
 		30734C3220E707FE006C06E4 /* DoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30734C3520E707FE006C06E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		30734C3620E707FE006C06E4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,11 +232,130 @@
 				30734C3D20E70801006C06E4 /* Info.plist */,
 				30734C3E20E70801006C06E4 /* main.m */,
 				30734C4020E70801006C06E4 /* DoomEd.entitlements */,
+				3010A6D420E7087E0007A544 /* BlockWorld.h */,
+				3010A6B620E708780007A544 /* BlockWorld.m */,
+				3010A6DC20E708800007A544 /* Coordinator.h */,
+				3010A68920E708700007A544 /* Coordinator.m */,
+				3010A6F020E708830007A544 /* D_Dbite.snd */,
+				3010A6C220E7087B0007A544 /* D_EPain.snd */,
+				3010A6AF20E708770007A544 /* D_Ratdie.snd */,
+				3010A6E120E708810007A544 /* DESave.snd */,
+				3010A68E20E708700007A544 /* DEStart.snd */,
+				3010A6BD20E7087A0007A544 /* DoomEd_main.m */,
+				3010A6B220E708780007A544 /* DoomEd.app */,
+				3010A69020E708710007A544 /* DoomEd.iconheader */,
+				3010A68620E7086F0007A544 /* DoomProject.h */,
+				3010A69820E708720007A544 /* DoomProject.m */,
+				3010A69D20E708730007A544 /* Drip.snd */,
+				3010A6EB20E708820007A544 /* EditWorld.h */,
+				3010A69E20E708730007A544 /* EditWorld.m */,
+				3010A6EC20E708830007A544 /* EWDoomSave.m */,
+				3010A6EE20E708830007A544 /* EWLoadSave.m */,
+				3010A6ED20E708830007A544 /* FindLine.h */,
+				3010A69F20E708730007A544 /* FindLine.m */,
+				3010A6BC20E7087A0007A544 /* FlatRemapper.h */,
+				3010A6B720E708790007A544 /* FlatRemapper.m */,
+				3010A6A220E708740007A544 /* FlatsView.h */,
+				3010A6C420E7087B0007A544 /* FlatsView.m */,
+				3010A6F420E708840007A544 /* FloatingPanel.h */,
+				3010A68420E7086F0007A544 /* FloatingPanel.m */,
+				3010A6F520E708840007A544 /* idfunctions.h */,
+				3010A6D720E7087F0007A544 /* idfunctions.m */,
+				3010A6CA20E7087C0007A544 /* lbmfunctions.h */,
+				3010A6AB20E708760007A544 /* lbmfunctions.m */,
+				3010A6DF20E708800007A544 /* LinePanel.h */,
+				3010A6C720E7087C0007A544 /* LinePanel.m */,
+				3010A6C820E7087C0007A544 /* LineSpecialRemapper.h */,
+				3010A69C20E708730007A544 /* LineSpecialRemapper.m */,
+				3010A6B020E708770007A544 /* Makefile */,
+				3010A6B120E708770007A544 /* MapView.h */,
+				3010A68520E7086F0007A544 /* MapView.m */,
+				3010A69420E708720007A544 /* MapViewDraw.h */,
+				3010A6BB20E7087A0007A544 /* MapViewDraw.m */,
+				3010A6AD20E708770007A544 /* MapViewResp.h */,
+				3010A6F220E708840007A544 /* MapViewResp.m */,
+				3010A6AC20E708760007A544 /* MapWindow.h */,
+				3010A69120E708710007A544 /* MapWindow.m */,
+				3010A69620E708720007A544 /* pathops.h */,
+				3010A6CB20E7087C0007A544 /* pathops.m */,
+				3010A69520E708720007A544 /* pathops.pswm */,
+				3010A6E720E708820007A544 /* PB.gdbinit */,
+				3010A68A20E708700007A544 /* PB.project */,
+				3010A6BF20E7087A0007A544 /* Pop.snd */,
+				3010A68B20E708700007A544 /* PopScrollView.h */,
+				3010A6FD20E708860007A544 /* PopScrollView.m */,
+				3010A6A920E708760007A544 /* PreferencePanel.h */,
+				3010A6A320E708740007A544 /* PreferencePanel.m */,
+				3010A6A120E708740007A544 /* R_mapdef.h */,
+				3010A6A420E708750007A544 /* Remapper.h */,
+				3010A6DA20E7087F0007A544 /* Remapper.m */,
+				3010A68C20E708700007A544 /* SectorEditor.h */,
+				3010A6C120E7087B0007A544 /* SectorEditor.m */,
+				3010A68F20E708710007A544 /* SectorEditView.h */,
+				3010A68820E7086F0007A544 /* SectorEditView.m */,
+				3010A69B20E708730007A544 /* SettingsPanel.h */,
+				3010A6F620E708840007A544 /* SettingsPanel.m */,
+				3010A6C020E7087A0007A544 /* SpecialList.h */,
+				3010A6D620E7087E0007A544 /* SpecialList.m */,
+				3010A6B820E708790007A544 /* SpecialListWindow.h */,
+				3010A6C520E7087B0007A544 /* SpecialListWindow.m */,
+				3010A74F20E70D380007A544 /* Storage.h */,
+				3010A75020E70D380007A544 /* Storage.m */,
+				3010A6FB20E708850007A544 /* TextLog.h */,
+				3010A69A20E708730007A544 /* TextLog.m */,
+				3010A6E220E708810007A544 /* TextureEdit.h */,
+				3010A68720E7086F0007A544 /* TextureEdit.m */,
+				3010A6C920E7087C0007A544 /* TexturePalette.h */,
+				3010A6B420E708780007A544 /* TexturePalette.m */,
+				3010A6CC20E7087D0007A544 /* TexturePalView.h */,
+				3010A6D120E7087E0007A544 /* TexturePalView.m */,
+				3010A6DB20E7087F0007A544 /* TexturePatchView.h */,
+				3010A6DE20E708800007A544 /* TexturePatchView.m */,
+				3010A6AE20E708770007A544 /* TextureRemapper.h */,
+				3010A6E620E708810007A544 /* TextureRemapper.m */,
+				3010A6E920E708820007A544 /* TextureView.h */,
+				3010A6F920E708850007A544 /* TextureView.m */,
+				3010A6E320E708810007A544 /* TextureWindow.h */,
+				3010A6F720E708850007A544 /* TextureWindow.m */,
+				3010A6A520E708750007A544 /* ThermoView.h */,
+				3010A6B520E708780007A544 /* ThermoView.m */,
+				3010A6CE20E7087D0007A544 /* ThingPalette.h */,
+				3010A6BE20E7087A0007A544 /* ThingPalette.m */,
+				3010A6E520E708810007A544 /* ThingPalView.h */,
+				3010A6C620E7087C0007A544 /* ThingPalView.m */,
+				3010A6AA20E708760007A544 /* ThingPanel.h */,
+				3010A69320E708710007A544 /* ThingPanel.m */,
+				3010A6D320E7087E0007A544 /* ThingRemapper.h */,
+				3010A6D920E7087F0007A544 /* ThingRemapper.m */,
+				3010A6F820E708850007A544 /* ThingStripper.h */,
+				3010A6B920E708790007A544 /* ThingStripper.m */,
+				3010A6D520E7087E0007A544 /* ThingWindow.h */,
+				3010A6A720E708750007A544 /* ThingWindow.m */,
+				3010A6CD20E7087D0007A544 /* Thumbs.db */,
+				3010A6D020E7087D0007A544 /* Timing.h */,
+				3010A69920E708720007A544 /* Timing.m */,
+				3010A6EA20E708820007A544 /* ToolPanel.h */,
+				3010A6E020E708800007A544 /* ToolPanel.m */,
+				3010A6D820E7087F0007A544 /* Wadfile.h */,
+				3010A6A020E708740007A544 /* Wadfile.m */,
+				3010A6A820E708760007A544 /* wraps.psw */,
+				3010A74D20E70B2B0007A544 /* NXConvert.h */,
 			);
 			path = DoomEd;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3010A74E20E70C560007A544 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3010A75120E70D390007A544 /* Storage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		30734C3120E707FE006C06E4 /* DoomEd */ = {
@@ -75,6 +365,7 @@
 				30734C2E20E707FE006C06E4 /* Sources */,
 				30734C2F20E707FE006C06E4 /* Frameworks */,
 				30734C3020E707FE006C06E4 /* Resources */,
+				3010A74E20E70C560007A544 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -122,8 +413,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3010A71820E708860007A544 /* wraps.psw in Resources */,
+				3010A74320E708860007A544 /* D_Dbite.snd in Resources */,
 				30734C3920E70801006C06E4 /* Assets.xcassets in Resources */,
+				3010A73020E708860007A544 /* Thumbs.db in Resources */,
+				3010A73B20E708860007A544 /* DESave.snd in Resources */,
+				3010A72920E708860007A544 /* D_EPain.snd in Resources */,
+				3010A71C20E708860007A544 /* DoomEd.app in Resources */,
+				3010A71A20E708860007A544 /* D_Ratdie.snd in Resources */,
+				3010A70420E708860007A544 /* PB.project in Resources */,
+				3010A71120E708860007A544 /* Drip.snd in Resources */,
+				3010A70B20E708860007A544 /* pathops.pswm in Resources */,
 				30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */,
+				3010A70720E708860007A544 /* DoomEd.iconheader in Resources */,
+				3010A73E20E708860007A544 /* PB.gdbinit in Resources */,
+				3010A72720E708860007A544 /* Pop.snd in Resources */,
+				3010A70620E708860007A544 /* DEStart.snd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +439,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3010A71420E708860007A544 /* Wadfile.m in Sources */,
+				3010A74520E708860007A544 /* MapViewResp.m in Sources */,
+				3010A73920E708860007A544 /* TexturePatchView.m in Sources */,
+				3010A70120E708860007A544 /* TextureEdit.m in Sources */,
+				3010A74920E708860007A544 /* TextureView.m in Sources */,
 				30734C3F20E70801006C06E4 /* main.m in Sources */,
+				3010A74820E708860007A544 /* TextureWindow.m in Sources */,
+				3010A75220E70D390007A544 /* Storage.m in Sources */,
+				3010A70D20E708860007A544 /* DoomProject.m in Sources */,
+				3010A70F20E708860007A544 /* TextLog.m in Sources */,
+				3010A72520E708860007A544 /* DoomEd_main.m in Sources */,
+				3010A72020E708860007A544 /* BlockWorld.m in Sources */,
+				3010A72B20E708860007A544 /* FlatsView.m in Sources */,
+				3010A70220E708860007A544 /* SectorEditView.m in Sources */,
+				3010A71320E708860007A544 /* FindLine.m in Sources */,
+				3010A73520E708860007A544 /* idfunctions.m in Sources */,
+				3010A71520E708860007A544 /* PreferencePanel.m in Sources */,
+				3010A70020E708860007A544 /* MapView.m in Sources */,
+				3010A70820E708860007A544 /* MapWindow.m in Sources */,
+				3010A74020E708860007A544 /* EWDoomSave.m in Sources */,
+				3010A71B20E708860007A544 /* Makefile in Sources */,
+				3010A72220E708860007A544 /* ThingStripper.m in Sources */,
 				30734C3720E707FE006C06E4 /* AppDelegate.m in Sources */,
+				3010A70A20E708860007A544 /* ThingPanel.m in Sources */,
+				3010A73620E708860007A544 /* ThingRemapper.m in Sources */,
+				3010A72F20E708860007A544 /* pathops.m in Sources */,
+				3010A70E20E708860007A544 /* Timing.m in Sources */,
+				3010A72C20E708860007A544 /* SpecialListWindow.m in Sources */,
+				3010A71220E708860007A544 /* EditWorld.m in Sources */,
+				3010A73420E708860007A544 /* SpecialList.m in Sources */,
+				3010A72620E708860007A544 /* ThingPalette.m in Sources */,
+				3010A72420E708860007A544 /* MapViewDraw.m in Sources */,
+				3010A72820E708860007A544 /* SectorEditor.m in Sources */,
+				3010A71E20E708860007A544 /* TexturePalette.m in Sources */,
+				3010A74120E708860007A544 /* EWLoadSave.m in Sources */,
+				3010A6FF20E708860007A544 /* FloatingPanel.m in Sources */,
+				3010A70320E708860007A544 /* Coordinator.m in Sources */,
+				3010A71720E708860007A544 /* ThingWindow.m in Sources */,
+				3010A72D20E708860007A544 /* ThingPalView.m in Sources */,
+				3010A73220E708860007A544 /* TexturePalView.m in Sources */,
+				3010A73720E708860007A544 /* Remapper.m in Sources */,
+				3010A72120E708860007A544 /* FlatRemapper.m in Sources */,
+				3010A71020E708860007A544 /* LineSpecialRemapper.m in Sources */,
+				3010A73A20E708860007A544 /* ToolPanel.m in Sources */,
+				3010A74720E708860007A544 /* SettingsPanel.m in Sources */,
+				3010A72E20E708860007A544 /* LinePanel.m in Sources */,
+				3010A71920E708860007A544 /* lbmfunctions.m in Sources */,
+				3010A74C20E708860007A544 /* PopScrollView.m in Sources */,
+				3010A71F20E708860007A544 /* ThermoView.m in Sources */,
+				3010A73D20E708860007A544 /* TextureRemapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +515,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -220,7 +573,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
