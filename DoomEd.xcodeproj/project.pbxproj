@@ -70,7 +70,6 @@
 		3010A74C20E708860007A544 /* PopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6FD20E708860007A544 /* PopScrollView.m */; };
 		3010A75120E70D390007A544 /* Storage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3010A74F20E70D380007A544 /* Storage.h */; };
 		3010A75220E70D390007A544 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A75020E70D380007A544 /* Storage.m */; };
-		30734C3720E707FE006C06E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30734C3620E707FE006C06E4 /* AppDelegate.m */; };
 		30734C3920E70801006C06E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3820E70801006C06E4 /* Assets.xcassets */; };
 		30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3A20E70801006C06E4 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
@@ -185,8 +184,6 @@
 		3010A74F20E70D380007A544 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		3010A75020E70D380007A544 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
 		30734C3220E707FE006C06E4 /* DoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		30734C3520E707FE006C06E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		30734C3620E707FE006C06E4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		30734C3820E70801006C06E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30734C3B20E70801006C06E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30734C3D20E70801006C06E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -223,8 +220,6 @@
 		30734C3420E707FE006C06E4 /* DoomEd */ = {
 			isa = PBXGroup;
 			children = (
-				30734C3520E707FE006C06E4 /* AppDelegate.h */,
-				30734C3620E707FE006C06E4 /* AppDelegate.m */,
 				30734C3820E70801006C06E4 /* Assets.xcassets */,
 				30734C3A20E70801006C06E4 /* MainMenu.xib */,
 				30734C3D20E70801006C06E4 /* Info.plist */,
@@ -457,7 +452,6 @@
 				3010A74020E708860007A544 /* EWDoomSave.m in Sources */,
 				3010A71B20E708860007A544 /* Makefile in Sources */,
 				3010A72220E708860007A544 /* ThingStripper.m in Sources */,
-				30734C3720E707FE006C06E4 /* AppDelegate.m in Sources */,
 				3010A70A20E708860007A544 /* ThingPanel.m in Sources */,
 				3010A73620E708860007A544 /* ThingRemapper.m in Sources */,
 				3010A72F20E708860007A544 /* pathops.m in Sources */,

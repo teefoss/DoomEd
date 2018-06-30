@@ -36,11 +36,11 @@ BOOL	debugflag = NO;
 	id	list, win;
 	
 // update all windows
-	list = [NXApp windowList];
+	list = [NXApp windows];
 	i = [list count];
 	while (--i >= 0)
 	{
-		win = [list objectAt: i];
+		win = [list objectAtIndex:i];
 		if ([win class] == [MapWindow class])
 			[[win mapView] display];
 	}
@@ -74,8 +74,7 @@ BOOL	debugflag = NO;
 	return YES;
 }
 
-
-- appDidInit: sender
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
 	if (![doomproject_i loaded])
 		[doomproject_i loadProject: [prefpanel_i  getProjectPath] ];
@@ -99,14 +98,12 @@ BOOL	debugflag = NO;
 	if ([prefpanel_i	openUponLaunch:textureEditor] == TRUE)
 		[textureEdit_i	menuTarget:NULL];
 	
-	startupSound_i = [[Sound alloc] initFromSection:"D_Dbite"];
+	startupSound_i = [Sound soundNamed:@"D_Dbite"];
 	[startupSound_i	play];
-	[startupSound_i	free];
-	
-	return self;
+	[startupSound_i	release];
 }
 
-- appWillTerminate: sender
+- (void)applicationWillTerminate:(NSNotification *)notification
 {
 	[doomproject_i	quit];
 	[prefpanel_i appWillTerminate: self];
@@ -121,7 +118,6 @@ BOOL	debugflag = NO;
 	[toolPanel_i	saveFrameUsingName:TOOLNAME];
 	
 	printf("DoomEd terminated.\n\n");
-	return self;
 }
 
 @end

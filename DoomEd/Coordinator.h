@@ -6,9 +6,9 @@ extern	id	coordinator_i;
 
 extern	BOOL	debugflag;
 
-#define	TOOLNAME	"ToolPanel"
+#define	TOOLNAME	@"ToolPanel"
 
-@interface Coordinator:Object
+@interface Coordinator : Object <NSApplicationDelegate>
 {
 	id	toolPanel_i;
 	id	infoPanel_i;

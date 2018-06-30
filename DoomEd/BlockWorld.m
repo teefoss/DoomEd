@@ -1,5 +1,6 @@
 #import "BlockWorld.h"
 #import	"DoomProject.h"
+#import "Storage.h"
 
 id		blockworld_i;
 id		sectors=NULL;	// storage object of sectors
