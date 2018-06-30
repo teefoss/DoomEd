@@ -73,7 +73,6 @@
 		30734C3720E707FE006C06E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30734C3620E707FE006C06E4 /* AppDelegate.m */; };
 		30734C3920E70801006C06E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3820E70801006C06E4 /* Assets.xcassets */; };
 		30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3A20E70801006C06E4 /* MainMenu.xib */; };
-		30734C3F20E70801006C06E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30734C3E20E70801006C06E4 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,7 +190,6 @@
 		30734C3820E70801006C06E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30734C3B20E70801006C06E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30734C3D20E70801006C06E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30734C3E20E70801006C06E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		30734C4020E70801006C06E4 /* DoomEd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoomEd.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,7 +228,6 @@
 				30734C3820E70801006C06E4 /* Assets.xcassets */,
 				30734C3A20E70801006C06E4 /* MainMenu.xib */,
 				30734C3D20E70801006C06E4 /* Info.plist */,
-				30734C3E20E70801006C06E4 /* main.m */,
 				30734C4020E70801006C06E4 /* DoomEd.entitlements */,
 				3010A6D420E7087E0007A544 /* BlockWorld.h */,
 				3010A6B620E708780007A544 /* BlockWorld.m */,
@@ -444,7 +441,6 @@
 				3010A73920E708860007A544 /* TexturePatchView.m in Sources */,
 				3010A70120E708860007A544 /* TextureEdit.m in Sources */,
 				3010A74920E708860007A544 /* TextureView.m in Sources */,
-				30734C3F20E70801006C06E4 /* main.m in Sources */,
 				3010A74820E708860007A544 /* TextureWindow.m in Sources */,
 				3010A75220E70D390007A544 /* Storage.m in Sources */,
 				3010A70D20E708860007A544 /* DoomProject.m in Sources */,
