@@ -377,20 +377,19 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	short	*src, *dest;
 	
 	NXSetRect (&aRect, 100, 100, brow/WLSIZE, bheight);
-	window = [[Window alloc]
-		initContent:	&aRect
-		style:		NX_TITLEDSTYLE
-		backing:		NX_RETAINED
-		buttonMask:	NX_MINIATURIZEBUTTONMASK|NX_CLOSEBUTTONMASK
-		defer:		NO
-	];
+	
+	window = [[Window alloc] initWithContentRect:aRect
+									   styleMask:NSWindowStyleMaskTitled
+										 backing:NSBackingStoreBuffered
+										   defer:NO];
 	
 	[window display];
 	[window orderFront:nil];
 	
 	blockview = [window contentView];
 	size = brow/WLSIZE*bheight;
-	dest = (short *)planes[0] = malloc (size*2);
+	planes[0] = malloc (size*2);
+	dest = (short *)planes[0];
 	src = bmap;
 	for (i=0 ; i<size; i++)
 	{
@@ -406,9 +405,9 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	
 	aRect.origin.x = aRect.origin.y = 0;
 	
-	[blockview lockFocus]; 
-	NXDrawBitmap(
-		&aRect,  
+	[blockview lockFocus];
+	NSDrawBitmap(
+		aRect,
 		bwidth, 
 		bheight,
 		4,
@@ -539,7 +538,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		else
 			if (bcmp (&new.s, &side->ends, sizeof(sectordef_t)))
 			{
-				[new.lines free];
+				[new.lines release];
 				[self sectorError: "Line sectordefs differ" : i : frontline];
 				return NO;
 			}
@@ -547,7 +546,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		frontline = i;
 		if (side->sector != -1)
 		{
-			[new.lines free];
+			[new.lines release];
 			[self sectorError:"Line side grouped into multiple sectors" : i : -1];
 			return NO;
 		}
@@ -557,7 +556,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	
 	if (backline >-1 && frontline > -1)
 	{
-		[new.lines free];
+		[new.lines release];
 		[self sectorError:"Inside and outside lines grouped together" : backline : frontline];
 		return NO;
 	}
@@ -567,7 +566,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		numsectors++;
 	}
 	else
-		[new.lines free];
+		[new.lines release];
 
 	
 	return YES;
@@ -596,7 +595,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	for (i=0 ; i<count ; i++)
 	{
 		sector = [sectors elementAt: i];
-		[sector->lines free];
+		[sector->lines release];
 	}
 	[sectors empty];
 	for (i=0 ; i<numlines ; i++)
