@@ -98,7 +98,7 @@ BOOL	debugflag = NO;
 	if ([prefpanel_i	openUponLaunch:textureEditor] == TRUE)
 		[textureEdit_i	menuTarget:NULL];
 	
-	startupSound_i = [Sound soundNamed:@"D_Dbite"];
+	startupSound_i = [NSSound soundNamed:@"D_Dbite"];
 	[startupSound_i	play];
 	[startupSound_i	release];
 }

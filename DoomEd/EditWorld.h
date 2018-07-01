@@ -1,7 +1,7 @@
 #import <appkit/appkit.h>
 #import "DoomProject.h"
 
-#define	WORLDNAME	"EditWorld"
+#define	WORLDNAME	@"EditWorld"
 
 typedef struct
 {
@@ -85,7 +85,7 @@ extern	worldthing_t	*things;
 	BOOL	boundsdirty;
 	char		pathname[1024];
 	NXRect	dirtyrect;	
-	id		windowlist_i;			// all windows that display this world
+	NSMutableArray		*windowlist_i;			// all windows that display this world
 	
 	id		copyThings_i;			// cut/copy/paste info
 	id		copyLines_i;

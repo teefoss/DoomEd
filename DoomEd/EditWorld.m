@@ -8,6 +8,9 @@
 #import "TextureEdit.h"
 #import	"DoomProject.h"
 
+#import "NXConvert.h"
+#import "Storage.h"
+
 //=============================================================================
 
 id			editworld_i;
@@ -178,7 +181,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 //
 // set up local structures
 //
-	windowlist_i = [[List alloc] init];
+	//windowlist_i = [[List alloc] init];
+	windowlist_i = [[NSMutableArray alloc] init];
 	numpoints = numlines = numthings = 0;
 	pointssize = linessize = thingssize = texturessize = BASELISTSIZE;
 
@@ -195,7 +199,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 					elementSize:	sizeof(copyline_t)
 					description:	NULL];
 
-	saveSound = [[Sound alloc] initFromSection:"DESave"];
+	saveSound = [NSSound soundNamed:@"DESave"];
 	
 	return self;
 }
@@ -204,8 +208,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 {
 // FIXME: prompt to save map if dirty
 	if ([windowlist_i	count] > 0)
-		[[windowlist_i	objectAt:0]	saveFrameUsingName:WORLDNAME];
-	[self free];
+		[[windowlist_i objectAtIndex:0] saveFrameUsingName:WORLDNAME];
+	[self release];
 	return self;
 }
 
@@ -302,10 +306,10 @@ int LineByPoint (NXPoint *ptin, int *side)
 		[doomproject_i	setDirtyMap:FALSE];
 	}	
 
-	[[windowlist_i	objectAt:0] saveFrameUsingName:WORLDNAME];
-	[windowlist_i makeObjectsPerform: @selector(free)];
-	[windowlist_i free];
-	windowlist_i = [[List alloc] init];
+	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
+	[windowlist_i makeObjectsPerformSelector:@selector(release)];
+	[windowlist_i release];
+	windowlist_i = [[NSMutableArray alloc] init];
 		
 	numpoints = numlines = numthings = 0;
 	loaded = NO;
@@ -331,7 +335,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 - newWindow:sender
 {
-	id	win;
+	MapWindow	*win;
 	
 	if (!loaded)
 	{
@@ -346,7 +350,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		
 	[windowlist_i addObject: win];
 	[win setDelegate: self];
-	[win setTitleAsFilename: pathname];
+	[win setTitleWithRepresentedFilename:CastNSString(pathname)];
 	[win	setFrameUsingName:WORLDNAME];
 	[win display];
 	[win makeKeyAndOrderFront:self];
@@ -389,7 +393,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		fromPath,toPath,bspprogram,bsphost);
 	panel = NXGetAlertPanel("Wait...",string,NULL,NULL,NULL);
 	[panel	orderFront:NULL];
-	NXPing();
+	//NXPing();
 
 	sprintf( string, "rsh %s %s %s %s",bsphost,bspprogram,fromPath,toPath);
 	err = system(string);
@@ -400,7 +404,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		sprintf(string,"rsh attempt returned:%d\n",err);
 		panel = NXGetAlertPanel("rsh error!",string,NULL,NULL,NULL);
 		[panel  orderFront:NULL];
-		NXPing();
+		//NXPing();
 	}
 
 	[panel	orderOut:NULL];
@@ -434,7 +438,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	pan = NXGetAlertPanel ("One moment","Saving",NULL,NULL,NULL);
 	[pan display];
 	[pan orderFront: NULL];
-	NXPing ();
+	//NXPing ();
 
 	printf ("Saving DoomEd map\n");
 	BackupFile (pathname); 
@@ -461,8 +465,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 - print: sender
 {
-	[[[NXApp mainWindow] mapView] printPSCode: sender];
-	
+	[[[NXApp mainWindow] mapView] print:sender];
 	return self;
 }
 
@@ -600,7 +603,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 			[self	saveWorld:NULL];
 	}
 	
-	[[windowlist_i	objectAt:0] saveFrameUsingName:WORLDNAME];
+	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
 	[windowlist_i removeObject: sender];
 
 //	[self	closeWorld];
@@ -617,7 +620,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 	count = [windowlist_i count];
 	while (--count > -1)
-		[[windowlist_i objectAt: count] reDisplay: &dirtyrect];
+		[[windowlist_i objectAtIndex: count] reDisplay: &dirtyrect];
 		
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
@@ -627,7 +630,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - redrawWindows
 {
-	[windowlist_i makeObjectsPerform: @selector(display)];
+	[windowlist_i makeObjectsPerformSelector:@selector(display)];
 
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
@@ -637,7 +640,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - getMainWindow
 {
-	return [windowlist_i	objectAt:0];
+	return [windowlist_i	objectAtIndex:0];
 }
 
 /*
@@ -1018,7 +1021,8 @@ FIXME: make these scan for deleted entries
 	NXRect	r;
 	copyline_t	cl;
 	
-	[[[NXApp mainWindow]	contentView]	getDocVisibleRect:&r];
+//	[[[NXApp mainWindow]	contentView]	getDocVisibleRect:&r];
+	r =	[[[NXApp mainWindow]	contentView] 	documentVisibleRect];
 	copyCoord = r.origin;
 	[copyThings_i		empty];
 	[copyLines_i		empty];
@@ -1158,7 +1162,7 @@ FIXME: make these scan for deleted entries
 	NXPoint	p1,p2;
 
 	[self	copyDeselect];	
-	[[[NXApp	mainWindow]	contentView]	getDocVisibleRect:&r];
+	r = [[[NXApp	mainWindow]	contentView]	documentVisibleRect];
 	if (copyLoaded)
 	{
 		copyCoord = [self	findCopyCenter];

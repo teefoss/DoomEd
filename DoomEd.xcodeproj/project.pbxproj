@@ -71,6 +71,7 @@
 		3010A75120E70D390007A544 /* Storage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3010A74F20E70D380007A544 /* Storage.h */; };
 		3010A75220E70D390007A544 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A75020E70D380007A544 /* Storage.m */; };
 		301C348520E9357E0076185A /* postscript.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C348420E9357E0076185A /* postscript.m */; };
+		301C348820E983D80076185A /* NXConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C348720E983D80076185A /* NXConvert.m */; };
 		30734C3920E70801006C06E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3820E70801006C06E4 /* Assets.xcassets */; };
 		30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3A20E70801006C06E4 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
@@ -186,6 +187,7 @@
 		3010A75020E70D380007A544 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
 		301C348420E9357E0076185A /* postscript.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = postscript.m; sourceTree = "<group>"; };
 		301C348620E9359D0076185A /* postscript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = postscript.h; sourceTree = "<group>"; };
+		301C348720E983D80076185A /* NXConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXConvert.m; sourceTree = "<group>"; };
 		30734C3220E707FE006C06E4 /* DoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30734C3820E70801006C06E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30734C3B20E70801006C06E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				3010A6A020E708740007A544 /* Wadfile.m */,
 				3010A6A820E708760007A544 /* wraps.psw */,
 				3010A74D20E70B2B0007A544 /* NXConvert.h */,
+				301C348720E983D80076185A /* NXConvert.m */,
 				301C348620E9359D0076185A /* postscript.h */,
 				301C348420E9357E0076185A /* postscript.m */,
 			);
@@ -467,6 +470,7 @@
 				3010A72620E708860007A544 /* ThingPalette.m in Sources */,
 				3010A72420E708860007A544 /* MapViewDraw.m in Sources */,
 				3010A72820E708860007A544 /* SectorEditor.m in Sources */,
+				301C348820E983D80076185A /* NXConvert.m in Sources */,
 				3010A71E20E708860007A544 /* TexturePalette.m in Sources */,
 				3010A74120E708860007A544 /* EWLoadSave.m in Sources */,
 				3010A6FF20E708860007A544 /* FloatingPanel.m in Sources */,

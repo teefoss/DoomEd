@@ -27,48 +27,14 @@ const NSInteger NX_ALERTDEFAULT = NSModalResponseOK;
 
 
 
-#pragma mark - Panels
+NSInteger NXRunAlertPanel (const char *title, const char *msgFormat, const char *defaultButton, const char *alternateButton, const char *otherButton, ...);
+void NXFreeAlertPanel(id panel);
 
-NSInteger NXRunAlertPanel
-  (const char *title,
-   const char *msgFormat,
-   const char *defaultButton,
-   const char *alternateButton,
-   const char *otherButton, ...)
-{
-	NSAlert *alert;
-	alert = [[NSAlert alloc] init];
-	
-	[alert setMessageText:[NSString stringWithCString:title encoding:NSUTF8StringEncoding]];
-	[alert setInformativeText:[NSString stringWithCString:msgFormat encoding:NSUTF8StringEncoding]];
-	[alert addButtonWithTitle:[NSString stringWithCString:defaultButton encoding:NSUTF8StringEncoding]];
-	[alert addButtonWithTitle:[NSString stringWithCString:alternateButton encoding:NSUTF8StringEncoding]];
-	
-	return [alert runModal];
-}
+NSString 	*CastNSString(const char *cstring);
+const char 	*CastCString(NSString *string);
 
-void NXFreeAlertPanel(id panel) { NSReleaseAlertPanel(panel); }
-
-
-#pragma mark - Strings
-
-NSString *CastNSString(const char *cstring)
-{
-	NSString *newstring = [NSString stringWithCString:cstring encoding:NSUTF8StringEncoding];
-	return newstring;
-}
-
-const char *CastCString(NSString *string)
-{
-	return [string cStringUsingEncoding:NSUTF8StringEncoding];
-}
-
-
-
-void NXBeep(void) { NSBeep(); }
-
-
-
-
+void 	NXBeep(void);
+void	NXSetRect(NXRect *aRect, NXCoord x, NXCoord y, NXCoord width, NXCoord height);
+NSRect  *NXUnionRect(const NSRect *aRect, const NSRect *bRect);
 
 #endif /* NXConvert_h */
