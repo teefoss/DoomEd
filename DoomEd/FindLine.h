@@ -6,12 +6,12 @@
 	id	window_i;
 	id	status_i;
 	id	numfield_i;
-	id	delSound;
+	NSSound	*delSound;
 	id	fromBSP_i;
 }
 
 #define MARGIN		64			// margin from window edge
-#define	PREFNAME	"FindLinePanel"
+#define	PREFNAME	@"FindLinePanel"
 
 - (int)getRealLineNum:(int)num;
 - findLine:sender;
