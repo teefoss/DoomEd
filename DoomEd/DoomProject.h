@@ -2,7 +2,7 @@
 #import "NXConvert.h"
 
 //============================================================================
-#define	DOOMNAME		"DoomEd"
+#define	DOOMNAME		@"DoomEd"
 #define MAXPATCHES	100
 // mappatch_t orients a patch inside a maptexturedef_t
 typedef struct
@@ -61,7 +61,7 @@ extern	char	bsphost[32];		// bsp host machine
 	int		texturessize;
 	
 	id		window_i;
-	id		projectpath_i;
+	NSString		*projectpath_i;
 	id		wadpath_i;
 	id		maps_i;
 	id		thingPanel_i;

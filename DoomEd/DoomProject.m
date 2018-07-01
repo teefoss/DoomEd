@@ -1,3 +1,4 @@
+#import <sys/stat.h>
 #import "DoomProject.h"
 #import "TextureEdit.h"
 #import "TexturePalette.h"
@@ -13,8 +14,11 @@
 #import "ThingPalette.h"
 #import	"ThermoView.h"
 
+#import "Storage.h"
+#import "postscript.h"
+
 id	doomproject_i;
-id	wadfile_i;
+Wadfile	*wadfile_i;
 id	log_i;
 
 int	pp_panel;
@@ -52,7 +56,7 @@ char	bsphost[32];		// bsp host machine
 	numtextures = 0;
 	texturessize = BASELISTSIZE;
 	textures = malloc (texturessize*sizeof(worldtexture_t));
-	log_i = [[TextLog	alloc] initTitle:"DoomEd Error Log" ];
+	log_i = [[TextLog	alloc] initTitle:@"DoomEd Error Log" ];
 	projectdirty = mapdirty = FALSE;
 	
 	return self;
@@ -94,7 +98,8 @@ char	bsphost[32];		// bsp host machine
 - setDirtyMap:(BOOL)truth
 {
 	mapdirty = truth;
-	[[editworld_i	getMainWindow] setDocEdited:truth];
+	[[editworld_i getMainWindow] setDocumentEdited:truth];
+	//[[editworld_i	getMainWindow] setDocEdited:truth];
 	return self;
 }
 
@@ -207,11 +212,12 @@ char	bsphost[32];		// bsp host machine
 	
 	if (!window_i)
 	{
-		[NXApp 
-			loadNibSection:	"Project.nib"
-			owner:			self
-			withNames:		NO
-		];
+		[[NSBundle mainBundle] loadNibNamed:@"Project.nib" owner:self topLevelObjects:nil];
+//		[NXApp 
+//			loadNibSection:	"Project.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
 		[window_i	setFrameUsingName:DOOMNAME];
 		
 	}
@@ -241,8 +247,10 @@ char	bsphost[32];		// bsp host machine
 - openProject: sender
 {
 	id			openpanel;
-	static char	*suffixlist[] = {"dpr", 0};
+	//static char	*suffixlist[] = {"dpr", 0};
+	NSArray* suffixlist = [NSArray arrayWithObjects:@"dpr", nil];
 	char		const	*filename;
+	NSString *filename_ns;
 
 	[self	checkDirtyProject];
 	
@@ -256,7 +264,8 @@ char	bsphost[32];		// bsp host machine
 	printf("Purging existing flats.\n");
 	[ sectorEdit_i	dumpAllFlats ];
 	
-	filename = [openpanel filename];
+	filename_ns = [openpanel filename];
+	filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
 	
 	if (![self loadProject: filename])
 	{
@@ -288,7 +297,9 @@ char	bsphost[32];		// bsp host machine
 	FILE		*stream;
 	id			panel;
 	char		const *filename;
-	static char *fileTypes[] = { "wad",NULL};
+	NSString	*filename_ns;
+	//static char *fileTypes[] = { "wad",NULL};
+	NSArray* fileTypes = [NSArray arrayWithObjects:@"wad", nil];
 	char		projpath[1024];
 	char		texturepath[1024];
 
@@ -298,12 +309,14 @@ char	bsphost[32];		// bsp host machine
 	// get directory for project & files
 	//	
 	panel = [OpenPanel new];
-	[panel setTitle: "Project directory"];
-	[panel chooseDirectories:YES];
+	[panel setTitle: @"Project directory"];
+	[panel setCanChooseDirectories:YES];
 	if (! [panel runModal] )
 		return self;
 		
-	filename = [panel filename];
+	filename_ns = [panel filename];
+	filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
+	
 	if (!filename || !*filename)
 	{
 		NXRunAlertPanel("Nope.","I need a directory for projects to"
@@ -316,12 +329,14 @@ char	bsphost[32];		// bsp host machine
 	//
 	// get wadfile
 	//
-	[panel setTitle: "Wadfile"];
-	[panel chooseDirectories:NO];
+	[panel setTitle: @"Wadfile"];
+	[panel setCanChooseDirectories:NO];
 	if (! [panel runModalForTypes: fileTypes] )
 		return self;
 		
-	filename = [panel filename];
+	filename_ns = [panel filename];
+	filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
+	
 	if (!filename || !*filename)
 	{
 		NXRunAlertPanel("Nope.","I need a WADfile for this project.",
@@ -494,12 +509,17 @@ char	bsphost[32];		// bsp host machine
 
 - updatePanel
 {
-	[projectpath_i setStringValue: projectdirectory];
-	[wadpath_i setStringValue: wadfile];
-	[BSPprogram_i	setStringValue: bspprogram];
-	[BSPhost_i		setStringValue: bsphost];
-	[mapwaddir_i	setStringValue: mapwads];
-	[maps_i reloadColumn: 0];	
+	projectpath_i = CastNSString(projectdirectory);
+	wadpath_i = CastNSString(wadfile);
+	BSPprogram_i = CastNSString(bspprogram);
+	BSPhost_i = CastNSString(bsphost);
+	mapwaddir_i = CastNSString(mapwads);
+//	[projectpath_i setStringValue: CastNSString(projectdirectory)];
+//	[wadpath_i setStringValue: wadfile];
+//	[BSPprogram_i	setStringValue: bspprogram];
+//	[BSPhost_i		setStringValue: bsphost];
+//	[mapwaddir_i	setStringValue: mapwads];
+	[maps_i reloadColumn: 0];
 	return self;
 }
 
@@ -682,8 +702,9 @@ char	bsphost[32];		// bsp host machine
 	for (i=0 ; i<nummaps ; i++)
 	{
 		[matrix addRow];
-		cell = [matrix cellAt: i : 0];
-		[cell setStringValue: mapnames[i]];
+		cell = [matrix cellAtRow:i column:0];
+		//cell = [matrix cellAt: i : 0];
+		[cell setStringValue: CastNSString(mapnames[i])];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
@@ -706,13 +727,15 @@ char	bsphost[32];		// bsp host machine
 {
 	FILE		*stream;
 	char		pathname[1024];
-	char		const	*title;
+	NSString	*title_ns;
+	const char	*title;
 	int		len, i;
 
 	//
 	// get filename for map
 	//	
-	title = [mapNameField_i stringValue];
+	title_ns = [mapNameField_i stringValue];
+	title = CastCString(title_ns);
 	len = strlen (title);
 	if (len < 1 || len > 8)
 	{
@@ -771,6 +794,7 @@ char	bsphost[32];		// bsp host machine
 {
 	id			cell;
 	const char	*title;
+	NSString	*title_ns;
 	char			fullpath[1024];
 	char			string[80];
 
@@ -778,7 +802,8 @@ char	bsphost[32];		// bsp host machine
 		[editworld_i closeWorld];
 	
 	cell = [sender selectedCell];
-	title = [cell stringValue];
+	title_ns = [cell stringValue];
+	title = CastCString(title_ns);
 	
 	strcpy (fullpath, projectdirectory);
 	strcat (fullpath,"/");
@@ -814,7 +839,8 @@ id	openMatrix;
 {
 	if (curMap < nummaps)
 	{
-		[openMatrix	selectCellAt:curMap :0];
+		[openMatrix selectCellAtRow:curMap column:0];
+		//[openMatrix	selectCellAt:curMap :0];
 		[self	openMap:openMatrix];
 		curMap++;
 		return YES;
@@ -823,7 +849,8 @@ id	openMatrix;
 	{
 		if (oldSelRow >= 0)
 		{
-			[openMatrix	selectCellAt:oldSelRow :0];
+			[openMatrix selectCellAtRow:oldSelRow column:0];
+			//[openMatrix	selectCellAt:oldSelRow :0];
 			[self	openMap:openMatrix];
 		}
 		return NO;
@@ -848,14 +875,16 @@ id	openMatrix;
 	
 	for (i = 0;i < nummaps; i++)
 	{
-		[openMatrix	selectCellAt:i :0];
+		[openMatrix selectCellAtRow:i column:0];
+		//[openMatrix	selectCellAt:i :0];
 		[self	openMap:openMatrix];
 		[self	printMap:NULL];
 	}
 	
 	if (selRow >=0)
 	{
-		[openMatrix	selectCellAt:selRow :0];
+		[openMatrix selectCellAtRow:selRow column:0];
+		//[openMatrix	selectCellAt:selRow :0];
 		[self	openMap:openMatrix];
 	}
 	
@@ -938,13 +967,16 @@ id	openMatrix;
 		items,
 		monsters,
 		projectdirectory,
-		[cell stringValue]);
-		
-	panel = NXGetAlertPanel("Wait...","Printing %s.",
-		NULL,NULL,NULL,[cell stringValue]);
+		CastCString([cell stringValue]));
+	
+	NSString *msg = [NSString stringWithFormat:@"Printing %@.", [cell stringValue]];
+	panel = NSGetAlertPanel(@"Wait...", @"%@", msg, nil, nil, nil);
+	
+	//panel = NXGetAlertPanel("Wait...","Printing %s.",
+		//NULL,NULL,NULL,[cell stringValue]);
 		
 	[panel	orderFront:NULL];
-	NXPing();
+	//NXPing();
 	system(string);
 	[panel	orderOut:NULL];
 	NXFreeAlertPanel(panel);
@@ -977,14 +1009,16 @@ id	openMatrix;
 	
 	for (i = 0;i < nummaps; i++)
 	{
-		[openMatrix	selectCellAt:i :0];
+		[openMatrix selectCellAtRow:i column:0];
+		//[openMatrix	selectCellAt:i :0];
 		[self	openMap:openMatrix];
 		[editworld_i	saveDoomEdMapBSP:NULL];
 	}
 	
 	if (selRow >=0)
 	{
-		[openMatrix	selectCellAt:selRow :0];
+		[openMatrix selectCellAtRow:selRow column:0];
+		//[openMatrix	selectCellAt:selRow :0];
 		[self	openMap:openMatrix];
 	}
 	
@@ -1240,8 +1274,7 @@ typedef struct
 	selRow = [openMatrix	selectedRow];
 
 	stream = fopen (filename,"w");
-	fprintf(stream,"DoomEd Map Statistics for %s\n\n",
-		[[openMatrix cellAt:selRow :0] stringValue]);
+	fprintf(stream,"DoomEd Map Statistics for %s\n\n", CastCString([[openMatrix cellAtRow:selRow column:0] stringValue]));
 	fprintf(stream,"Texture count:\n");
 	tset = -1;
 	for (i=0;i<nt;i++)
@@ -1272,7 +1305,8 @@ typedef struct
 	//
 	// launch Edit with file!
 	//
-	[[Application	workspace]	openTempFile:filename];
+	//[[Application	workspace]	openTempFile:filename];
+	[[NSWorkspace sharedWorkspace] openTempFile:CastNSString(filename)];
 	
 	free(textureCount);
 	
@@ -1349,9 +1383,10 @@ typedef struct
 	for (i = 0;i < nummaps; i++)
 	{
 		sprintf(string,"Loading map %s.\n",
-			[[openMatrix selectedCell] stringValue] );
+			CastCString([[openMatrix selectedCell] stringValue]) );
 		[log_i	msg:string ];
-		[openMatrix	selectCellAt:i :0];
+		[openMatrix selectCellAtRow:i column:0];
+		//[openMatrix	selectCellAt:i :0];
 		[self	openMap:openMatrix];
 		
 		//
@@ -1632,14 +1667,16 @@ typedef struct
 	//
 	// launch Edit with file!
 	//
-	[[Application	workspace]	openTempFile:filename];
+	//[[Application	workspace]	openTempFile:filename];
+	[[NSWorkspace sharedWorkspace] openTempFile:CastNSString(filename)];
 	
 	free(textureCount);
 	free(flatCount);
 	
 	if (selRow >=0)
 	{
-		[openMatrix	selectCellAt:selRow :0];
+		[openMatrix selectCellAtRow:selRow column:0];
+		//[openMatrix	selectCellAt:selRow :0];
 		[self	openMap:openMatrix];
 	}
 	
@@ -1793,7 +1830,8 @@ typedef struct
 	
 	printf("Alphabetize textures.\n");
 	printf("numtextures = %d\n",numtextures);
-	list = [List alloc];
+	//list = [List alloc];
+	list = [[NSMutableArray alloc] init];
 	
 	for (windex = 0; windex <= sets; windex++)
 	{
@@ -1842,7 +1880,8 @@ typedef struct
 	windex = 0;
 	for (x = 0;x <= sets;x++)
 	{
-		store = [list	objectAt:x];
+		store = [list objectAtIndex:x];
+		//store = [list	objectAt:x];
 		max = [store count];
 		for (y = 0;y < max;y++, windex++)
 		{
@@ -1852,8 +1891,8 @@ typedef struct
 		[store empty];
 	}
 	
-	[list empty];
-	
+	//[list empty];
+	[list removeAllObjects];
 	return self;
 }
 
@@ -1968,7 +2007,7 @@ typedef struct
 		panel = NXGetAlertPanel("Wait...",
 			"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
-		NXPing();
+		//NXPing();
 		
 		sprintf (filename, "%s/texture%d.dsp",projectdirectory,windex+1 );
 		
@@ -1980,7 +2019,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				NXPing();
+				//NXPing();
 				NXRunAlertPanel ("Error","Couldn't open %s",
 					NULL,NULL,NULL, filename);
 				return self;
@@ -1989,7 +2028,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				NXPing();
+				//NXPing();
 				close(handle);
 				windex = -1;
 				continue;
@@ -2005,7 +2044,7 @@ typedef struct
 			close (handle);
 			[panel	orderOut:NULL];
 			NXFreeAlertPanel(panel);
-			NXPing();
+			//NXPing();
 			NXRunAlertPanel ("Error","Could not stream to %s",
 				NULL,NULL,NULL, filename);
 			return self;
@@ -2023,7 +2062,7 @@ typedef struct
 					fclose (stream);
 					[panel	orderOut:NULL];
 					NXFreeAlertPanel(panel);
-					NXPing();
+					//NXPing();
 					NXRunAlertPanel ("Error",
 						"Could not parse %s",NULL,NULL,NULL, filename);
 					return self;
@@ -2061,7 +2100,7 @@ typedef struct
 		
 		[panel	orderOut:NULL];
 		NXFreeAlertPanel(panel);
-		NXPing();
+		//NXPing();
 
 	} while (windex >= 0);
 	
@@ -2086,7 +2125,7 @@ typedef struct
 		panel = NXGetAlertPanel("Wait...",
 			"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
-		NXPing();
+		//NXPing();
 		
 		sprintf (filename, "%s/texture%d.dsp",projectdirectory,windex+1 );
 		
@@ -2099,7 +2138,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				NXPing();
+				//NXPing();
 				NXRunAlertPanel ("Error","Couldn't create %s",
 					NULL,NULL,NULL, filename);
 				return self;
@@ -2108,7 +2147,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				NXPing();
+				//NXPing();
 				close(handle);
 				break;
 			}
@@ -2123,7 +2162,7 @@ typedef struct
 			fclose (stream);
 			[panel	orderOut:NULL];
 			NXFreeAlertPanel(panel);
-			NXPing();
+			//NXPing();
 			NXRunAlertPanel ("Error","Could not stream to %s",
 				NULL,NULL,NULL, filename);
 			return self;
@@ -2156,7 +2195,7 @@ typedef struct
 
 		[panel	orderOut:NULL];
 		NXFreeAlertPanel(panel);
-		NXPing();
+		//NXPing();
 	}		
 	
 	if (newtexture)
@@ -2426,12 +2465,12 @@ static	byte		*buffer, *buf_p;
 //====================================================
 - initThermo:(char *)title message:(char *)msg
 {
-	[thermoTitle_i	setStringValue:title];
-	[thermoMsg_i	setStringValue:msg];
+	[thermoTitle_i	setStringValue:CastNSString(title)];
+	[thermoMsg_i	setStringValue:CastNSString(msg)];
 	[thermoView_i	setThermoWidth:0 max:1000];
 	[thermoView_i	display];
 	[thermoWindow_i	makeKeyAndOrderFront:NULL];
-	NXPing();
+	//NXPing();
 	return self;
 }
 
@@ -2473,7 +2512,8 @@ void IO_Error (char *error, ...)
 {
 	va_list	argptr;
 	char		string[1024];
-
+
+
 	va_start (argptr,error);
 	vsprintf (string,error,argptr);
 	va_end (argptr);

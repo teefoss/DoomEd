@@ -70,6 +70,7 @@
 		3010A74C20E708860007A544 /* PopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A6FD20E708860007A544 /* PopScrollView.m */; };
 		3010A75120E70D390007A544 /* Storage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3010A74F20E70D380007A544 /* Storage.h */; };
 		3010A75220E70D390007A544 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010A75020E70D380007A544 /* Storage.m */; };
+		301C348520E9357E0076185A /* postscript.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C348420E9357E0076185A /* postscript.m */; };
 		30734C3920E70801006C06E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3820E70801006C06E4 /* Assets.xcassets */; };
 		30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3A20E70801006C06E4 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
@@ -183,6 +184,8 @@
 		3010A74D20E70B2B0007A544 /* NXConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXConvert.h; sourceTree = "<group>"; };
 		3010A74F20E70D380007A544 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		3010A75020E70D380007A544 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
+		301C348420E9357E0076185A /* postscript.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = postscript.m; sourceTree = "<group>"; };
+		301C348620E9359D0076185A /* postscript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = postscript.h; sourceTree = "<group>"; };
 		30734C3220E707FE006C06E4 /* DoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30734C3820E70801006C06E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30734C3B20E70801006C06E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -332,6 +335,8 @@
 				3010A6A020E708740007A544 /* Wadfile.m */,
 				3010A6A820E708760007A544 /* wraps.psw */,
 				3010A74D20E70B2B0007A544 /* NXConvert.h */,
+				301C348620E9359D0076185A /* postscript.h */,
+				301C348420E9357E0076185A /* postscript.m */,
 			);
 			path = DoomEd;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				3010A74C20E708860007A544 /* PopScrollView.m in Sources */,
 				3010A71F20E708860007A544 /* ThermoView.m in Sources */,
 				3010A73D20E708860007A544 /* TextureRemapper.m in Sources */,
+				301C348520E9357E0076185A /* postscript.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
