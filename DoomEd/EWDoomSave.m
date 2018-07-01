@@ -6,6 +6,8 @@
 #import "BlockWorld.h"
 #import "TextLog.h"
 
+#import "NXConvert.h"
+
 typedef struct
 {
 	char	identification[4];		// should be IWAD
@@ -371,7 +373,7 @@ int		linecrunch[8192];
 	for (i=0 ; i<count ; i++)		
 	{
 		*list_p++ = LongSwap (buf_p-buffer);
-		wsector = [sectors elementAt: i];
+		wsector = (worldsector_t *)[sectors elementAt:i];
 		lcount = [wsector->lines count];
 		
 		msector = (mapsector_t *)buf_p;

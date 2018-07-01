@@ -3,7 +3,7 @@
 #import "Storage.h"
 
 id		blockworld_i;
-id		sectors=NULL;	// storage object of sectors
+Storage		*sectors=NULL;	// storage object of sectors
 int		numsectors;
 id		pan;
 
