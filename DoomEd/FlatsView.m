@@ -2,6 +2,10 @@
 #import	"SectorEditor.h"
 #import "FlatsView.h"
 
+#import "Storage.h"
+#import "postscript.h"
+
+
 @implementation FlatsView
 - initFrame:(const NXRect *)frameRect
 {
@@ -10,7 +14,7 @@
 				elementSize:	sizeof (divider_t )
 				description:	NULL ];
 				
-	[super	initFrame:frameRect];
+	[super initWithFrame:*frameRect];
 	return self;
 }
 
@@ -56,7 +60,8 @@
 	{
 		f = [sectorEdit_i	getFlat:i];
 		if (NXIntersectsRect(&rects[0],&f->r))
-			[f->image	composite:NX_COPY	toPoint:&f->r.origin];
+			//[f->image	composite:NX_COPY	toPoint:&f->r.origin];
+			[f->image compositeToPoint:f->r.origin operation:NSCompositingOperationCopy];
 	}
 
 	//
@@ -76,25 +81,25 @@
 		PSsetlinewidth(1.0);
 		PSsetrgbcolor ( 148,0,0 );
 		PSmoveto ( d->x, d->y + 12 );
-		PSlineto ( bounds.size.width - SPACING, d->y + 12 );
+		PSlineto ( [self bounds].size.width - SPACING, d->y + 12 );
 
 		PSmoveto ( d->x, d->y - 2 );
-		PSlineto ( bounds.size.width - SPACING, d->y - 2 );
+		PSlineto ( [self bounds].size.width - SPACING, d->y - 2 );
 		PSstroke ();
 	}
 	
 	return self;
 }
 
-- mouseDown:(NXEvent *)theEvent
+- (void)mouseDown:(NSEvent *)event
 {
 	NXPoint	loc;
 	int	i,max,oldwindowmask;
 	flat_t	*f;
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
-	loc = theEvent->location;
-	[self convertPoint:&loc	fromView:NULL];
+	event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseDragged];
+	loc = [event locationInWindow];
+	[self convertPoint:loc	fromView:NULL];
 	
 	max = [sectorEdit_i	getNumFlats];
 	for (i = 0;i < max; i++)
@@ -102,7 +107,8 @@
 		f = [sectorEdit_i		getFlat:i];
 		if (NXPointInRect(&loc,&f->r) == YES)
 		{
-			if (theEvent->data.mouse.click == 2)
+//			if (theEvent->data.mouse.click == 2)
+			if ([event clickCount] == 2)
 				[sectorEdit_i	selectFlat:i];
 			else
 				[sectorEdit_i	setCurrentFlat:i];
@@ -110,9 +116,8 @@
 			break;
 		}
 	}
-	
-	[window	setEventMask:oldwindowmask];
-	return self;
+	//[window	setEventMask:oldwindowmask];
+	//return self;
 }
 
 @end

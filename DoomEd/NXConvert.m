@@ -69,3 +69,29 @@ NSRect *NXUnionRect(const NSRect *aRect, const NSRect *bRect)
 	bRect = rect_p;
 	return rect_p;
 }
+
+/**
+ NXIntersectionRect() figures the graphic intersection of two rectangles--that is, the smallest rectangle enclosing any area they both have in common.  It takes pointers to the two rectangles as arguments.  If the rectangles overlap, it replaces the second one, bRect, with their intersection.  If the two rectangles don't overlap, bRect is set to a rectangle with its origin at (0.0, 0.0) and with a 0 width and height.  Adjacent rectangles that share only a side are not considered to overlap.
+ */
+NSRect  *NXIntersectionRect(const NSRect *aRect, NSRect *bRect)
+{
+	NSRect rect;
+	
+	rect = NSIntersectionRect(*aRect, *bRect);
+	
+	bRect = &rect;
+	return bRect;
+}
+
+/**
+ NXIntersectsRect() returns YES if the two rectangles overlap, and NO otherwise.  Adjacent rectangles that share only a side are not considered to overlap. 
+ */
+BOOL NXIntersectsRect(const NXRect *aRect, const NXRect *bRect)
+{
+	return NSIntersectsRect(*aRect, *bRect);
+}
+
+BOOL NXPointInRect(const NXPoint *aPoint, const NXRect *aRect)
+{
+	return NSPointInRect(*aPoint, *aRect);
+}

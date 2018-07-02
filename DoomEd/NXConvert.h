@@ -36,5 +36,8 @@ const char 	*CastCString(NSString *string);
 void 	NXBeep(void);
 void	NXSetRect(NXRect *aRect, NXCoord x, NXCoord y, NXCoord width, NXCoord height);
 NSRect  *NXUnionRect(const NSRect *aRect, const NSRect *bRect);
+NSRect  *NXIntersectionRect(const NSRect *aRect, NSRect *bRect);
+BOOL 	NXIntersectsRect(const NXRect *aRect, const NXRect *bRect);
+BOOL 	NXPointInRect(const NXPoint *aPoint, const NXRect *aRect);
 
 #endif /* NXConvert_h */
