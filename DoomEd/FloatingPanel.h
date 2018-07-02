@@ -1,11 +1,11 @@
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 @interface FloatingPanel: Panel
 
-- initContent:(const NXRect *)contentRect
-style:(int)aStyle
-backing:(int)bufferingType
-buttonMask:(int)mask
-defer:(BOOL)flag;
+- initContent:(NXRect)contentRect
+		style:(int)aStyle
+   buttonMask:(int)mask
+		defer:(BOOL)flag;
 
 @end

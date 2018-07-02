@@ -2,19 +2,19 @@
 
 @implementation FloatingPanel
 
-- initContent:(const NXRect *)contentRect
+- initContent:(NXRect)contentRect
 style:(int)aStyle
-backing:(int)bufferingType
 buttonMask:(int)mask
 defer:(BOOL)flag
 {
-	[super
-		initContent:	contentRect
-		style:		aStyle
-		backing:		bufferingType
-		buttonMask:	mask
-		defer:		flag
-	];
+	[super initWithContentRect:contentRect styleMask:aStyle backing:mask defer:flag];
+//	[super
+//		initContent:	contentRect
+//		style:		aStyle
+//		backing:		bufferingType
+//		buttonMask:	mask
+//		defer:		flag
+//	];
 	
 	[self setFloatingPanel: YES];
 	

@@ -19,6 +19,7 @@
 typedef NSObject Object;
 typedef NSView View;
 typedef NSWindow Window;
+typedef NSPanel Panel;
 typedef NSRect NXRect;
 typedef NSSound Sound;
 typedef NSOpenPanel OpenPanel;
