@@ -36,6 +36,8 @@ Here's an example of its use.
 #import <objc/Object.h>
 #include <sys/time.h>
 #import <sys/resource.h>
+#import "NXConvert.h"
+
 #define PSTIME 0
 #define WALLTIME 1
 

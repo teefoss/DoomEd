@@ -1,5 +1,6 @@
 
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 #ifndef	H_DIVIDERT
 #define	H_DIVIDERT

@@ -1,6 +1,7 @@
 
 #import <appkit/appkit.h>
 #import "EditWorld.h"
+#import "NXConvert.h"
 
 extern	id	linepanel_i;
 extern	id	lineSpecialPanel_i;

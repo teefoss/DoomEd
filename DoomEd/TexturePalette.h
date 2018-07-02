@@ -1,5 +1,6 @@
 #import	"TextureEdit.h"
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 extern id	texturePalette_i;
 

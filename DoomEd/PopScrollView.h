@@ -1,4 +1,5 @@
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 @interface PopScrollView : ScrollView
 {

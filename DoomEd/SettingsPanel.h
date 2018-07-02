@@ -1,5 +1,6 @@
 
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 extern	id	settingspanel_i;
 

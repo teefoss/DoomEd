@@ -1,4 +1,5 @@
 #import "MapView.h"
+#import "NXConvert.h"
 
 @interface MapView (MapViewDraw)
 

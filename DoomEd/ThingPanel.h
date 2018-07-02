@@ -2,6 +2,7 @@
 #import <appkit/appkit.h>
 #import 	"DoomProject.h"
 #import		"EditWorld.h"
+#import "NXConvert.h"
 
 extern	id	thingpanel_i;
 

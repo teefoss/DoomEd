@@ -1,5 +1,6 @@
 #import <appkit/appkit.h>
 #import "EditWorld.h"
+#import "NXConvert.h"
 
 #define CPOINTSIZE	7		// size for clicking
 #define CPOINTDRAW	4		// size for drawing

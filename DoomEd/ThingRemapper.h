@@ -1,5 +1,6 @@
 #import	"Remapper.h"
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 extern	id	thingRemapper_i;
 

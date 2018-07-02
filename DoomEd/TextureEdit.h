@@ -2,7 +2,7 @@
 #import <appkit/appkit.h>
 #import "EditWorld.h"
 #import	"TexturePatchView.h"
-
+#import "NXConvert.h"
 
 #define	SPACING				10
 

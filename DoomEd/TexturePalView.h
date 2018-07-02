@@ -1,5 +1,6 @@
 
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 #if 0
 typedef struct

@@ -1,4 +1,5 @@
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 void		StartPath (int path);
 void		AddLine (int path, float x1, float y1, float x2, float y2);

@@ -1,6 +1,7 @@
 #import	"DoomProject.h"
 #import	"idfunctions.h"
 #import <appkit/appkit.h>
+#import "NXConvert.h"
 
 typedef struct
 {
