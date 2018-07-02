@@ -128,7 +128,7 @@ void IDEnclosePoint (NXRect *rect, NXPoint const *point)
 
 unsigned short ShortSwap (unsigned short dat)
 {
-	return NXSwapLittleShortToHost (dat);
+	return NSSwapLittleShortToHost (dat);
 }
 
 
@@ -140,9 +140,9 @@ unsigned short ShortSwap (unsigned short dat)
 ===============
 */
 
-unsigned LongSwap (unsigned dat)
+unsigned long LongSwap (unsigned long dat)
 {
-	return NXSwapLittleLongToHost (dat);
+	return NSSwapLittleLongToHost (dat);
 }
 
 
@@ -153,7 +153,8 @@ unsigned LongSwap (unsigned dat)
 =
 ================
 */
-
+// unused
+#if 0
 int filelength (int handle)
 {
 	struct stat	fileinfo;
@@ -171,7 +172,7 @@ int tell (int handle)
 {
 	return lseek (handle, 0, L_INCR);
 }
-
+#endif
 
 /*
 ================
@@ -316,7 +317,8 @@ void StripFilename (char *path)
 =
 ===================
 */
-
+// unused
+#if 0
 void IdException (char const *format, ...)
 {
 	char		msg[1025];
@@ -329,4 +331,4 @@ void IdException (char const *format, ...)
 	
 	NX_RAISE (NX_APPBASE, msg, 0);
 }
-
+#endif

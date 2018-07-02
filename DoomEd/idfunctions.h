@@ -19,7 +19,7 @@ void IDRectFromPoints( NXRect *rect, NXPoint const *p1, NXPoint const *p2 );
 void IDEnclosePoint (NXRect *rect, NXPoint const *point);
 
 unsigned short ShortSwap (unsigned short dat);
-unsigned LongSwap (unsigned dat);
+unsigned long LongSwap (unsigned long dat);
 int filelength (int handle);
 int tell (int handle);
 
