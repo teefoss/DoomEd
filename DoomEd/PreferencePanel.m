@@ -76,12 +76,13 @@ int			openupValues[NUMOPENUP];
 	return self;
 }
 
-- getColor: (NXColor *)clr fromString: (char const *)string
+- getColor: (NSColor *)clr fromString: (char const *)string
 {
 	float	r,g,b;
 	
 	sscanf (string,"%f:%f:%f",&r,&g,&b);
-	*clr = NXConvertRGBToColor(r,g,b);
+	//*clr = NXConvertRGBToColor(r,g,b);
+	clr = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1];
 	return self;
 }
 
@@ -271,7 +272,7 @@ int			openupValues[NUMOPENUP];
 	return self;
 }
 
-- (NXColor)colorFor: (int)ucolor
+- (NXColor *)colorFor: (int)ucolor
 {
 	return color[ucolor];
 }

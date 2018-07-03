@@ -56,7 +56,7 @@ typedef enum
     id	window_i;
 	
 	id		colorwell[NUMCOLORS];
-	NXColor	color[NUMCOLORS];
+	NXColor	*color[NUMCOLORS];
 	int		launchThingType;
 	char	projectPath[128];
 }
@@ -72,7 +72,7 @@ typedef enum
 //
 //	DoomEd accessor methods
 //
-- (NXColor)colorFor: (int)ucolor;
+- (NXColor *)colorFor: (int)ucolor;
 - (int)getLaunchThingType;
 - (char *)getProjectPath;
 - (BOOL)openUponLaunch:(openup_e)type;

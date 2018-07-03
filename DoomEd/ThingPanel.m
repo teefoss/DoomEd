@@ -6,6 +6,8 @@
 #import	"ThingWindow.h"
 #import	"TextureEdit.h"		// for strupr()
 
+#import "Storage.h"
+
 id	thingpanel_i;
 
 @implementation ThingPanel
@@ -504,7 +506,7 @@ id	thingpanel_i;
 	return self;
 }
 
-- (NXColor)getThingColor:(int)type
+- (NXColor *)getThingColor:(int)type
 {
 	int	index;
 	

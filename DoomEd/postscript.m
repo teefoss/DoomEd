@@ -14,6 +14,12 @@ NSColor 		*color;
 BOOL			newpath = YES;
 NSBezierPath 	*path;
 
+void	AddLineToPath(NSBezierPath *path, int x1, int y1, int x2, int y2)
+{
+	[path moveToPoint:NSMakePoint(x1, y1)];
+	[path lineToPoint:NSMakePoint(x2, y2)];
+}
+
 
 void InitPath(void)
 {
@@ -26,6 +32,9 @@ void finishPath(void)
 	newpath = YES;
 	path = nil;
 }
+
+
+#pragma mark - PS
 
 void PSsetrgbcolor(float red, float green, float blue)
 {

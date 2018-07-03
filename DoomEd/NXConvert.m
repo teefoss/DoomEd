@@ -104,7 +104,19 @@ void NXIntegralRect(NXRect *aRect)
 	*aRect = NSIntegralRect(*aRect);
 }
 
+void NXSetColor(NSColor *color)
+{
+	[color set];
+}
 
+void NXRectFill(const NXRect *aRect)
+{
+	NSRectFill(*aRect);
+}
 
+void NXRectFillList(const NXRect *rects, int count)
+{
+	NSRectFillList(rects, count);
+}
 
 

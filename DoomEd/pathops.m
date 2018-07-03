@@ -1,6 +1,7 @@
 #import "pathops.h"
 #import "PreferencePanel.h"
-#import "wraps.h"
+//#import "wraps.h"
+#import "postscript.h"
 
 #define LINETYPES	16
 #define MAXLINES	100
@@ -23,6 +24,8 @@ void		FinishPath (int path);
 
 void		StartPath (int path)
 {
+#if 0
+
 	bbox[path][0] = -MAXFLOAT/2;
 	bbox[path][1] = -MAXFLOAT/2;
 	bbox[path][2] = MAXFLOAT/2;
@@ -31,8 +34,8 @@ void		StartPath (int path)
 	coord_p[path] = coords[path];
 	ops_p[path] = ops[path];
 	stopop[path] = &ops[path][MAXPOINTS];
+#endif
 }
-
 
 /*
 ==============
@@ -42,6 +45,7 @@ void		StartPath (int path)
 ==============
 */
 
+#if 0
 void		AddLine (int path, float x1, float y1, float x2, float y2)
 {
 	float	*box;
@@ -84,6 +88,8 @@ void		AddLine (int path, float x1, float y1, float x2, float y2)
 		StartPath (path);
 	}
 }
+#endif
+
 
 
 /*

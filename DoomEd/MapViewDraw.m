@@ -6,6 +6,8 @@
 #import "Coordinator.h"
 #import "ThingPanel.h"
 
+#import "postscript.h"
+
 @implementation MapView (MapViewDraw)
 
 /*
@@ -65,17 +67,21 @@
 		if (stopy >= top)
 			stopy -= gridsize;
 			
-		StartPath (GRID_C);
+		//StartPath (GRID_C);
+		[[prefpanel_i colorFor: GRID_C] set];
+		NSBezierPath *gridpath = [[NSBezierPath alloc] init];
 		
 		for ( ; y<=stopy ; y+= gridsize)
 			if (y&63)
-				AddLine (GRID_C, left, y, right, y);
-	
+				//AddLine (GRID_C, left, y, right, y);
+				AddLineToPath (gridpath, left, y, right, y);
 		for ( ; x<=stopx ; x+= gridsize)
 			if (x&63)
-				AddLine (GRID_C, x, top, x, bottom);
-	
-		FinishPath (GRID_C);
+				//AddLine (GRID_C, x, top, x, bottom);
+				AddLineToPath (gridpath, x, top, x, bottom);
+				
+		//FinishPath (GRID_C);
+		[gridpath stroke];
 	}
 
 //
@@ -133,7 +139,7 @@
 	char		*clippoint;
 	worldpoint_t	const	*wp;
 	worldline_t	const	*li;
-	int		color;
+	//int		color;
 	
 // classify all points on the currently displayed levels into 9 clipping regions
 	clippoint = alloca (numpoints);
@@ -165,11 +171,13 @@
 	}
 	
 // set up user paths	
-	StartPath (ONESIDED_C);
-	StartPath (TWOSIDED_C);
-	StartPath (SELECTED_C);
-	StartPath (SPECIAL_C);
-	
+//	StartPath (ONESIDED_C);
+//	StartPath (TWOSIDED_C);
+//	StartPath (SELECTED_C);
+//	StartPath (SPECIAL_C);
+	NSBezierPath *linepath = [[NSBezierPath alloc] init];
+	NSBezierPath *normalpath = [[NSBezierPath alloc] init];
+
 // only draw the lines that might intersect the visible rect
 
 	li = lines;
@@ -182,29 +190,32 @@
 			
 	// add a line to the path for it's type
 		if (li->selected)
-			color = SELECTED_C;
+			//color = SELECTED_C;
+			[[prefpanel_i colorFor:SELECTED_C] set];
 		else if (li->special)
-			color = SPECIAL_C;
+			[[prefpanel_i colorFor:SPECIAL_C] set];
 		else if (li->flags & ML_TWOSIDED)
-			color = TWOSIDED_C;
+			[[prefpanel_i colorFor:TWOSIDED_C] set];
 		else
-			color = ONESIDED_C;
+			[[prefpanel_i colorFor:ONESIDED_C] set];
 
 if (points[li->p1].pt.x != points[li->p2].pt.x
 || points[li->p1].pt.y != points[li->p2].pt.y)
 {
-		AddLine (color, points[li->p1].pt.x,
+		AddLineToPath (linepath, points[li->p1].pt.x,
 						points[li->p1].pt.y,
 						points[li->p2].pt.x,
 						points[li->p2].pt.y);
-		AddLine (color, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
+		AddLineToPath (normalpath, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
 }
 	}
 
-	FinishPath (ONESIDED_C);
-	FinishPath (TWOSIDED_C);
-	FinishPath (SELECTED_C);
-	FinishPath (SPECIAL_C);
+	[linepath stroke];
+	[normalpath stroke];
+//	FinishPath (ONESIDED_C);
+//	FinishPath (TWOSIDED_C);
+//	FinishPath (SELECTED_C);
+//	FinishPath (SPECIAL_C);
 	
 	return self;
 }
@@ -345,7 +356,9 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 */
 #define SHOWDISP	1
 
-- drawSelf:(const NXRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
+//- drawSelf:(const NXRect *)rects :(int)rectCount
+
 {
 	NXRect	newrect;
 //printf ("drawself\n");
@@ -360,35 +373,40 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	printf ("      2: %f, %f, %f, %f\n", rects[2].origin.x, rects[2].origin.y, rects[2].size.width, rects[2].size.height);
 	}
 #endif
-
+	// TODO - later (TF)
+#if 0
 	if (!debugflag)
 	{
 		NXSetColor ([prefpanel_i colorFor: BACK_C]);
 		NXRectFill (rects);
 	}
+#endif
 	PSsetlinewidth (0.15);
 
-	[self drawGrid: rects];	
-	[self drawThings: rects];
+	[self drawGrid: &dirtyRect];
+	[self drawThings: &dirtyRect];
 
 // the draw size must be increased to cover any things that might have been overdrawn
 // past the edges
-	newrect = *rects;
+	newrect = dirtyRect;
 	newrect.origin.x -= THINGDRAWSIZE;
 	newrect.origin.y -= THINGDRAWSIZE;
 	newrect.size.width += THINGDRAWSIZE*2;
 	newrect.size.height += THINGDRAWSIZE*2;
 	[self drawLines: &newrect];
 	[self drawPoints: &newrect];
-		
+	
+	// TODO convert this later
+#if 0
 	if (debugflag)
 	{
 		NXSetColor (NXConvertRGBAToColor (0,0,1.0,0.1));
 		PScompositerect (rects->origin.x, rects->origin.y, rects->size.width, rects->size.height, NX_SOVER);
 	printf ("Rects: %f, %f, %f, %f\n", rects->origin.x, rects->origin.y, rects->size.width, rects->size.height);
 	}
-
-	return self;
+#endif
+	
+	//return self;
 }
 
 @end
