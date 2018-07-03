@@ -58,17 +58,24 @@ BOOL	linecross[9][9];
 	scale = 1;
 	
 	NXSetRect (&aRect, 0,0, 100,100);	// call -setOrigin after installing in clip view
-	[super initFrame: &aRect];			// to set the proper rectangle
-	[self setOpaque: YES];
+	[super initWithFrame: aRect];			// to set the proper rectangle
+	//[self setOpaque: YES];
 		
 	return self;
 }
 
+- (BOOL)isOpaque
+{
+	return YES;
+}
 
 #define TESTOPS	1000
 
+// probably not needed
 - testSpeed: sender
 {
+#if 0
+
         id 		t4;
 	NXStream	*stream;
 	int		i;
@@ -101,9 +108,10 @@ printf ("No flush\n");
 	NXSaveToFile (stream, "/aardwolf/Users/johnc/timing.txt");
 	NXClose (stream);
 printf ("Done\n");	
-	
+#endif
 	return self;
 }
+
 
 /*
 =====================
@@ -138,7 +146,7 @@ printf ("Done\n");
 	float			nscale;
 	NXRect		visrect;
 	
-	item = [[sender selectedCell] title];
+	item = CastCString([[sender selectedCell] title]);
 	sscanf (item,"%f",&nscale);
 	nscale /= 100;
 	
@@ -146,8 +154,10 @@ printf ("Done\n");
 		return NULL;
 		
 // try to keep the center of the view constant
-	[superview getVisibleRect: &visrect];
-	[self convertRectFromSuperview: &visrect];
+	visrect = [[self superview] visibleRect];
+	visrect = [self convertRect:visrect fromView:[self superview]];
+	//[superview getVisibleRect: &visrect];
+	//[self convertRectFromSuperview: &visrect];
 	visrect.origin.x += visrect.size.width/2;
 	visrect.origin.y += visrect.size.height/2;
 	
@@ -172,7 +182,7 @@ printf ("Done\n");
 	char	const	*item;
 	int			grid;
 	
-	item = [[sender selectedCell] title];
+	item = CastCString([[sender selectedCell] title]);
 	sscanf (item,"grid %d",&grid);
 
 	if (grid == gridsize)
@@ -194,22 +204,26 @@ printf ("Done\n");
 
 - cut: sender
 {
-	return [editworld_i cut:sender];
+	[editworld_i cut:sender];
+	return self;
 }
 
 - copy: sender
 {
-	return [editworld_i copy:sender];
+	[editworld_i copy:sender];
+	return self;
 }
 
 - paste: sender
 {
-	return [editworld_i paste:sender];
+	[editworld_i paste:sender];
+	return self;
 }
 
 - delete: sender
 {
-	return [editworld_i delete:sender];
+	[editworld_i delete:sender];
+	return self;
 }
 
 /*
@@ -220,7 +234,8 @@ printf ("Done\n");
 ===============================================================================
 */
 
-- (BOOL)acceptsFirstMouse
+- (BOOL)acceptsFirstMouse:(NSEvent *)event
+//- (BOOL)acceptsFirstMouse
 {
 	return YES;
 }
@@ -245,8 +260,10 @@ printf ("Done\n");
 {
 	NXRect	global;
 	
-	[superview getBounds: &global];
-	[self convertPointFromSuperview: &global.origin];
+	global = [[self superview] bounds];
+	global.origin = [self convertPoint:global.origin fromView:[self superview]];
+//	[superview getBounds: &global];
+//	[self convertPointFromSuperview: &global.origin];
 	*worldorigin = global.origin;
 	
 	return self;
@@ -289,7 +306,9 @@ printf ("Done\n");
 	
 	NXIntegralRect (&rect);
 	
-	return [self display: &rect : 1];
+	[self displayRect:rect];
+	//return [self display: &rect : 1];
+	return self;
 }
 
 
@@ -311,12 +330,14 @@ printf ("Done\n");
 =======================
 */
 
-- 	getGridPoint:	(NXPoint *)point 
+- 	getGridPoint:	(NSPoint *)point
 	from: 	(NXEvent const *)event
 {
 // convert to view coordinates
-	*point = event->location;
-	[self convertPoint:point  fromView:NULL];
+	*point = [event locationInWindow];
+	*point = [self convertPoint:*point fromView:nil];
+	//*point = event->location;
+	//[self convertPoint:point  fromView:NULL];
 
 // adjust for grid
 	point->x = (int)(((point->x)/gridsize)+0.5*(point->x<0?-1:1));
@@ -331,8 +352,10 @@ printf ("Done\n");
 	from: 	(NXEvent const *)event
 {
 // convert to view coordinates
-	*point = event->location;
-	[self convertPoint:point  fromView:NULL];
+//	*point = event->location;
+//	[self convertPoint:point  fromView:NULL];
+	*point = [event locationInWindow];
+	*point = [self convertPoint:*point fromView:nil];
 	return self;
 }
 
@@ -364,7 +387,9 @@ printf ("Done\n");
 	if (scl != scale)
 	{
 //printf ("changed scale\n");
-		[self setDrawSize: frame.size.width/scl : frame.size.height/scl];
+		NSRect frame = [self frame];
+		//[self setDrawSize: frame.size.width/scl : frame.size.height/scl];
+		[self setBoundsSize:NSMakeSize(frame.size.width/scl, frame.size.height/scl)]; // TODO is this right?
 		scale = scl;
 	}
 	
@@ -372,21 +397,25 @@ printf ("Done\n");
 //
 // get the rects that is displayed in the superview
 //
-	[superview getVisibleRect: &newbounds];
-	[self convertRectFromSuperview: &newbounds];
+	newbounds = [[self superview] visibleRect];
+	[self convertRect:newbounds fromView:[self superview]];
+	//[superview getVisibleRect: &newbounds];
+	//[self convertRectFromSuperview: &newbounds];
 	newbounds.origin = *org;
 	
 	[editworld_i getBounds: &map];
 	
 	NXUnionRect (&map, &newbounds);
 	
+	NSRect bounds = [self bounds];
 	if (
 	newbounds.size.width != bounds.size.width ||
 	newbounds.size.height != bounds.size.height 
 	)
 	{
 //printf ("changed size\n");
-		[self sizeTo: newbounds.size.width*scale : newbounds.size.height*scale];
+		//[self sizeTo: newbounds.size.width*scale : newbounds.size.height*scale];
+		[self setFrameSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
 	}
 
 	if (
@@ -395,7 +424,8 @@ printf ("Done\n");
 	)
 	{
 //printf ("changed origin\n");
-		[self setDrawOrigin: newbounds.origin.x : newbounds.origin.y];
+		//[self setDrawOrigin: newbounds.origin.x : newbounds.origin.y];
+		[self setFrameOrigin:NSMakePoint(newbounds.origin.x, newbounds.origin.y)];
 	}
 		
 	return self;
@@ -422,7 +452,7 @@ printf ("Done\n");
 - setOrigin: (NXPoint const *)org scale: (float)scl
 {
 	[self adjustFrameForOrigin: org scale:scl];
-	[self scrollPoint: org];
+	[self scrollPoint: *org];
 	return self;
 }
 
@@ -440,23 +470,28 @@ printf ("Done\n");
 {
 	NXPoint		neworg, orgnow;
 	
-	[window disableDisplay];		// don't redraw twice (scaling and translating)
+	[[self window] disableFlushWindow];
+	//[window disableDisplay];		// don't redraw twice (scaling and translating)
 //
 // find where the point is now
 //
 	neworg = *origin;
-	[self convertPoint: &neworg toView: NULL];
+	neworg = [self convertPoint:neworg toView:nil];
+	//[self convertPoint: &neworg toView: NULL];
 	
 //
 // change scale
 //		
-	[self setDrawSize: frame.size.width/newscale : frame.size.height/newscale];
+	//[self setDrawSize: frame.size.width/newscale : frame.size.height/newscale];
+	NSRect frame = [self frame];
+	[self setFrameSize:NSMakeSize(frame.size.width/newscale, frame.size.height/newscale)];
 	scale = newscale;
 
 //
 // convert the point back
 //
-	[self convertPoint: &neworg fromView: NULL];
+	//[self convertPoint: &neworg fromView: NULL];
+	neworg = [self convertPoint:neworg fromView:nil];
 	[self getCurrentOrigin: &orgnow];
 	orgnow.x += origin->x - neworg.x;
 	orgnow.y += origin->y - neworg.y;
@@ -464,9 +499,11 @@ printf ("Done\n");
 	
 //
 // redraw
-// 
-	[window reenableDisplay];
-	[[superview superview] display];	// redraw everything just once
+//
+	[[self window] enableFlushWindow];
+	[[[self superview] superview] display];
+//	[window reenableDisplay];
+//	[[superview superview] display];	// redraw everything just once
 	
 	return self;
 }

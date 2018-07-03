@@ -95,3 +95,16 @@ BOOL NXPointInRect(const NXPoint *aPoint, const NXRect *aRect)
 {
 	return NSPointInRect(*aPoint, *aRect);
 }
+
+/**
+NXIntegralRect() alters the rectangle so that none of its four defining values (x, y, width, and height) have fractional parts. The values are raised or lowered to the nearest integer, as appropriate, so that the new rectangle completely encloses the old rectangle.  These alterations ensure that the sides of the new rectangle lie on pixel boundaries, if the rectangle is defined in a coordinate system that has its coordinate origin on the corner of four pixels and a unit of length along either axis equal to one pixel.  If the rectangle's width or height is 0 (or negative), it's set to a rectangle with origin at (0.0, 0.0) and with 0 width and height.
+ */
+void NXIntegralRect(NXRect *aRect)
+{
+	*aRect = NSIntegralRect(*aRect);
+}
+
+
+
+
+

@@ -15,6 +15,7 @@
 #define NXPoint 			NSPoint
 #define NX_SOVER 			NSCompositingOperationSourceOver
 #define NX_RGBColorSpace	NSCalibratedRGBColorSpace
+#define NXEvent				NSEvent
 
 typedef NSObject Object;
 typedef NSView View;
@@ -40,5 +41,6 @@ NSRect  *NXUnionRect(const NSRect *aRect, const NSRect *bRect);
 NSRect  *NXIntersectionRect(const NSRect *aRect, NSRect *bRect);
 BOOL 	NXIntersectsRect(const NXRect *aRect, const NXRect *bRect);
 BOOL 	NXPointInRect(const NXPoint *aPoint, const NXRect *aRect);
+void 	NXIntegralRect(NXRect *aRect);
 
 #endif /* NXConvert_h */
