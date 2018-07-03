@@ -36,10 +36,14 @@ id	lineSpecialPanel_i;
 	
 	memcpy (&baseline.side[1], &baseline.side[0], sizeof(baseline.side[0]));
 	
-	lineSpecialPanel_i = [[[[SpecialList	alloc]
-					setSpecialTitle:"Line Inspector - Specials"]
-					setFrameName:"LineSpecialPanel"]
-					setDelegate:self];
+//	lineSpecialPanel_i = [[[[SpecialList	alloc]
+//					setSpecialTitle:"Line Inspector - Specials"]
+//					setFrameName:"LineSpecialPanel"]
+//					setDelegate:self];
+	lineSpecialPanel_i = [(SpecialList *)[SpecialList alloc] init];
+	[lineSpecialPanel_i setSpecialTitle:"Line Inspector - Specials"];
+	[lineSpecialPanel_i setFrameName:"LineSpecialPanel"];
+	[lineSpecialPanel_i setDelegate:self];
 	return self;
 }
 
@@ -53,9 +57,9 @@ id	lineSpecialPanel_i;
 {
 	[lineSpecialPanel_i	saveFrame];
 	if (firstColCalc_i)
-		[firstColCalc_i		saveFrameUsingName:"FirstColCalc"];
+		[firstColCalc_i		saveFrameUsingName:@"FirstColCalc"];
 	if (window_i)
-		[window_i	saveFrameUsingName:"LineInspector"];
+		[window_i	saveFrameUsingName:@"LineInspector"];
 	return self;
 }
 
@@ -90,13 +94,16 @@ id	lineSpecialPanel_i;
 {
 	if (!window_i)
 	{
-		[NXApp 
-			loadNibSection:	"line.nib"
-			owner:			self
-			withNames:		NO
-		];
-		[window_i	setFrameUsingName:"LineInspector"];
-		[firstColCalc_i		setFrameUsingName:"FirstColCalc"];
+//		[NXApp
+//			loadNibSection:	"line.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"line.nib"
+									  owner:self
+							topLevelObjects:nil];
+		[window_i	setFrameUsingName:@"LineInspector"];
+		[firstColCalc_i		setFrameUsingName:@"FirstColCalc"];
 	}
 
 	[window_i orderFront:self];
@@ -132,6 +139,7 @@ id	lineSpecialPanel_i;
 - getSide: (worldside_t *)side
 {
 	side->flags = [sideform_i intValueAt: 0];
+	//side->flags = [sideform_i int]
 	side->firstcollumn = [sideform_i intValueAt: 1];
 	strncpy (side->toptexture, [sideform_i stringValueAt: 2], 9);
 	strncpy (side->midtexture, [sideform_i stringValueAt: 3], 9);
@@ -209,7 +217,8 @@ id	lineSpecialPanel_i;
 	[bottompeg_i setState:  (line->flags&ML_DONTPEGBOTTOM) > 0];
 	[twosided_i setState:  (line->flags&ML_TWOSIDED) > 0];
 
-	side = [sideradio_i selectedCol];	
+	side = [sideradio_i selectedColumn];
+	//side = [sideradio_i selectedCol];
 	[self setSide: &line->side[side]];
 	
 	//
@@ -222,7 +231,8 @@ id	lineSpecialPanel_i;
 	dlen = sqrt(xlen + ylen);
 	[linelength_i	setIntValue:dlen];
 
-	[window_i reenableFlushWindow];
+	[window_i enableFlushWindow];
+	//[window_i reenableFlushWindow];
 	[window_i flushWindow];
 	
 	return self;
@@ -354,7 +364,8 @@ id	lineSpecialPanel_i;
 	worldside_t	new;
 	worldline_t	*line;
 	
-	side = [sideradio_i selectedCol];
+	side = [sideradio_i selectedColumn];
+	//side = [sideradio_i selectedCol];
 	[self getSide: &new];
 	for (i=0 ; i<numlines ; i++)
 		if (lines[i].selected > 0)
@@ -375,8 +386,8 @@ id	lineSpecialPanel_i;
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[[sideform_i	cellAt:2+tag :0]
-		setStringValue:[texturePalette_i  getSelTextureName]];
+	[[sideform_i cellAtRow:2+tag column:0] setStringValue:CastNSString([texturePalette_i getSelTextureName])];
+	//[[sideform_i	cellAt:2+tag :0] setStringValue:[texturePalette_i  getSelTextureName]];
 	[self	sideChanged:NULL];
 	return self;
 }
@@ -386,7 +397,8 @@ id	lineSpecialPanel_i;
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
+	//[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
+	[texturePalette_i setSelTexture:(char *)[[sideform_i cellAtRow:2+tag column:0] stringValue]];
 	return self;
 }
 
@@ -395,7 +407,8 @@ id	lineSpecialPanel_i;
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[[sideform_i	cellAt:2+tag :0] setStringValue:"-"];
+	[[sideform_i cellAtRow:2+tag column:0] setStringValue:@"-"];
+	//[[sideform_i	cellAt:2+tag :0] setStringValue:"-"];
 	[self	sideChanged:NULL];
 	return self;
 }
@@ -447,7 +460,7 @@ id	lineSpecialPanel_i;
 
 - setFCVal:sender
 {
-	[fc_currentVal_i  setIntValue:[[sideform_i  cellAt:1 :0]  intValue]];
+	[fc_currentVal_i  setIntValue:[[sideform_i  cellAtRow:1 column:0]  intValue]];
 	return self;
 }
 
@@ -457,7 +470,7 @@ id	lineSpecialPanel_i;
 	val = [fc_currentVal_i	intValue];
 	val += [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAt:1 :0]  setIntValue:val];
+	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
 	[self	sideChanged:NULL];
 	return self;
 }
@@ -468,7 +481,7 @@ id	lineSpecialPanel_i;
 	val = [fc_currentVal_i	intValue];
 	val -= [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAt:1 :0]  setIntValue:val];
+	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
 	[self	sideChanged:NULL];
 	return self;
 }

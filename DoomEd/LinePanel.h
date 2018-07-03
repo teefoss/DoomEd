@@ -22,7 +22,7 @@ extern	id	lineSpecialPanel_i;
 	id	monsterblock_i;
 	
 	id	sideradio_i;
-	id	sideform_i;
+	id	sideform_i;		// TF set each textfield to this and use tags
 	id	tagField_i;
 	id	linelength_i;
 	
