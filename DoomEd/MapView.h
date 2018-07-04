@@ -1,4 +1,4 @@
-#import <appkit/appkit.h>
+#import <Cocoa/Cocoa.h>
 #import "EditWorld.h"
 #import "NXConvert.h"
 

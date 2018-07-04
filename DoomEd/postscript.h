@@ -9,6 +9,8 @@
 #ifndef postscript_h
 #define postscript_h
 
+#import "NXConvert.h"
+
 void	PSsetrgbcolor(float red, float green, float blue);
 void	PSmoveto(float x, float y);
 void	PSsetlinewidth(float width);
@@ -16,5 +18,5 @@ void	PSlineto(float x, float y);
 void	PSstroke(void);
 
 void	AddLineToPath(NSBezierPath *path, int x1, int y1, int x2, int y2);
-
+void 	NXFrameRectWithWidth(const NXRect *aRect, NXCoord frameWidth);
 #endif /* postscript_h */

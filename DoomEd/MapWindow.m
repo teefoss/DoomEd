@@ -57,7 +57,8 @@ static	int	cornerx = 128, cornery = 64;
 //		
 // initialize the pop up menus
 //
-	scalemenu_i = [[PopUpList alloc] init];
+	//scalemenu_i = [[PopUpList alloc] init]; //TODO ui
+	scalemenu_i = [[NSPopUpButton alloc] init];
 	[scalemenu_i setTarget: mapview_i];
 	[scalemenu_i setAction: @selector(scaleMenuTarget:)];
 

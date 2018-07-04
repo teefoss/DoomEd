@@ -48,4 +48,5 @@ void 	NXIntegralRect(NXRect *aRect);
 void 	NXRectFill(const NXRect *aRect);
 void 	NXRectFillList(const NXRect *rects, int count);
 
+
 #endif /* NXConvert_h */
