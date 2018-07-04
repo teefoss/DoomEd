@@ -14,16 +14,19 @@
 
 - initFrame:(const NXRect *)frameRect button1:b1 button2:b2
 {
-	[super  initFrame: frameRect];	
+	//[super  initFrame: frameRect];
+	[super initWithFrame:*frameRect];
 	[self addSubview: b1];
 	[self addSubview: b2];
 
 	button1 = b1;
 	button2 = b2;
 
-	[self setHorizScrollerRequired: YES];
-	[self setVertScrollerRequired: YES];
-		
+	[self setHasVerticalRuler:YES];
+	[self setHasVerticalScroller:YES];
+//	[self setHorizScrollerRequired: YES];
+//	[self setVertScrollerRequired: YES];
+	
 	return self;
 }
 
@@ -45,22 +48,27 @@
 	NXRect	newframe;
 	
 	[super tile];
-	[button1 getFrame: &buttonframe];
-	[button2 getFrame: &buttonframe2];
-	[hScroller getFrame: &scrollerframe];
+//	[button1 getFrame: &buttonframe];
+//	[button2 getFrame: &buttonframe2];
+	buttonframe = [button1 frame];
+	buttonframe2 = [button2 frame];
+	
+	//[hScroller getFrame: &scrollerframe];
+	scrollerframe = [[self horizontalScroller] frame];
 
 	newframe.origin.y = scrollerframe.origin.y;
-	newframe.origin.x = frame.size.width - buttonframe.size.width;
+	newframe.origin.x = [self frame].size.width - buttonframe.size.width;
 	newframe.size.width = buttonframe.size.width;
 	newframe.size.height = scrollerframe.size.height;
 	scrollerframe.size.width -= newframe.size.width;
-	[button1 setFrame: &newframe];
+	[button1 setFrame: newframe];
 	newframe.size.width = buttonframe2.size.width;
 	newframe.origin.x -= newframe.size.width;
-	[button2 setFrame: &newframe];
+	[button2 setFrame: newframe];
 	scrollerframe.size.width -= newframe.size.width;
 
-	[hScroller setFrame: &scrollerframe];
+	//[hScroller setFrame: &scrollerframe];
+	[[self horizontalScroller] setFrame:scrollerframe];
 
 	return self;
 }

@@ -12,7 +12,8 @@ static	int	cornerx = 128, cornery = 64;
 
 - free
 {
-	return [super free];
+	[super release];
+	return self;
 }
 
 
@@ -26,8 +27,10 @@ static	int	cornerx = 128, cornery = 64;
 
 //
 // set up the window
-//		
-	[NXApp getScreenSize: &screensize];
+//
+	NSRect screenframe = [[self screen] frame];
+	screensize = screenframe.size;
+	//[NXApp getScreenSize: &screensize];
 	if (cornerx + newsize.width > screensize.width - 70)
 		cornerx = 128;
 	if (cornery + newsize.height > screensize.height - 70)
@@ -40,75 +43,106 @@ static	int	cornerx = 128, cornery = 64;
 	cornerx += 32;
 	cornery += 32;
 #endif
-	[self
-		initContent:		&wframe
-		style:			NX_RESIZEBARSTYLE
-		backing:			NX_BUFFERED
-		buttonMask:		NX_CLOSEBUTTONMASK | NX_MINIATURIZEBUTTONMASK
-		defer:			NO
-	];
+	[self initWithContentRect:wframe
+					styleMask:NSWindowStyleMaskTitled
+					  backing:NSBackingStoreBuffered
+						defer:NO];
+
+//	[self
+//		initContent:		&wframe
+//		style:			NX_RESIZEBARSTYLE
+//		backing:			NX_BUFFERED
+//		buttonMask:		NX_CLOSEBUTTONMASK | NX_MINIATURIZEBUTTONMASK
+//		defer:			NO
+//	];
 	
-	[self	setMinSize:	&minsize];
+	[self	setMinSize:	minsize];
 
 // initialize the map view 
 	mapview_i = [[MapView alloc] initFromEditWorld];
-	[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
+	//[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
 	
 //		
 // initialize the pop up menus
 //
 	//scalemenu_i = [[PopUpList alloc] init]; //TODO ui
-	scalemenu_i = [[NSPopUpButton alloc] init];
-	[scalemenu_i setTarget: mapview_i];
-	[scalemenu_i setAction: @selector(scaleMenuTarget:)];
-
-	[scalemenu_i addItem: "3.125%"];
-	[scalemenu_i addItem: "6.25%"];
-	[scalemenu_i addItem: "12.5%"];
-	[scalemenu_i addItem: "25%"];
-	[scalemenu_i addItem: "50%"];
-	[scalemenu_i addItem: "100%"];
-	[scalemenu_i addItem: "200%"];
-	[scalemenu_i addItem: "400%"];
-	[[scalemenu_i itemList] selectCellAt: 5 : 0];
+//	scalemenu_i = [[NSMenu alloc] init];
+	//[scalemenu_i setTarget: mapview_i];
 	
-	scalebutton_i = NXCreatePopUpListButton(scalemenu_i);
+//	[scalemenu_i setAction: @selector(scaleMenuTarget:)];
 
+//	[scalemenu_i addItem: "3.125%"];
+//	[scalemenu_i addItem: "6.25%"];
+//	[scalemenu_i addItem: "12.5%"];
+//	[scalemenu_i addItem: "25%"];
+//	[scalemenu_i addItem: "50%"];
+//	[scalemenu_i addItem: "100%"];
+//	[scalemenu_i addItem: "200%"];
+//	[scalemenu_i addItem: "400%"];
+//	[[scalemenu_i itemList] selectCellAt: 5 : 0];
 
-	gridmenu_i = [[PopUpList alloc] init];
-	[gridmenu_i setTarget: mapview_i];
-	[gridmenu_i setAction: @selector(gridMenuTarget:)];
-
-	[gridmenu_i addItem: "grid 1"];
-	[gridmenu_i addItem: "grid 2"];
-	[gridmenu_i addItem: "grid 4"];
-	[gridmenu_i addItem: "grid 8"];
-	[gridmenu_i addItem: "grid 16"];
-	[gridmenu_i addItem: "grid 32"];
-	[gridmenu_i addItem: "grid 64"];
 	
-	[[gridmenu_i itemList] selectCellAt: 3 : 0];
+	//scalebutton_i = NXCreatePopUpListButton(scalemenu_i);
+	scalebutton_i = [[NSPopUpButton alloc] init];
+	[scalebutton_i addItemWithTitle:@"3.125%"];
+	[scalebutton_i addItemWithTitle:@"6.25%"];
+	[scalebutton_i addItemWithTitle:@"12.5%"];
+	[scalebutton_i addItemWithTitle:@"25%"];
+	[scalebutton_i addItemWithTitle:@"50%"];
+	[scalebutton_i addItemWithTitle:@"100%"];
+	[scalebutton_i addItemWithTitle:@"200%"];
+	[scalebutton_i addItemWithTitle:@"400%"];
+	[scalebutton_i selectItemAtIndex:5];
 	
-	gridbutton_i = NXCreatePopUpListButton(gridmenu_i);
-
+//	gridmenu_i = [[PopUpList alloc] init];
+//	[gridmenu_i setTarget: mapview_i];
+//	[gridmenu_i setAction: @selector(gridMenuTarget:)];
+//
+//	[gridmenu_i addItem: "grid 1"];
+//	[gridmenu_i addItem: "grid 2"];
+//	[gridmenu_i addItem: "grid 4"];
+//	[gridmenu_i addItem: "grid 8"];
+//	[gridmenu_i addItem: "grid 16"];
+//	[gridmenu_i addItem: "grid 32"];
+//	[gridmenu_i addItem: "grid 64"];
+	
+//	[[gridmenu_i itemList] selectCellAt: 3 : 0];
+	
+	//gridbutton_i = NXCreatePopUpListButton(gridmenu_i);
+	gridbutton_i = [[NSPopUpButton alloc] init];
+	[gridbutton_i addItemWithTitle:@"grid 1"];
+	[gridbutton_i addItemWithTitle:@"grid 2"];
+	[gridbutton_i addItemWithTitle:@"grid 4"];
+	[gridbutton_i addItemWithTitle:@"grid 8"];
+	[gridbutton_i addItemWithTitle:@"grid 16"];
+	[gridbutton_i addItemWithTitle:@"grid 32"];
+	[gridbutton_i addItemWithTitle:@"grid 64"];
+	[gridbutton_i selectItemAtIndex:3];
+	
 // initialize the scroll view
 	wframe.origin.x = wframe.origin.y = 0;
-	scrollview_i = [[PopScrollView alloc] 
-		initFrame: 	&wframe 
-		button1: 		scalebutton_i
-		button2:		gridbutton_i
-	];
-	[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
-	
+	scrollview_i = [[PopScrollView alloc] initFrame:&wframe
+											button1:scalebutton_i
+											button2:gridbutton_i];
+//	scrollview_i = [[PopScrollView alloc]
+//		initFrame: 	&wframe
+//		button1: 		scalebutton_i
+//		button2:		gridbutton_i
+//	];
+	//[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
+	[scrollview_i setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+
 // link objects together
 	[self setDelegate: self];
-	
-	oldobj_i = [scrollview_i setDocView: mapview_i];
-	if (oldobj_i)
-		[oldobj_i free];
-	oldobj_i = [self  setContentView: scrollview_i];
-	if (oldobj_i)
-		[oldobj_i free];
+
+	[scrollview_i setDocumentView:mapview_i];
+	[self setContentView:scrollview_i];
+//	oldobj_i = [scrollview_i setDocView: mapview_i];
+//	if (oldobj_i)
+//		[oldobj_i free];
+//	oldobj_i = [self  setContentView: scrollview_i];
+//	if (oldobj_i)
+//		[oldobj_i free];
 	
 // scroll to the middle
 	[editworld_i getBounds: &mapbounds];
@@ -124,10 +158,10 @@ static	int	cornerx = 128, cornery = 64;
 	return mapview_i;
 }
 
-- scalemenu
-{
-	return scalemenu_i;
-}
+//- scalemenu
+//{
+//	return scalemenu_i;
+//}
 
 - scalebutton
 {
@@ -135,10 +169,10 @@ static	int	cornerx = 128, cornery = 64;
 }
 
 
-- gridmenu
-{
-	return gridmenu_i;
-}
+//- gridmenu
+//{
+//	return gridmenu_i;
+//}
 
 - gridbutton
 {
@@ -173,12 +207,19 @@ static	int	cornerx = 128, cornery = 64;
 ==================
 */
 
-- windowWillResize:sender toSize:(NXSize *)frameSize
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
+//- windowWillResize:sender toSize:(NXSize *)frameSize
 {
-	oldscreenorg.x = oldscreenorg.y = 0;
-	[self convertBaseToScreen: &oldscreenorg];
+	NSRect r = NSZeroRect;
+	//oldscreenorg.x = oldscreenorg.y = 0;
+	
+	//[self convertBaseToScreen: &oldscreenorg];
+	[self convertRectToScreen:r];
+	oldscreenorg = r.origin;
+	
 	[mapview_i getCurrentOrigin: &presizeorigin];
-	return self;
+	//return self;
+	return frameSize;
 }
 
 /*
@@ -192,7 +233,8 @@ static	int	cornerx = 128, cornery = 64;
 ======================
 */
 
-- windowDidResize:sender
+- (void)windowDidResize:(NSNotification *)notification
+//- windowDidResize:sender
 {
 	NXRect	wincont, scrollcont;
 	float		scale;
@@ -202,7 +244,7 @@ static	int	cornerx = 128, cornery = 64;
 // change frame if needed
 //	
 	newscreenorg.x = newscreenorg.y = 0;
-	[self convertBaseToScreen: &newscreenorg];
+	[self convertBaseToScreen: newscreenorg];  // TODO this needs to be updated
 
 	scale = [mapview_i currentScale];
 	presizeorigin.x += (newscreenorg.x - oldscreenorg.x)/scale;
@@ -212,6 +254,8 @@ static	int	cornerx = 128, cornery = 64;
 //
 // resize drag image
 //
+	// not needed?
+#if 0
 	[Window
 		getContentRect:	&wincont 
 		forFrameRect:		&frame
@@ -225,8 +269,9 @@ static	int	cornerx = 128, cornery = 64;
 		vertScroller:		YES
 		borderType:		NX_NOBORDER
 	];
+#endif
 
-	return self;
+	//return self;
 }
 
 

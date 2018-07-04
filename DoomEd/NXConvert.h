@@ -16,15 +16,17 @@
 #define NX_SOVER 			NSCompositingOperationSourceOver
 #define NX_RGBColorSpace	NSCalibratedRGBColorSpace
 #define NXEvent				NSEvent
+#define NXSize				NSSize
 
-typedef NSObject Object;
-typedef NSView View;
-typedef NSWindow Window;
-typedef NSPanel Panel;
-typedef NSRect NXRect;
-typedef NSSound Sound;
-typedef NSOpenPanel OpenPanel;
-typedef NSColor NXColor;
+typedef NSObject 		Object;
+typedef NSView 			View;
+typedef NSWindow 		Window;
+typedef NSPanel 		Panel;
+typedef NSRect 			NXRect;
+typedef NSSound 		Sound;
+typedef NSOpenPanel 	OpenPanel;
+typedef NSColor 		NXColor;
+typedef NSScrollView 	ScrollView;
 
 const NSInteger NX_ALERTDEFAULT = NSModalResponseOK;
 
