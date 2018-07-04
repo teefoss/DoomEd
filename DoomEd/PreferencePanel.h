@@ -6,7 +6,7 @@ extern	id	prefpanel_i;
 
 #define	APPDEFAULTS	"ID_doomed"
 //	#define NUMCOLORS	9
-#define	PREFNAME		"PrefPanel"
+#define	PREFNAME		@"PrefPanel"
 
 typedef enum
 {
@@ -49,13 +49,13 @@ typedef enum
     id	thingcolor_i;
 	id	specialcolor_i;
 	
-	id	launchThingType_i;
-	id	projectDefaultPath_i;
-	id	openupDefaults_i;
+	id	launchThingType_i;		// text field
+	id	projectDefaultPath_i;	// textfield
+	id	openupDefaults_i;		// grid of check boxes
 	
     id	window_i;
 	
-	id		colorwell[NUMCOLORS];
+	id		colorwell[NUMCOLORS];	// array of colorwells
 	NXColor	*color[NUMCOLORS];
 	int		launchThingType;
 	char	projectPath[128];
