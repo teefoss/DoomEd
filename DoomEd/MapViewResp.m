@@ -1045,7 +1045,7 @@
 			[editworld_i	saveDoomEdMapBSP:NULL];
 			[editworld_i	changeThing:i		to:&oldthing];
 			[editworld_i	redrawWindows];
-			//NXPing();
+			NXPing();
 			[toolpanel_i	changeTool:SELECT_TOOL];
 			if ([self	scanForErrors])
 				NXRunAlertPanel("Errors!",

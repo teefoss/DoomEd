@@ -48,6 +48,8 @@ void NXBeep(void)
 	NSBeep();
 }
 
+void NXPing() {}
+
 void NXSetRect(NSRect *aRect, float x, float y, float width, float height)
 {
 	aRect->origin.x = x;

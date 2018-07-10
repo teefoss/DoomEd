@@ -323,7 +323,7 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- specialChanged: sender
+- (IBAction)specialChanged: sender
 {
 	int		i,value;
 	
@@ -337,7 +337,7 @@ id	lineSpecialPanel_i;
 	
 	[lineSpecialPanel_i	setSpecial:[special_i	intValue]];
 	[editworld_i updateWindows];
-	return self;
+	//return self;
 }
 
 

@@ -393,7 +393,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		fromPath,toPath,bspprogram,bsphost);
 	panel = NXGetAlertPanel("Wait...",string,NULL,NULL,NULL);
 	[panel	orderFront:NULL];
-	//NXPing();
+	NXPing();
 
 	sprintf( string, "rsh %s %s %s %s",bsphost,bspprogram,fromPath,toPath);
 	err = system(string);
@@ -404,7 +404,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		sprintf(string,"rsh attempt returned:%d\n",err);
 		panel = NXGetAlertPanel("rsh error!",string,NULL,NULL,NULL);
 		[panel  orderFront:NULL];
-		//NXPing();
+		NXPing();
 	}
 
 	[panel	orderOut:NULL];
@@ -438,7 +438,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	pan = NXGetAlertPanel ("One moment","Saving",NULL,NULL,NULL);
 	[pan display];
 	[pan orderFront: NULL];
-	//NXPing ();
+	NXPing ();
 
 	printf ("Saving DoomEd map\n");
 	BackupFile (pathname); 

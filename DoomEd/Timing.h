@@ -32,7 +32,7 @@ Here's an example of its use.
     }
 
 */
-
+#if 0
 #import <objc/Object.h>
 #include <sys/time.h>
 #import <sys/resource.h>
@@ -105,7 +105,8 @@ Here's an example of its use.
 -avgElapsedTime;
     /* Calculates averages.  Called automatically by summary:. */
 
--summary:(NXStream *)c;
+-summary:(NSStream *)c;
+//-summary:(NXStream *)c;
     /* Writes out a summary to the stream pointed to by c.  Depending on 
        the current value of wallTime will write out a summary for either 
        wall time or ps time. */
@@ -125,4 +126,4 @@ Here's an example of its use.
        Server on the behalf of the process. */
 
 @end
-
+#endif

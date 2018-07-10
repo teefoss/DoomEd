@@ -29,7 +29,7 @@ typedef NSColor 		NXColor;
 typedef NSScrollView 	ScrollView;
 
 const NSInteger NX_ALERTDEFAULT = NSModalResponseOK;
-
+const NSInteger NX_ALERTALTERNATE = NSModalResponseCancel;
 
 
 NSInteger NXRunAlertPanel (const char *title, const char *msgFormat, const char *defaultButton, const char *alternateButton, const char *otherButton, ...);
@@ -40,6 +40,7 @@ const char 	*CastCString(NSString *string);
 
 void 	NXBeep(void);
 void	NXSetColor(NSColor *color);
+void	NXPing();
 
 void	NXSetRect(NXRect *aRect, NXCoord x, NXCoord y, NXCoord width, NXCoord height);
 NSRect  *NXUnionRect(const NSRect *aRect, const NSRect *bRect);

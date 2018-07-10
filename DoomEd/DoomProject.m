@@ -976,7 +976,7 @@ id	openMatrix;
 		//NULL,NULL,NULL,[cell stringValue]);
 		
 	[panel	orderFront:NULL];
-	//NXPing();
+	NXPing();
 	system(string);
 	[panel	orderOut:NULL];
 	NXFreeAlertPanel(panel);
@@ -2007,7 +2007,7 @@ typedef struct
 		panel = NXGetAlertPanel("Wait...",
 			"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
-		//NXPing();
+		NXPing();
 		
 		sprintf (filename, "%s/texture%d.dsp",projectdirectory,windex+1 );
 		
@@ -2019,7 +2019,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				//NXPing();
+				NXPing();
 				NXRunAlertPanel ("Error","Couldn't open %s",
 					NULL,NULL,NULL, filename);
 				return self;
@@ -2028,7 +2028,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				//NXPing();
+				NXPing();
 				close(handle);
 				windex = -1;
 				continue;
@@ -2044,7 +2044,7 @@ typedef struct
 			close (handle);
 			[panel	orderOut:NULL];
 			NXFreeAlertPanel(panel);
-			//NXPing();
+			NXPing();
 			NXRunAlertPanel ("Error","Could not stream to %s",
 				NULL,NULL,NULL, filename);
 			return self;
@@ -2062,7 +2062,7 @@ typedef struct
 					fclose (stream);
 					[panel	orderOut:NULL];
 					NXFreeAlertPanel(panel);
-					//NXPing();
+					NXPing();
 					NXRunAlertPanel ("Error",
 						"Could not parse %s",NULL,NULL,NULL, filename);
 					return self;
@@ -2100,7 +2100,7 @@ typedef struct
 		
 		[panel	orderOut:NULL];
 		NXFreeAlertPanel(panel);
-		//NXPing();
+		NXPing();
 
 	} while (windex >= 0);
 	
@@ -2125,7 +2125,7 @@ typedef struct
 		panel = NXGetAlertPanel("Wait...",
 			"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
-		//NXPing();
+		NXPing();
 		
 		sprintf (filename, "%s/texture%d.dsp",projectdirectory,windex+1 );
 		
@@ -2138,7 +2138,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				//NXPing();
+				NXPing();
 				NXRunAlertPanel ("Error","Couldn't create %s",
 					NULL,NULL,NULL, filename);
 				return self;
@@ -2147,7 +2147,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NXFreeAlertPanel(panel);
-				//NXPing();
+				NXPing();
 				close(handle);
 				break;
 			}
@@ -2162,7 +2162,7 @@ typedef struct
 			fclose (stream);
 			[panel	orderOut:NULL];
 			NXFreeAlertPanel(panel);
-			//NXPing();
+			NXPing();
 			NXRunAlertPanel ("Error","Could not stream to %s",
 				NULL,NULL,NULL, filename);
 			return self;
@@ -2195,7 +2195,7 @@ typedef struct
 
 		[panel	orderOut:NULL];
 		NXFreeAlertPanel(panel);
-		//NXPing();
+		NXPing();
 	}		
 	
 	if (newtexture)
@@ -2470,7 +2470,7 @@ static	byte		*buffer, *buf_p;
 	[thermoView_i	setThermoWidth:0 max:1000];
 	[thermoView_i	display];
 	[thermoWindow_i	makeKeyAndOrderFront:NULL];
-	//NXPing();
+	NXPing();
 	return self;
 }
 

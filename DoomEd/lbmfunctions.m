@@ -1,6 +1,6 @@
 #include <appkit/appkit.h>
 
-
+#if 0
 
 typedef unsigned char byte;
 
@@ -73,7 +73,8 @@ typedef struct
 	UBYTE		xAspect,yAspect;
 	WORD		pageWidth,pageHeight;
 } bmhd_t;
-
+
+
 //
 // things that might need to be freed on an exception
 //
@@ -234,14 +235,17 @@ NX_DURING
 	filestream = NULL;
 //printf ("Filename: %s\n",filename);	
 //
-// load the LBMwith file mapping
-//	
+// load the LBM
+with file mapping
+//
+	
 	filestream = NXMapFile (filename, NX_READONLY);
 	if (!filestream)
 		NX_RAISE(LBMERR, "Couldn't map file",0);
 
 	NXGetMemoryBuffer(filestream, &streambuf, &streamlen, &streammaxlen);
-	
+	
+
 
 //
 // parse the LBM header
@@ -297,9 +301,11 @@ NX_DURING
 //
 	if ( bmhd.compression != cm_rle1 && bmhd.compression != cm_none)
 		NX_RAISE (LBMERR, "Unknown compression type", 0);
-	if (!cmap)
+	
+if (!cmap)
 		NX_RAISE (LBMERR, "No CMAP in file", 0);
-	if (!body)
+	
+if (!body)
 		NX_RAISE (LBMERR, "No BODY in file", 0);
 	if (formtype != PBMID)
 		NX_RAISE (LBMERR,"Can't read interlaced LBMS yet...",0);
@@ -669,5 +675,5 @@ id		Image32FromLBMFile (char const *filename)
 	return Image32FromRawLBM (byteimage, byteimagewidth, byteimageheight, lbmpalette);
 }
 
-
+#endif
 

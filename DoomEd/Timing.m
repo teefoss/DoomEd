@@ -1,10 +1,10 @@
 /* Timing.m */
-
+#if 0
 #import "Timing.h"
 #import <stdio.h>
-#import <streams/streams.h>
-#import <dpsclient/wraps.h>
-#import <appkit/graphics.h>
+//#import <streams/streams.h>  // TODO
+//#import <dpsclient/wraps.h>
+//#import <appkit/graphics.h>
 
 @implementation Timing
 
@@ -138,7 +138,7 @@
     return -1.0;
 }
 
--summary:(NXStream *)c
+-summary:(NSStream *)c
 {
     if(wallTime) {
     NXPrintf(c,"Timer %d : entered %d trials TotalWall Time  %lf \n",
@@ -156,4 +156,4 @@
 
 @end
 
-
+#endif

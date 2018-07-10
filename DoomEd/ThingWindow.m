@@ -2,6 +2,8 @@
 #import "ThingWindow.h"
 #import	"TextureEdit.h"
 
+#import "Storage.h"
+
 @implementation ThingWindow
 
 - setParent:(id)p
@@ -15,7 +17,8 @@
 //	Match keypress to first letter
 //
 //===================================================================
-- keyDown:(NXEvent *)event
+//- keyDown:(NXEvent *)event
+- (void)keyDown:(NSEvent *)event
 {
 	char	key[2];
 	char	string2[32];
@@ -27,7 +30,8 @@
 	int		size;
 	int		tries;
 	
-	key[0] = event->data.key.charCode;
+//	key[0] = event->data.key.charCode;
+	key[0] = [event keyCode];
 	strupr(key);
 	strcat(string,key);
 	size = strlen(string);
@@ -65,7 +69,7 @@
 		}
 	}
 	
-	return self;
+	//return self;
 }
 
 @end

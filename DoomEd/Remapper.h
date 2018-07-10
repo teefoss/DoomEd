@@ -18,11 +18,11 @@ typedef struct
 @end
 
 
-@interface Remapper:Object
+@interface Remapper:Object <NSWindowDelegate, NSApplicationDelegate, NSBrowserDelegate>
 {
-	id		original_i;
-	id		new_i;
-	id		remapPanel_i;
+	id		original_i;		// NSTextField
+	id		new_i;			// NSTextField
+	id		remapPanel_i;	// NSWindow
 	id		remapString_i;
 	id		status_i;
 	id		browser_i;
@@ -30,7 +30,7 @@ typedef struct
 	
 	id		storage_i;
 	id		delegate_i;
-	char		frameName[32];
+	char	frameName[32];
 }
 
 //	EXTERNAL USE

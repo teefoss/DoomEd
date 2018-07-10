@@ -99,7 +99,7 @@ void		AddLine (int path, float x1, float y1, float x2, float y2)
 =
 ==============
 */
-
+#if 0
 void		FinishPath (int path)
 {
 	int	count;
@@ -116,7 +116,7 @@ void		FinishPath (int path)
 	NXSetColor ([prefpanel_i colorFor: path]);
 	DPSDoUserPath(coords[path], count*2, dps_float, ops[path], count, bbox[path], dps_ustroke);
 }
-
+#endif
 
 /*
 ==============

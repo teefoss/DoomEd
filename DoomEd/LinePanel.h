@@ -8,23 +8,23 @@ extern	id	lineSpecialPanel_i;
 
 @interface LinePanel:Object
 {
-	id	p1_i;
-	id	p2_i;
-	id	special_i;
+	IBOutlet id	p1_i;
+	IBOutlet id	p2_i;
+	IBOutlet id	special_i;
 	
-	id	pblock_i;
-	id	toppeg_i;
-	id	bottompeg_i;
-	id	twosided_i;
-	id	secret_i;
-	id	soundblock_i;
-	id	dontdraw_i;
-	id	monsterblock_i;
+	IBOutlet id pblock_i;
+	IBOutlet id toppeg_i;
+	IBOutlet id bottompeg_i;
+	IBOutlet id twosided_i;
+	IBOutlet id secret_i;
+	IBOutlet id soundblock_i;
+	IBOutlet id dontdraw_i;
+	IBOutlet id monsterblock_i;
 	
-	id	sideradio_i;
-	id	sideform_i;		// TF set each textfield to this and use tags
-	id	tagField_i;
-	id	linelength_i;
+	IBOutlet id	sideradio_i;
+	IBOutlet id	sideform_i;
+	IBOutlet id	tagField_i;
+	IBOutlet id	linelength_i;
 	
 	id	window_i;
 	id	firstColCalc_i;
@@ -39,17 +39,17 @@ extern	id	lineSpecialPanel_i;
 - sideRadioTarget:sender;
 - updateLineInspector;
 
-- monsterblockChanged:sender;
-- blockChanged: sender;
-- twosideChanged: sender;
-- toppegChanged: sender;
-- bottompegChanged: sender;
-- secretChanged:sender;
-- soundBlkChanged:sender;
-- dontDrawChanged:sender;
-- specialChanged: sender;
-- tagChanged: sender;
-- sideChanged: sender;
+- (IBAction)monsterblockChanged:sender;
+- (IBAction)blockChanged: sender;
+- (IBAction)twosideChanged: sender;
+- (IBAction)toppegChanged: sender;
+- (IBAction)bottompegChanged: sender;
+- (IBAction)secretChanged:sender;
+- (IBAction)soundBlkChanged:sender;
+- (IBAction)dontDrawChanged:sender;
+- (IBAction)specialChanged: sender;
+- (IBAction)tagChanged: sender;
+- (IBAction)sideChanged: sender;
 
 - getFromTP:sender;
 - setTP:sender;
@@ -58,10 +58,10 @@ extern	id	lineSpecialPanel_i;
 - (int)getTagValue;
 
 // FIRSTCOL CALCULATOR
-- setFCVal:sender;
-- popUpCalc:sender;
-- incFirstCol:sender;
-- decFirstCol:sender;
+- (IBAction)setFCVal:sender;
+- (IBAction)popUpCalc:sender;
+- (IBAction)incFirstCol:sender;
+- (IBAction)decFirstCol:sender;
 
 -baseLine: (worldline_t *)line;
 
