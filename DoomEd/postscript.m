@@ -67,6 +67,12 @@ void PSsetrgbcolor(float red, float green, float blue)
 }
 
 
+void PSsetgray(float white)
+{
+	[[NSColor colorWithWhite:white alpha:1.0] set];
+}
+
+
 void PSmoveto(float x, float y)
 {
 	InitPath();

@@ -8,9 +8,9 @@ typedef struct
 	char		desc[32];
 } thingstrip_t;
 
-#define	THINGSTRIPNAME	"ThingStripper"
+#define	THINGSTRIPNAME	@"ThingStripper"
 
-@interface ThingStripper:Object
+@interface ThingStripper:Object <NSWindowDelegate, NSBrowserDelegate>
 {
 	id	thingBrowser_i;		// nib outlets
 	id	thingStripPanel_i;

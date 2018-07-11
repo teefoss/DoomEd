@@ -5,6 +5,8 @@
 #import	"Wadfile.h"
 #import	"lbmfunctions.h"
 
+#import "Storage.h"
+
 id	thingPalette_i;
 
 @implementation ThingPalette
@@ -39,15 +41,16 @@ id	thingPalette_i;
 
 	if (!window_i)
 	{
-		[NXApp 
-			loadNibSection:	"ThingPalette.nib"
-			owner:			self
-			withNames:		NO
-		];
+//		[NXApp
+//			loadNibSection:	"ThingPalette.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"ThingPalette.nib" owner:self topLevelObjects:nil];
 		
 		[window_i	setDelegate:self];
 		[self		computeThingDocView];
-		[nameField_i	setStringValue:""];
+		[nameField_i	setStringValue:@""];
 	}
 
 	[window_i	makeKeyAndOrderFront:self];
@@ -112,11 +115,11 @@ id	thingPalette_i;
 		
 	currentIcon = which;
 	icon = [thingImages	elementAt:which];
-	[nameField_i		setStringValue:icon->name];
+	[nameField_i		setStringValue:CastNSString(icon->name)];
 	r = icon->r;
 	r.origin.y -= SPACING;
 	r.size.height += SPACING*2;
-	[thingPalView_i		scrollRectToVisible:&r];
+	[thingPalView_i		scrollRectToVisible:r];
 	[thingPalScrView_i	display];
 	return self;
 }
@@ -170,7 +173,8 @@ id	thingPalette_i;
 	int		maxwidth;
 	NXPoint	p;
 	
-	[thingPalScrView_i	getDocVisibleRect:&dvr];
+	//[thingPalScrView_i	getDocVisibleRect:&dvr];
+	dvr = [thingPalScrView_i visibleRect];
 	max = [thingImages	count];
 	maxwidth = ICONSIZE*5 + SPACING*5;
 
@@ -197,7 +201,8 @@ id	thingPalette_i;
 		x += ICONSIZE + SPACING;
 	}
 	
-	[thingPalView_i	sizeTo:dvr.size.width	:y];
+	//[thingPalView_i	sizeTo:dvr.size.width	:y];
+	[thingPalView_i setFrameSize:dvr.size];
 	p.x = 0;
 	p.y = y + ICONSIZE + SPACING;
 	x = SPACING;
@@ -229,7 +234,7 @@ id	thingPalette_i;
 		x += ICONSIZE + SPACING;
 	}
 	
-	[thingPalView_i	scrollPoint:&p ];
+	[thingPalView_i	scrollPoint:p ];
 
 	return self;
 }
@@ -274,7 +279,7 @@ id	thingPalette_i;
 	//
 	// get inclusive lump #'s for patches
 	//
-	start = [wadfile_i	lumpNamed:"icon_sta"] + 1;
+	start = [wadfile_i	lumpNamed:"icon_sta"] + 1;	// S_START, S_END ?
 	end = [wadfile_i	lumpNamed:"icon_end"];
 	[doomproject_i	initThermo:"One moment..."
 		message:"Loading icons for Thing Palette."];

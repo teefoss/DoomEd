@@ -52,17 +52,31 @@ id	thingpanel_i;
 {
 	if (!window_i)
 	{
-		[NXApp 
-			loadNibSection:	"thing.nib"
-			owner:			self
-			withNames:		NO
-		];
+//		[NXApp
+//			loadNibSection:	"thing.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"thing.nib" owner:self topLevelObjects:nil];
 		[window_i	setFrameUsingName:THINGNAME];
 		[window_i	setDelegate:self];
 		[thingBrowser_i	reloadColumn:0];
-		[diffDisplay_i	selectCellAt:diffDisplay :0];
-		[count_i	setStringValue:" "];
+		[diffDisplay_i selectCellAtRow:diffDisplay column:0];
+		//[diffDisplay_i	selectCellAt:diffDisplay :0];
+		[count_i	setStringValue:@" "];
 		[window_i	setParent:self];
+		
+		// (TF) Set wrapping button title
+		NSString *str1 = @"Suggest New";
+		NSString *str2 = @"Type";
+		NSString *title = [NSString stringWithFormat:@"%@\r%@", str1,str2];
+		NSAttributedString *attrTitle = [[NSAttributedString alloc]
+										 initWithString:title
+										 attributes:@{
+													  NSFontAttributeName : @"Helvetica-Bold",
+													  NSFontSizeAttribute : @14
+													  }];
+		[suggestButton_i setAttributedTitle:attrTitle];
 	}
 
 	[window_i makeKeyAndOrderFront:self];
@@ -70,11 +84,16 @@ id	thingpanel_i;
 	return self;
 }
 
-- windowDidMiniaturize:sender
+//- windowDidMiniaturize:sender
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
-	[sender	setMiniwindowIcon:"DoomEd"];
-	[sender	setMiniwindowTitle:"Things"];
-	return self;
+	NSWindow *win = [notification object];
+	NSImage *img = [NSImage imageNamed:@"DoomEd"];
+//	[sender	setMiniwindowIcon:"DoomEd"];
+//	[sender	setMiniwindowTitle:"Things"];
+	[win setMiniwindowImage:img];
+	[win setMiniwindowTitle:@"Things"];
+	//return self;
 }
 
 
@@ -97,18 +116,21 @@ id	thingpanel_i;
 - (thinglist_t *)getCurrentThingData
 {
 	thinglist_t		thing;
+	id				cell;
 	
 	if (!fields_i)
 	{
 		NXBeep();
 		return NULL;
 	}
-		
-	thing.value = [fields_i		intValueAt:1];
-	strcpy(thing.name,[nameField_i stringValue]);
-	strcpy(thing.iconname,[iconField_i	stringValue]);
+	
+	cell = [fields_i cellAtRow:1 column:0];
+	//thing.value = [fields_i		intValueAt:1];
+	thing.value = [cell intValue];
+	strcpy(thing.name,CastCString([nameField_i stringValue]));
+	strcpy(thing.iconname,CastCString([iconField_i	stringValue]));
 
-	return &thing;
+	return &thing;	// TODO check this
 }
 
 //===================================================================
@@ -159,7 +181,7 @@ id	thingpanel_i;
 	//
 	if (diffDisplay == DIFF_ALL)
 	{
-		[count_i	setStringValue:"-"];
+		[count_i	setStringValue:@"-"];
 		return self;
 	}
 		
@@ -206,8 +228,10 @@ id	thingpanel_i;
 		{
 			[self	fillDataFromThing:t];
 			matrix = [thingBrowser_i	matrixInColumn:0];
-			[matrix	selectCellAt:i :0];
-			[matrix	scrollCellToVisible:i :0];
+			//[matrix	selectCellAt:i :0];
+			[matrix selectCellAtRow:i column:0];
+			//[matrix	scrollCellToVisible:i :0];
+			[matrix scrollCellToVisibleAtRow:i column:0];
 			return self;
 		}
 	}
@@ -222,7 +246,7 @@ id	thingpanel_i;
 //===================================================================
 - unlinkIcon:sender
 {
-	[iconField_i	setStringValue:"NOICON"];
+	[iconField_i	setStringValue:@"NOICON"];
 	[updateButton_i	performClick:self];
 	return self;
 }
@@ -244,7 +268,7 @@ id	thingpanel_i;
 		return self;
 	}
 	icon = [thingPalette_i	getIcon:iconnum];
-	[iconField_i	setStringValue:icon->name];
+	[iconField_i	setStringValue:CastNSString(icon->name)];
 	[updateButton_i	performClick:self];
 	
 	return self;
@@ -260,16 +284,16 @@ id	thingpanel_i;
 	char	name[10];
 	int		which;
 	
-	strcpy(name,[iconField_i	stringValue]);
+	strcpy(name,CastCString([iconField_i	stringValue]));
 	strupr(name);
 	which = [thingPalette_i	findIcon:name];
 	if (which < 0)
 	{
 		NXBeep();
-		[iconField_i	setStringValue:"NOICON"];
+		[iconField_i	setStringValue:@"NOICON"];
 		return self;
 	}
-	[iconField_i	setStringValue:name];
+	[iconField_i	setStringValue:CastNSString(name)];
 	
 	return self;
 }
@@ -282,6 +306,7 @@ id	thingpanel_i;
 - suggestNewType:sender
 {
 	int	num,i,found,max;
+	id cell;
 	
 	max = [masterList_i	count];
 	for (num = 1;num < 10000;num++)
@@ -295,7 +320,9 @@ id	thingpanel_i;
 			}
 		if (!found)
 		{
-			[fields_i	setIntValue:num	at:1];
+			cell = [fields_i cellAtRow:1 column:0];
+			//[fields_i	setIntValue:num	at:1];
+			[cell setIntValue:num];
 			return self;
 		}
 	}
@@ -305,28 +332,31 @@ id	thingpanel_i;
 //
 // delegate method called by "thingBrowser_i"
 //
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+//- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	int	max, i;
 	id	cell;
 	thinglist_t		*t;
 	
 	if (column > 0)
-		return 0;
+		return; //0;
 		
 	[self	sortThings];
 	max = [masterList_i	count];
 	for (i = 0; i < max; i++)
 	{
 		t = [masterList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
-		[cell	setStringValue:t->name];
+		//[matrix	insertRowAt:i];
+		[matrix insertRow:i];
+		//cell = [matrix	cellAt:i	:0];
+		cell = [matrix cellAtRow:i column:0];
+		[cell	setStringValue:CastNSString(t->name)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-	return max;
+	//return max;
 }
 
 //
@@ -341,7 +371,7 @@ id	thingpanel_i;
 	
 	cell = [thingBrowser_i	selectedCell];
 	if (cell)
-		strcpy(name,[cell	stringValue]);
+		strcpy(name,CastCString([cell	stringValue]));
 	max = [masterList_i	count];
 	
 	do
@@ -370,9 +400,11 @@ id	thingpanel_i;
 	if (which >= 0)
 	{
 		matrix = [thingBrowser_i	matrixInColumn:0];
-		[matrix	selectCellAt:which  :0];
-		[matrix	scrollCellToVisible:which :0];
-	}			
+//		[matrix	selectCellAt:which  :0];
+//		[matrix	scrollCellToVisible:which :0];
+		[matrix selectCellAtRow:which column:0];
+		[matrix scrollCellToVisibleAtRow:which column:0];
+	}
 	
 	return self;
 }
@@ -396,8 +428,9 @@ id	thingpanel_i;
 	t = [masterList_i	elementAt:which];
 	[self	fillThingData:t];
 	[thingBrowser_i	reloadColumn:0];
-	[[thingBrowser_i	matrixInColumn:0]
-					selectCellAt:which  :0];
+//	[[thingBrowser_i	matrixInColumn:0]
+//					selectCellAt:which  :0];
+	[[thingBrowser_i	matrixInColumn:0] selectCellAtRow:which column:0];
 	[doomproject_i	setDirtyProject:TRUE];
 	
 	return self;
@@ -408,17 +441,24 @@ id	thingpanel_i;
 //
 - fillThingData:(thinglist_t *)thing
 {
-	thing->angle = [fields_i		intValueAt:0];
-	thing->value = [fields_i		intValueAt:1];
+	id angleCell, valueCell;
+	
+	angleCell = [fields_i cellAtRow:0 column:0];
+	valueCell = [fields_i cellAtRow:1 column:0];
+	
+//	thing->angle = [fields_i		intValueAt:0];
+//	thing->value = [fields_i		intValueAt:1];
+	thing->angle = [angleCell		intValue];
+	thing->value = [valueCell		intValue];
 	[self	confirmCorrectNameEntry:NULL];
-	strcpy(thing->name,[nameField_i	stringValue]);
+	strcpy(thing->name,CastCString([nameField_i	stringValue]));
 	thing->option = [ambush_i	intValue]<<3;
 	thing->option |= ([network_i	intValue]&1)<<4;
-	thing->option |= [[difficulty_i cellAt:0 :0] intValue]&1;
-	thing->option |= ([[difficulty_i cellAt:1 :0] intValue]&1)<<1;
-	thing->option |= ([[difficulty_i cellAt:2 :0] intValue]&1)<<2;
+	thing->option |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
+	thing->option |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
+	thing->option |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
 	thing->color = [thingColor_i	color];
-	strcpy(thing->iconname,[iconField_i	stringValue]);
+	strcpy(thing->iconname,CastCString([iconField_i	stringValue]));
 	if (!thing->iconname[0])
 		strcpy(thing->iconname,"NOICON");
 	return self;
@@ -433,15 +473,15 @@ id	thingpanel_i;
 	int	i;
 
 	bzero(name,32);
-	if (strlen([nameField_i	stringValue]) > 31)
-		strncpy(name,[nameField_i	stringValue],31);
+	if (strlen(CastCString([nameField_i	stringValue])) > 31)
+		strncpy(name,CastCString([nameField_i	stringValue]),31);
 	else
-		strcpy(name,[nameField_i	stringValue]);
+		strcpy(name,CastCString([nameField_i	stringValue]));
 		
 	for (i = 0; i < strlen(name);i++)
 		if (name[i] == ' ')
 			name[i] = '_';
-	[nameField_i	setStringValue:name];
+	[nameField_i	setStringValue:CastNSString(name)];
 	return self;
 }
 
@@ -450,13 +490,13 @@ id	thingpanel_i;
 //
 - getThing:(worldthing_t	*)thing
 {
-	thing->angle = [fields_i	intValueAt:0];
-	thing->type = [fields_i	intValueAt:1];
+	thing->angle = [[fields_i cellAtRow:0 column:0]	intValue];	// TF
+	thing->type = [[fields_i cellAtRow:1 column:0]	intValue];	// TF
 	thing->options = [ambush_i	intValue]<<3;
 	thing->options |= ([network_i	intValue]&1)<<4;
-	thing->options |= [[difficulty_i	cellAt:0 :0] intValue]&1;
-	thing->options |= ([[difficulty_i	cellAt:1 :0] intValue]&1)<<1;
-	thing->options |= ([[difficulty_i	cellAt:2 :0] intValue]&1)<<2;
+	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
+	thing->options |= ([[difficulty_i	cellAtRow:1 column:0] intValue]&1)<<1;
+	thing->options |= ([[difficulty_i	cellAtRow:2 column:0] intValue]&1)<<2;
 	
 	return self;
 }
@@ -494,14 +534,18 @@ id	thingpanel_i;
 	id	matrix;
 	
 	matrix = [thingBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:which :0];
-	[matrix	scrollCellToVisible:which :0];
+//	[matrix	selectCellAt:which :0];
+//	[matrix	scrollCellToVisible:which :0];
+	[matrix	selectCellAtRow:which column:0];
+	[matrix	scrollCellToVisibleAtRow:which column:0];
+
 	return self;
 }
 
 - setAngle:sender
 {
-	[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
+	[[fields_i cellAtRow:0 column:0] setIntValue:[[sender selectedCell] tag]];
+	//[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
 	[self		formTarget:NULL];
 	return self;
 }
@@ -539,10 +583,11 @@ id	thingpanel_i;
 //
 - fillDataFromThing:(thinglist_t *)thing
 {
-	[fields_i	setIntValue:thing->value	at:1];
-	[nameField_i	setStringValue:thing->name];
+//	[fields_i	setIntValue:thing->value	at:1];
+	[[fields_i cellAtRow:1 column:0] setIntValue:thing->value];
+	[nameField_i	setStringValue:CastNSString(thing->name)];
 	[thingColor_i	setColor:thing->color];
-	[iconField_i	setStringValue:thing->iconname];
+	[iconField_i	setStringValue:CastNSString(thing->iconname)];
 	
 	basething.type = thing->value;
 	
@@ -556,12 +601,13 @@ id	thingpanel_i;
 {
 	[self	fillDataFromThing:thing];
 	
-	[fields_i	setIntValue:thing->angle	at:0];
+	//[fields_i	setIntValue:thing->angle	at:0];
+	[[fields_i cellAtRow:0 column:0] setIntValue:thing->angle];
 	[ambush_i	setIntValue:((thing->option)>>3)&1];
 	[network_i	setIntValue:((thing->option)>>4)&1];
-	[[difficulty_i cellAt:0 :0] setIntValue:(thing->option)&1];
-	[[difficulty_i cellAt:1 :0] setIntValue:((thing->option)>>1)&1];
-	[[difficulty_i cellAt:2 :0] setIntValue:((thing->option)>>2)&1];
+	[[difficulty_i cellAtRow:0 column:0] setIntValue:(thing->option)&1];
+	[[difficulty_i cellAtRow:1 column:0] setIntValue:((thing->option)>>1)&1];
+	[[difficulty_i cellAtRow:2 column:0] setIntValue:((thing->option)>>2)&1];
 	
 	basething.angle = thing->angle;
 	basething.options = thing->option;
@@ -595,8 +641,10 @@ id	thingpanel_i;
 	[thingBrowser_i	reloadColumn:0];
 	which = [self	findThing:t.name];
 	matrix = [thingBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:which :0];
-	[matrix	scrollCellToVisible:which :0];
+//	[matrix	selectCellAt:which :0];
+//	[matrix	scrollCellToVisible:which :0];
+	[matrix selectCellAtRow:which column:0];
+	[matrix scrollCellToVisibleAtRow:which column:0];
 	[doomproject_i	setDirtyProject:TRUE];
 	
 	return self;
@@ -757,15 +805,18 @@ id	thingpanel_i;
 
 	[window_i disableFlushWindow];
 	
-	[fields_i setIntValue: basething.angle at: 0];
-	[fields_i setIntValue: basething.type at: 1];
+//	[fields_i setIntValue: basething.angle at: 0];
+//	[fields_i setIntValue: basething.type at: 1];
+	[[fields_i cellAtRow:0 column:0] setIntValue:basething.angle];
+	[[fields_i cellAtRow:0 column:0] setIntValue:basething.type];
 	[ambush_i	setIntValue:((basething.options)>>3)&1];
 	[network_i	setIntValue:((basething.options)>>4)&1];
-	[[difficulty_i	cellAt:0 :0] setIntValue:(basething.options)&1];
-	[[difficulty_i	cellAt:1 :0] setIntValue:((basething.options)>>1)&1];
-	[[difficulty_i	cellAt:2 :0] setIntValue:((basething.options)>>2)&1];
+	[[difficulty_i	cellAtRow:0 column:0] setIntValue:(basething.options)&1];
+	[[difficulty_i	cellAtRow:1 column:0] setIntValue:((basething.options)>>1)&1];
+	[[difficulty_i	cellAtRow:2 column:0] setIntValue:((basething.options)>>2)&1];
 	
-	[window_i reenableFlushWindow];
+	//[window_i reenableFlushWindow];
+	[window_i enableFlushWindow];
 	[window_i flushWindow];
 	
 	return self;
@@ -786,13 +837,15 @@ id	thingpanel_i;
 	int			i;
 	worldthing_t	*thing;
 	
-	basething.angle = [fields_i intValueAt: 0];
-	basething.type = [fields_i intValueAt: 1];
+//	basething.angle = [fields_i intValueAt: 0];
+//	basething.type = [fields_i intValueAt: 1];
+	basething.angle = [[fields_i cellAtRow:0 column:0] intValue];
+	basething.type = [[fields_i cellAtRow:1 column:0] intValue];
 	basething.options = [ambush_i	intValue]<<3;
 	basething.options |= ([network_i	intValue]&1)<<4;
-	basething.options |= [[difficulty_i cellAt:0 :0] intValue]&1;
-	basething.options |= ([[difficulty_i cellAt:1 :0] intValue]&1)<<1;
-	basething.options |= ([[difficulty_i cellAt:2 :0] intValue]&1)<<2;
+	basething.options |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
+	basething.options |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
+	basething.options |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
 	
 	thing = &things[0];
 	for (i=0 ; i<numthings ; i++, thing++)
@@ -848,12 +901,12 @@ id	thingpanel_i;
 =
 ===================
 */
-
-- windowDidUpdate:sender
+- (void)windowDidUpdate:(NSNotification *)notification
+//- windowDidUpdate:sender
 {
 	[self updateInspector: YES];
 		
-	return self;
+	//return self;
 }
 
 

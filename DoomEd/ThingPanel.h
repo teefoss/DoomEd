@@ -14,16 +14,16 @@ typedef struct
 	int		value, option,angle;
 } thinglist_t;
 
-#define	THINGNAME	"ThingInspector"
+#define	THINGNAME	@"ThingInspector"
 
 #define	DIFF_EASY	0
 #define DIFF_NORMAL	1
 #define DIFF_HARD	2
 #define DIFF_ALL	3
 
-@interface ThingPanel:Object
+@interface ThingPanel:Object <NSWindowDelegate, NSBrowserDelegate>
 {
-	id	fields_i;
+	id	fields_i;		// NSForm: Angle, Type, Name (TF)
  	id	window_i;
 	id	addButton_i;
 	id	updateButton_i;
@@ -35,13 +35,15 @@ typedef struct
 	id	iconField_i;
 	id	ambush_i;		// switch
 	id	network_i;		// switch
-	id	difficulty_i;	// switch matrix
-	id	diffDisplay_i;	// radio matrix
+	id	difficulty_i;	// switch matrix	// NSMatrix of checkboxes (TF)
+	id	diffDisplay_i;	// radio matrix		// NSMatrix (TF)
 	id	count_i;		// display count
 	
 	int	diffDisplay;
 	
 	worldthing_t	basething, oldthing;
+	
+	id suggestButton_i;	// added to programmatically set title with line wrap
 }
 
 - changeDifficultyDisplay:sender;

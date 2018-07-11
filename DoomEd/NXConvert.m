@@ -9,7 +9,7 @@
 #import "NXConvert.h"
 
 NSInteger
-NSIntegerNXRunAlertPanel
+NXRunAlertPanel
 (const char *title,
  const char *msgFormat,
  const char *defaultButton,
@@ -109,6 +109,19 @@ void NXIntegralRect(NXRect *aRect)
 void NXSetColor(NSColor *color)
 {
 	[color set];
+}
+
+NXColor *NXConvertRGBToColor(float red, float green, float blue)
+{
+	NSColor *new = [NSColor colorWithRed:red green:green blue:blue alpha:1.0];
+	return new;
+}
+
+void NXConvertColorToRGB(NXColor* color, float *red, float *green, float *blue)
+{
+	*red = [color redComponent];
+	*green = [color greenComponent];
+	*blue = [color blueComponent];
 }
 
 void NXRectFill(const NXRect *aRect)

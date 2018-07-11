@@ -12,8 +12,10 @@
 #import "NXConvert.h"
 
 void	PSsetrgbcolor(float red, float green, float blue);
-void	PSmoveto(float x, float y);
+void 	PSsetgray(float white);
 void	PSsetlinewidth(float width);
+
+void	PSmoveto(float x, float y);
 void	PSlineto(float x, float y);
 void	PSstroke(void);
 

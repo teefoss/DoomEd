@@ -31,17 +31,24 @@ typedef NSScrollView 	ScrollView;
 const NSInteger NX_ALERTDEFAULT = NSModalResponseOK;
 const NSInteger NX_ALERTALTERNATE = NSModalResponseCancel;
 
-
+// Panels
 NSInteger NXRunAlertPanel (const char *title, const char *msgFormat, const char *defaultButton, const char *alternateButton, const char *otherButton, ...);
 void NXFreeAlertPanel(id panel);
 
+// Converting Strings
 NSString 	*CastNSString(const char *cstring);
 const char 	*CastCString(NSString *string);
 
-void 	NXBeep(void);
+// 		Color
 void	NXSetColor(NSColor *color);
-void	NXPing();
+NXColor *NXConvertRGBToColor(float red, float green, float blue);
+void 	NXConvertColorToRGB(NXColor *color, float *red, float *green, float *blue);
 
+//		Misc
+void	NXPing(void);
+void 	NXBeep(void);
+
+//		Geometry
 void	NXSetRect(NXRect *aRect, NXCoord x, NXCoord y, NXCoord width, NXCoord height);
 NSRect  *NXUnionRect(const NSRect *aRect, const NSRect *bRect);
 NSRect  *NXIntersectionRect(const NSRect *aRect, NSRect *bRect);

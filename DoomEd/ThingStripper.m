@@ -1,6 +1,8 @@
 #import	"ThingPanel.h"
 #import	"ThingStripper.h"
 
+#import "Storage.h"
+
 @implementation ThingStripper
 //=====================================================================
 //
@@ -17,11 +19,12 @@
 {
 	if (!thingStripPanel_i)
 	{
-		[NXApp 
-			loadNibSection:	"ThingStripper.nib"
-			owner:			self
-			withNames:		NO
-		];
+		[[NSBundle mainBundle] loadNibNamed:@"ThingStripper.nib" owner:self topLevelObjects:nil];
+//		[NXApp
+//			loadNibSection:	"ThingStripper.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
 		[thingStripPanel_i	setFrameUsingName:THINGSTRIPNAME];
 		[thingStripPanel_i	setDelegate:self];
 
@@ -35,21 +38,27 @@
 	return self;
 }
 
-- windowDidMiniaturize:sender
+- (void)windowDidMiniaturize:(NSNotification *)notification
+//- windowDidMiniaturize:sender
 {
-	[sender	setMiniwindowIcon:"DoomEd"];
-	[sender	setMiniwindowTitle:"ThingStrip"];
-	return self;
+	NSWindow *win = [notification object];
+	NSImage *img = [NSImage imageNamed:@"DoomEd"];
+//	[sender	setMiniwindowIcon:"DoomEd"];
+//	[sender	setMiniwindowTitle:"ThingStrip"];
+	[win setMiniwindowImage:img];
+	[win setMiniwindowTitle:@"ThingStrip"];
+	//return self;
 }
 
 //
 //	Empty list if window gets closed!
 //
-- windowWillClose:sender
+- (void)windowWillClose:(NSNotification *)notification
+//- windowWillClose:sender
 {
 	[thingStripPanel_i	saveFrameUsingName:THINGSTRIPNAME];
 	[thingList_i	empty];
-	return self;
+	//return self;
 }
 
 //===================================================================
@@ -134,11 +143,13 @@
 	selRow = [matrix	selectedRow];
 	if (selRow >= 0)
 	{
-		[matrix	removeRowAt:selRow andFree:YES];
+		//[matrix	removeRowAt:selRow andFree:YES];
+		[matrix removeRow:selRow];
 		[thingList_i	removeElementAt:selRow];
 	}
 	[matrix	sizeToCells];
-	[matrix	selectCellAt:-1 :-1];
+	//[matrix	selectCellAt:-1 :-1];
+	[matrix selectCellAtRow:-1 column:-1];
 	[thingBrowser_i	reloadColumn:0];
 
 	return self;
@@ -172,27 +183,31 @@
 //	Delegate method called by "thingBrowser_i" when reloadColumn is invoked
 //
 //===================================================================
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
+//- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
 {
 	int	max, i;
 	id	cell;
 	thingstrip_t	*t;
 	
 	if (column > 0)
-		return 0;
+		//return 0;
+		return;
 		
 	max = [thingList_i	count];
 	for (i = 0; i < max; i++)
 	{
 		t = [thingList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
-		[cell	setStringValue:t->desc];
+//		[matrix	insertRowAt:i];
+		[matrix insertRow:i];
+		//cell = [matrix	cellAt:i	:0];
+		cell = [matrix cellAtRow:i column:0];
+		[cell	setStringValue:CastNSString(t->desc)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-	return max;
+	//return max;
 }
 
 @end
