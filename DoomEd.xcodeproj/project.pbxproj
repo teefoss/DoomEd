@@ -83,15 +83,15 @@
 		3095F69720F5442500570C92 /* thing.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68520F5442300570C92 /* thing.nib */; };
 		3095F69820F5442500570C92 /* flatremapper.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68620F5442300570C92 /* flatremapper.nib */; };
 		3095F69920F5442500570C92 /* doomed.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68720F5442300570C92 /* doomed.nib */; };
-		3095F69A20F5442500570C92 /* thingpalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68820F5442300570C92 /* thingpalette.nib */; };
 		3095F69B20F5442500570C92 /* projectinfo.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68920F5442300570C92 /* projectinfo.nib */; };
 		3095F69C20F5442500570C92 /* line.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68A20F5442300570C92 /* line.nib */; };
-		3095F69D20F5442500570C92 /* textureedit.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68B20F5442400570C92 /* textureedit.nib */; };
-		3095F69E20F5442500570C92 /* remapper.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68C20F5442400570C92 /* remapper.nib */; };
 		3095F69F20F5442500570C92 /* findline.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68D20F5442400570C92 /* findline.nib */; };
-		3095F6A020F5442500570C92 /* texturepalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68E20F5442400570C92 /* texturepalette.nib */; };
 		3095F6A120F5442500570C92 /* textureremapper.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68F20F5442400570C92 /* textureremapper.nib */; };
-		3095F6A220F5442500570C92 /* thingpalview.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F69020F5442400570C92 /* thingpalview.nib */; };
+		3095F6A520F6AA6F00570C92 /* textureedit.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A320F6AA6E00570C92 /* textureedit.nib */; };
+		3095F6A620F6AA6F00570C92 /* texturepalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A420F6AA6E00570C92 /* texturepalette.nib */; };
+		3095F6A820F6AAE700570C92 /* remapper.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A720F6AAE600570C92 /* remapper.nib */; };
+		3095F6AB20F6AB2500570C92 /* thingpalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A920F6AB2400570C92 /* thingpalette.nib */; };
+		3095F6AC20F6AB2500570C92 /* thingpalview.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6AA20F6AB2500570C92 /* thingpalview.nib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,15 +220,15 @@
 		3095F68520F5442300570C92 /* thing.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thing.nib; sourceTree = "<group>"; };
 		3095F68620F5442300570C92 /* flatremapper.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = flatremapper.nib; sourceTree = "<group>"; };
 		3095F68720F5442300570C92 /* doomed.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = doomed.nib; sourceTree = "<group>"; };
-		3095F68820F5442300570C92 /* thingpalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalette.nib; sourceTree = "<group>"; };
 		3095F68920F5442300570C92 /* projectinfo.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = projectinfo.nib; sourceTree = "<group>"; };
 		3095F68A20F5442300570C92 /* line.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = line.nib; sourceTree = "<group>"; };
-		3095F68B20F5442400570C92 /* textureedit.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = textureedit.nib; sourceTree = "<group>"; };
-		3095F68C20F5442400570C92 /* remapper.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = remapper.nib; sourceTree = "<group>"; };
 		3095F68D20F5442400570C92 /* findline.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = findline.nib; sourceTree = "<group>"; };
-		3095F68E20F5442400570C92 /* texturepalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = texturepalette.nib; sourceTree = "<group>"; };
 		3095F68F20F5442400570C92 /* textureremapper.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = textureremapper.nib; sourceTree = "<group>"; };
-		3095F69020F5442400570C92 /* thingpalview.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalview.nib; sourceTree = "<group>"; };
+		3095F6A320F6AA6E00570C92 /* textureedit.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = textureedit.nib; sourceTree = "<group>"; };
+		3095F6A420F6AA6E00570C92 /* texturepalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = texturepalette.nib; sourceTree = "<group>"; };
+		3095F6A720F6AAE600570C92 /* remapper.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = remapper.nib; sourceTree = "<group>"; };
+		3095F6A920F6AB2400570C92 /* thingpalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalette.nib; sourceTree = "<group>"; };
+		3095F6AA20F6AB2500570C92 /* thingpalview.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalview.nib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,16 +383,16 @@
 				3095F68120F5442200570C92 /* preferences.nib */,
 				3095F68220F5442200570C92 /* project.nib */,
 				3095F68920F5442300570C92 /* projectinfo.nib */,
-				3095F68C20F5442400570C92 /* remapper.nib */,
+				3095F6A720F6AAE600570C92 /* remapper.nib */,
 				3095F68020F5442200570C92 /* sectoreditor.nib */,
 				3095F68420F5442200570C92 /* speciallist.nib */,
 				3095F68320F5442200570C92 /* textlog.nib */,
-				3095F68B20F5442400570C92 /* textureedit.nib */,
-				3095F68E20F5442400570C92 /* texturepalette.nib */,
+				3095F6A320F6AA6E00570C92 /* textureedit.nib */,
+				3095F6A420F6AA6E00570C92 /* texturepalette.nib */,
 				3095F68F20F5442400570C92 /* textureremapper.nib */,
 				3095F68520F5442300570C92 /* thing.nib */,
-				3095F68820F5442300570C92 /* thingpalette.nib */,
-				3095F69020F5442400570C92 /* thingpalview.nib */,
+				3095F6A920F6AB2400570C92 /* thingpalette.nib */,
+				3095F6AA20F6AB2500570C92 /* thingpalview.nib */,
 				3095F67F20F5442200570C92 /* thingstripper.nib */,
 			);
 			path = DoomEd;
@@ -476,31 +476,31 @@
 				3095F69220F5442500570C92 /* sectoreditor.nib in Resources */,
 				3095F69C20F5442500570C92 /* line.nib in Resources */,
 				3095F69F20F5442500570C92 /* findline.nib in Resources */,
+				3095F6A620F6AA6F00570C92 /* texturepalette.nib in Resources */,
 				3095F6A120F5442500570C92 /* textureremapper.nib in Resources */,
 				3095F69420F5442500570C92 /* project.nib in Resources */,
 				3010A73020E708860007A544 /* Thumbs.db in Resources */,
 				3010A73B20E708860007A544 /* DESave.snd in Resources */,
 				3095F69320F5442500570C92 /* preferences.nib in Resources */,
+				3095F6A820F6AAE700570C92 /* remapper.nib in Resources */,
 				3010A72920E708860007A544 /* D_EPain.snd in Resources */,
 				3010A71C20E708860007A544 /* DoomEd.app in Resources */,
 				3095F69B20F5442500570C92 /* projectinfo.nib in Resources */,
 				3010A71A20E708860007A544 /* D_Ratdie.snd in Resources */,
 				3010A70420E708860007A544 /* PB.project in Resources */,
 				3010A71120E708860007A544 /* Drip.snd in Resources */,
-				3095F69D20F5442500570C92 /* textureedit.nib in Resources */,
 				3010A70B20E708860007A544 /* pathops.pswm in Resources */,
 				30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */,
-				3095F69A20F5442500570C92 /* thingpalette.nib in Resources */,
+				3095F6AB20F6AB2500570C92 /* thingpalette.nib in Resources */,
 				3095F69620F5442500570C92 /* speciallist.nib in Resources */,
 				3095F69820F5442500570C92 /* flatremapper.nib in Resources */,
-				3095F6A020F5442500570C92 /* texturepalette.nib in Resources */,
-				3095F6A220F5442500570C92 /* thingpalview.nib in Resources */,
+				3095F6AC20F6AB2500570C92 /* thingpalview.nib in Resources */,
 				3010A70720E708860007A544 /* DoomEd.iconheader in Resources */,
+				3095F6A520F6AA6F00570C92 /* textureedit.nib in Resources */,
 				3010A73E20E708860007A544 /* PB.gdbinit in Resources */,
 				3010A72720E708860007A544 /* Pop.snd in Resources */,
 				3010A70620E708860007A544 /* DEStart.snd in Resources */,
 				3095F69720F5442500570C92 /* thing.nib in Resources */,
-				3095F69E20F5442500570C92 /* remapper.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

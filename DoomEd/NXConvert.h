@@ -14,9 +14,15 @@
 #define NXApp 				NSApp
 #define NXPoint 			NSPoint
 #define NX_SOVER 			NSCompositingOperationSourceOver
+#define NX_COPY				NSCompositingOperationCopy
 #define NX_RGBColorSpace	NSCalibratedRGBColorSpace
 #define NXEvent				NSEvent
 #define NXSize				NSSize
+
+#define	NX_WHITE	(1.0)
+#define	NX_LTGRAY	(2.0/3.0)
+#define	NX_DKGRAY	(1.0/3.0)
+#define	NX_BLACK	(0.0)
 
 typedef NSObject 		Object;
 typedef NSView 			View;

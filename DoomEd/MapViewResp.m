@@ -92,10 +92,10 @@
 		//event = [NXApp getNextEvent: NX_MOUSEUPMASK | NX_RMOUSEUPMASK | NX_MOUSEDRAGGEDMASK | NX_RMOUSEDRAGGEDMASK];
 		event = [[self window] nextEventMatchingMask:
 				 NSEventMaskLeftMouseUp |
-				 NSEventTypeRightMouseUp |
-				 NSEventTypeLeftMouseDragged |
-				 NSEventTypeRightMouseDragged];
-		if ([event type] == NSEventMaskLeftMouseUp || [event type] == NSEventTypeRightMouseUp)
+				 NSEventMaskRightMouseUp |
+				 NSEventMaskLeftMouseDragged |
+				 NSEventMaskRightMouseDragged];
+		if ([event type] == NSEventTypeLeftMouseUp || [event type] == NSEventTypeRightMouseUp)
 		//if (event->type == NX_MOUSEUP || event->type == NX_RMOUSEUP)
 			break;
 		
@@ -286,7 +286,7 @@
 		
 		//event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
 		event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
-	} while ([event type] != NSEventMaskLeftMouseUp); //(event->type != NX_LMOUSEUP);
+	} while ([event type] != NSEventTypeLeftMouseUp); //(event->type != NX_LMOUSEUP);
 	
 //
 // add to the world
@@ -342,7 +342,7 @@
 	{
 		//event = [NXApp getNextEvent: NX_LMOUSEUPMASK];
 		event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseUp];
-	} while ([event type] != NSEventMaskLeftMouseUp);  //(event->type != NX_LMOUSEUP);
+	} while ([event type] != NSEventTypeLeftMouseUp);  //(event->type != NX_LMOUSEUP);
 
 //
 // drag lines until a click on same point
@@ -359,7 +359,7 @@
 			//event = [NXApp getNextEvent: NX_LMOUSEDOWNMASK | NX_LMOUSEUPMASK | NX_MOUSEMOVEDMASK | NX_LMOUSEDRAGGEDMASK];
 			[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
 			//if (event->type == NX_LMOUSEUP)
-			if ([event type] == NSEventMaskLeftMouseUp)
+			if ([event type] == NSEventTypeLeftMouseUp)
 				break;
 
 			[path moveToPoint:fixedpoint];
@@ -509,7 +509,7 @@
 		event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 		//event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
 		//if ( event->type == NX_LMOUSEUP)
-		if ([event type] == NSEventMaskLeftMouseUp)
+		if ([event type] == NSEventTypeLeftMouseUp)
 			break;
 		//
 		// calculate new rectangle
@@ -669,7 +669,7 @@
 		event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 		//event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
 		
-	} while ([event type] != NSEventMaskLeftMouseUp);   //(event->type != NX_LMOUSEUP);
+	} while ([event type] != NSEventTypeLeftMouseUp);   //(event->type != NX_LMOUSEUP);
 
 	//[window setEventMask:oldMask];
 //	PSnewinstance ();

@@ -3,6 +3,9 @@
 #import "TexturePalView.h"
 #import	"DoomProject.h"
 
+#import "Storage.h"
+#import "postscript.h"
+
 @implementation TexturePalView
 
 //==============================================================
@@ -10,14 +13,15 @@
 //	Init the storage for the Texture Palette dividers
 //
 //==============================================================
-- initFrame:(const NXRect *)frameRect
+- initWithFrame:(NSRect)frame
+//- initFrame:(const NXRect *)frameRect
 {
 	dividers_i = [	[ Storage alloc ]
 				initCount:		0
 				elementSize:	sizeof (divider_t )
 				description:	NULL ];
 				
-	[super	initFrame:frameRect];
+	[super	initWithFrame:frame];
 	return self;
 }
 
@@ -44,7 +48,8 @@
 	return self;
 }
 
-- drawSelf:(const NXRect *)rects :(int)rectCount
+//- drawSelf:(const NXRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
 {
 	int		count;
 	texpal_t	*t;
@@ -71,44 +76,47 @@
 	//
 	count = 0;
 	while ((t = [texturePalette_i	getNewTexture:count++]) != NULL)
-		if (NXIntersectsRect(&rects[0],&t->r) == YES)
-			[t->image	composite:NX_COPY	toPoint:&t->r.origin];
+		if (NXIntersectsRect(&dirtyRect,&t->r) == YES)
+			//[t->image	composite:NX_COPY	toPoint:&t->r.origin];
+			[t->image compositeToPoint:t->r.origin operation:NX_COPY];
 	
 	//
 	//	Draw texture set divider text
 	//
-	PSselectfont("Helvetica-Bold",12);
-	PSrotate ( 0 );
+//	PSselectfont("Helvetica-Bold",12);
+//	PSrotate ( 0 );
 	max = [dividers_i	count ];
 	for (i = 0; i < max; i++)
-	{
+	{	//TODO Label
 		d = [dividers_i	elementAt:i ];
-		PSsetgray ( 0 );
-		PSmoveto( d->x,d->y );
-		PSshow ( d->string );
-		PSstroke ();
+//		PSsetgray ( 0 );
+//		PSmoveto( d->x,d->y );
+//		PSshow ( d->string );
+//		PSstroke ();
 
 		PSsetrgbcolor ( 148,0,0 );
 		PSmoveto ( d->x, d->y + 12 );
-		PSlineto ( bounds.size.width - SPACING, d->y + 12 );
+		PSlineto ( [self bounds].size.width - SPACING, d->y + 12 );
 
 		PSmoveto ( d->x, d->y - 2 );
-		PSlineto ( bounds.size.width - SPACING, d->y - 2 );
+		PSlineto ( [self bounds].size.width - SPACING, d->y - 2 );
 		PSstroke ();
 	}
 	
-	return self;
+	//return self;
 }
 
-- mouseDown:(NXEvent *)theEvent
+//- mouseDown:(NXEvent *)theEvent
+- (void)mouseDown:(NSEvent *)event
 {
 	NXPoint	loc;
 	int		i,texcount,oldwindowmask, which;
 	texpal_t	*t;
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
-	loc = theEvent->location;
-	[self convertPoint:&loc	fromView:NULL];
+	//oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+//	loc = theEvent->location;
+//	[self convertPoint:&loc	fromView:NULL];
+	loc = [self convertPoint:[event locationInWindow] fromView:nil];
 	
 	texcount = [texturePalette_i	getNumTextures];
 	for (i = texcount - 1;i >= 0;i--)
@@ -117,7 +125,8 @@
 		if (NXPointInRect(&loc,&t->r) == YES)
 		{
 			which = [texturePalette_i	selectTextureNamed:t->name ];
-			if (theEvent->data.mouse.click == 2)
+//			if (theEvent->data.mouse.click == 2)
+			if ([event clickCount] == 2)
 			{
 				[textureEdit_i	menuTarget:NULL];
 				[textureEdit_i	newSelection:which];
@@ -125,7 +134,7 @@
 			}
 		}
 	}
-	return self;
+	//return self;
 }
 
 @end

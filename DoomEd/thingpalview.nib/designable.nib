@@ -16,14 +16,14 @@
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
 		<dictionary class="NSMutableDictionary" key="IBDocument.Metadata"/>
-		<array class="NSMutableArray" key="IBDocument.RootObjects" id="721710012">
-			<object class="NSCustomObject" id="251085897">
+		<array class="NSMutableArray" key="IBDocument.RootObjects" id="84589351">
+			<object class="NSCustomObject" id="805134545">
 				<string key="NSClassName">ThingPalView</string>
 			</object>
-			<object class="NSCustomObject" id="19749086">
+			<object class="NSCustomObject" id="1020721645">
 				<string key="NSClassName">FirstResponder</string>
 			</object>
-			<object class="NSCustomObject" id="815174930">
+			<object class="NSCustomObject" id="173670852">
 				<string key="NSClassName">NSApplication</string>
 			</object>
 		</array>
@@ -34,24 +34,24 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
 						<reference key="object" ref="0"/>
-						<reference key="children" ref="721710012"/>
+						<reference key="children" ref="84589351"/>
 						<nil key="parent"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">-2</int>
-						<reference key="object" ref="251085897"/>
+						<reference key="object" ref="805134545"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">File's Owner</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">-1</int>
-						<reference key="object" ref="19749086"/>
+						<reference key="object" ref="1020721645"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">First Responder</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">-3</int>
-						<reference key="object" ref="815174930"/>
+						<reference key="object" ref="173670852"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Application</string>
 					</object>
