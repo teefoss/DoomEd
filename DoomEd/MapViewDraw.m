@@ -107,13 +107,15 @@
 		if (stopy >= top)
 			stopy -= 64;
 			
-		StartPath (TILE_C);
+		//StartPath (TILE_C);
+		[[prefpanel_i colorFor:TILE_C] set];
+		NSBezierPath *tilepath = [[NSBezierPath alloc] init];
 		
 		for ( ; y<=stopy ; y+= 64)
-			AddLine (TILE_C, left, y, right, y);
+			AddLineToPath (tilepath, left, y, right, y);
 	
 		for ( ; x<=stopx ; x+= 64)
-			AddLine (TILE_C, x, top, x, bottom);
+			AddLineToPath (tilepath, x, top, x, bottom);
 	
 		FinishPath (TILE_C);
 	}

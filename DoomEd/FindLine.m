@@ -14,7 +14,7 @@
 
 {
 	window_i = NULL;
-	delSound = [[NSSound soundNamed:@"D_EPain"];
+	delSound = [NSSound soundNamed:@"D_EPain"];
 	return self;
 }
 

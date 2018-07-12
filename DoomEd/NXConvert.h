@@ -18,6 +18,8 @@
 #define NX_RGBColorSpace	NSCalibratedRGBColorSpace
 #define NXEvent				NSEvent
 #define NXSize				NSSize
+#define NX_ALERTALTERNATE	NSModalResponseCancel
+#define NX_ALERTDEFAULT		NSModalResponseOK
 
 #define	NX_WHITE	(1.0)
 #define	NX_LTGRAY	(2.0/3.0)
@@ -33,9 +35,12 @@ typedef NSSound 		Sound;
 typedef NSOpenPanel 	OpenPanel;
 typedef NSColor 		NXColor;
 typedef NSScrollView 	ScrollView;
+typedef NSImage			NXImage;
+typedef NSImageRep 		NXImageRep;
+typedef NSBitmapImageRep	NXBitmapImageRep;
 
-const NSInteger NX_ALERTDEFAULT = NSModalResponseOK;
-const NSInteger NX_ALERTALTERNATE = NSModalResponseCancel;
+//const NSInteger NX_ALERTDEFAULT = NSModalResponseOK;
+//const NSInteger NX_ALERTALTERNATE = NSModalResponseCancel;
 
 // Panels
 NSInteger NXRunAlertPanel (const char *title, const char *msgFormat, const char *defaultButton, const char *alternateButton, const char *otherButton, ...);
@@ -47,6 +52,7 @@ const char 	*CastCString(NSString *string);
 
 // 		Color
 void	NXSetColor(NSColor *color);
+NXColor *NXConvertRGBAToColor(float red, float green, float blue, float alpha);
 NXColor *NXConvertRGBToColor(float red, float green, float blue);
 void 	NXConvertColorToRGB(NXColor *color, float *red, float *green, float *blue);
 

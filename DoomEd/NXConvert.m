@@ -111,6 +111,12 @@ void NXSetColor(NSColor *color)
 	[color set];
 }
 
+NXColor *NXConvertRGBAToColor(float red, float green, float blue, float alpha)
+{
+	NSColor *new = [NSColor colorWithRed:red green:green blue:blue alpha:alpha];
+	return new;
+}
+
 NXColor *NXConvertRGBToColor(float red, float green, float blue)
 {
 	NSColor *new = [NSColor colorWithRed:red green:green blue:blue alpha:1.0];

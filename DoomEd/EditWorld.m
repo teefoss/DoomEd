@@ -391,7 +391,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	sprintf(string,"Please wait while I BSP process this map.\n\n"
 		"Map: %s\nMapWADdir: %s\nBSPprogram:%s\nHost: %s",
 		fromPath,toPath,bspprogram,bsphost);
-	panel = NXGetAlertPanel("Wait...",string,NULL,NULL,NULL);
+	panel = NSGetAlertPanel(@"Wait...",@"%@", CastNSString(string),NULL,NULL,NULL);
 	[panel	orderFront:NULL];
 	NXPing();
 
@@ -402,7 +402,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		[panel	orderOut:NULL];
 		NXFreeAlertPanel(panel);
 		sprintf(string,"rsh attempt returned:%d\n",err);
-		panel = NXGetAlertPanel("rsh error!",string,NULL,NULL,NULL);
+		panel = NSGetAlertPanel(@"rsh error!",@"%@", CastNSString(string),NULL,NULL,NULL);
 		[panel  orderFront:NULL];
 		NXPing();
 	}
@@ -435,7 +435,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		return nil;
 	}
 	
-	pan = NXGetAlertPanel ("One moment","Saving",NULL,NULL,NULL);
+	pan = NSGetAlertPanel (@"One moment",@"Saving",NULL,NULL,NULL);
 	[pan display];
 	[pan orderFront: NULL];
 	NXPing ();

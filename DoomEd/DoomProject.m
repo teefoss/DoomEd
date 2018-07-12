@@ -2004,8 +2004,8 @@ typedef struct
 	newtexture = windex = 0;
 	do
 	{
-		panel = NXGetAlertPanel("Wait...",
-			"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
+		panel = NSGetAlertPanel(@"Wait...",
+			@"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
 		NXPing();
 		
@@ -2122,8 +2122,8 @@ typedef struct
 	//
 	for (windex = 0; windex <= winmax; windex++)
 	{
-		panel = NXGetAlertPanel("Wait...",
-			"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
+		panel = NSGetAlertPanel(@"Wait...",
+			@"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
 		NXPing();
 		

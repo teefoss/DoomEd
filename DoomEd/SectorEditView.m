@@ -2,6 +2,8 @@
 #import	"SectorEditor.h"
 #import	"SectorEditView.h"
 
+#import "postscript.h"
+
 @implementation SectorEditView
 
 - drawSelf:(const NXRect *)rects :(int)rectCount
@@ -30,7 +32,8 @@
 		f = [sectorEdit_i	getCeilingFlat];
 		p.x = 32;
 		p.y = 105;
-		[f->image	composite:NX_COPY	toPoint:&p];
+		//[f->image	composite:NX_COPY	toPoint:&p];
+		[f->image compositeToPoint:p operation:NX_COPY];
 	}
 	
 	//
@@ -46,13 +49,15 @@
 		f = [sectorEdit_i	getFloorFlat];
 		p.x = 32;
 		p.y = 31;
-		[f->image	composite:NX_COPY	toPoint:&p];
+		//[f->image	composite:NX_COPY	toPoint:&p];
+		[f->image compositeToPoint:p operation:NX_COPY];
 	}
 
 	return self;
 }
 
-- mouseDown:(NXEvent *)theEvent
+//- mouseDown:(NXEvent *)theEvent
+- (void)mouseDown:(NSEvent *)event
 {
 	NXPoint	loc;
 	int	oldwindowmask;
@@ -61,9 +66,10 @@
 //	NXEvent	*event;
 //	NXRect	r;
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
-	loc = theEvent->location;
-	[self convertPoint:&loc	fromView:NULL];
+	//oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+//	loc = theEvent->location;
+//	[self convertPoint:&loc	fromView:NULL];
+	loc = [self convertPoint:[event locationInWindow] fromView:nil];
 	
 #if 0	
 	s = [sectorEdit_i		getSector];
@@ -130,8 +136,8 @@
 	}
 #endif
 	
-	[window	setEventMask:oldwindowmask];
-	return self;
+	//[window	setEventMask:oldwindowmask];
+	//return self;
 }
 
 @end

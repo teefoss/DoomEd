@@ -7,14 +7,15 @@
 
 
 @implementation FlatsView
-- initFrame:(const NXRect *)frameRect
+//- initFrame:(const NXRect *)frameRect
+- initWithFrame:(NSRect)frame
 {
 	dividers_i = [	[ Storage alloc ]
 				initCount:		0
 				elementSize:	sizeof (divider_t )
 				description:	NULL ];
 				
-	[super initWithFrame:*frameRect];
+	[super initWithFrame:frame];
 	return self;
 }
 
@@ -67,16 +68,16 @@
 	//
 	//	Draw flat set divider text
 	//
-	PSselectfont("Helvetica-Bold",12);
-	PSrotate ( 0 );
+//	PSselectfont("Helvetica-Bold",12);
+//	PSrotate ( 0 );
 	max = [dividers_i	count ];
 	for (i = 0; i < max; i++)
 	{
 		d = [dividers_i	elementAt:i ];
-		PSsetgray ( 0 );
-		PSmoveto( d->x,d->y );
-		PSshow ( d->string );
-		PSstroke ();
+//		PSsetgray ( 0 );
+//		PSmoveto( d->x,d->y );
+//		PSshow ( d->string );
+//		PSstroke ();				TODO draw text between dividers
 
 		PSsetlinewidth(1.0);
 		PSsetrgbcolor ( 148,0,0 );

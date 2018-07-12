@@ -5,6 +5,7 @@
 #import	<ctype.h>
 #import	"lbmfunctions.h"
 
+#import "Storage.h"
 
 id	textureEdit_i;
 id	texturePatches;
@@ -23,9 +24,9 @@ id	texturePatches;
 - saveFrame
 {
 	if (window_i)
-		[window_i	saveFrameUsingName:"TextureEditor"];
+		[window_i	saveFrameUsingName:@"TextureEditor"];
 	if (createTexture_i)
-		[createTexture_i	saveFrameUsingName:"CTexturePanel"];
+		[createTexture_i	saveFrameUsingName:@"CTexturePanel"];
 	return self;
 }
 
@@ -51,15 +52,17 @@ id	texturePatches;
 		NXPoint	startPoint;
 		int		ns, i;
 		
-		[NXApp 
-			loadNibSection:	"TextureEdit.nib"
-			owner:			self
-			withNames:		NO
-		];
+//		[NXApp
+//			loadNibSection:	"TextureEdit.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"TextureEdit.nib" owner:self topLevelObjects:nil];
 		
 		[window_i	setDelegate:self];
 		[self		computePatchDocView:&dvf];
-		[texturePatchView_i	sizeTo:dvf.size.width :dvf.size.height];
+		//[texturePatchView_i	sizeTo:dvf.size.width :dvf.size.height];
+		[texturePatchView_i setFrameSize:dvf.size];
 
 		//
 		// start patches at top
@@ -75,18 +78,20 @@ id	texturePatches;
 		//
 		// start texture editor at top
 		//
-		[textureView_i		getFrame:&dvf];
-		[scrollView_i		getContentSize:&s];
+		//[textureView_i		getFrame:&dvf];
+		dvf = [textureView_i frame];
+		//[scrollView_i		getContentSize:&s];
+		s = [scrollView_i contentSize];
 		startPoint.y = dvf.size.height - s.height;
-		[textureView_i		scrollPoint:&startPoint];
+		[textureView_i		scrollPoint:startPoint];
 	
 		selectedTexturePatches = [[Storage	alloc]
 							initCount:		0
 							elementSize:	sizeof(int)
 							description:	NULL];
 		
-		[window_i	setFrameUsingName:"TextureEditor"];
-		[createTexture_i	setFrameUsingName:"CTexturePanel"];
+		[window_i	setFrameUsingName:@"TextureEditor"];
+		[createTexture_i	setFrameUsingName:@"CTexturePanel"];
 		
 		[splitView_i	addSubview:topView_i];
 		[splitView_i	addSubview:botView_i];
@@ -132,11 +137,17 @@ id	texturePatches;
 	return max;
 }
 
-- windowDidMiniaturize:sender
+//- windowDidMiniaturize:sender
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
-	[sender	setMiniwindowIcon:"DoomEd"];
-	[sender	setMiniwindowTitle:"TextureEdit"];
-	return self;
+//	[sender	setMiniwindowIcon:"DoomEd"];
+//	[sender	setMiniwindowTitle:"TextureEdit"];
+//	return self;
+	NSWindow *win = [notification object];
+	NSImage *img = [NSImage imageNamed:@"DoomEd"];
+	
+	[win setMiniwindowImage:img];
+	[win setMiniwindowTitle:@"TextureEdit"];
 }
 
 
@@ -214,7 +225,8 @@ id	texturePatches;
 		return self;
 	}
 	
-	[scrollView_i	getDocVisibleRect:&dvr];
+	//[scrollView_i	getDocVisibleRect:&dvr];
+	dvr = [scrollView_i documentVisibleRect];
 	xoff = dvr.origin.x - ((texpatch_t *)[copyList	elementAt:0])->r.origin.x;
 	yoff = dvr.origin.y - ((texpatch_t *)[copyList	elementAt:0])->r.origin.y;
 	
@@ -393,7 +405,7 @@ id	texturePatches;
 	r.origin.y -= SPACING;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
-	[texturePatchView_i	scrollRectToVisible:&r];
+	[texturePatchView_i	scrollRectToVisible:r];
 	[texturePatchScrollView_i	display];
 	return self;
 }
@@ -412,7 +424,7 @@ id	texturePatches;
 	int			j;
 	int			slen;
 	
-	strcpy(string,[patchSearchField_i	stringValue]);
+	strcpy(string,CastCString([patchSearchField_i	stringValue]));
 	slen = strlen(string);
 	
 	max = [patchImages	count];
@@ -561,7 +573,7 @@ id	texturePatches;
 		[lockedPatch_i	setIntValue:t->patchLocked];
 		[texturePatchWidthField_i	setIntValue:t->r.size.width / 2];
 		[texturePatchHeightField_i	setIntValue:t->r.size.height / 2];
-		[texturePatchNameField_i	setStringValue:t->patchInfo.patchname];
+		[texturePatchNameField_i	setStringValue:CastNSString(t->patchInfo.patchname)];
 	}		
 	return self;
 }
@@ -734,11 +746,14 @@ id	texturePatches;
 	// create a default new texture
 	//
 	
-	rcode = [NXApp	runModalFor:createTexture_i];
-	[createTexture_i	close];
-	if (rcode == NX_RUNABORTED)
+//	rcode = [NXApp	runModalFor:createTexture_i];
+//	[createTexture_i	close];
+//	if (rcode == NX_RUNABORTED)
+//		return self;
+	rcode = [NSApp runModalForWindow:createTexture_i];
+	if (rcode = NSModalResponseAbort)
 		return self;
-
+	
 	tex.width = [createWidth_i	intValue];
 	tex.height = [createHeight_i	intValue];
 	tex.patchcount = 0;
@@ -779,9 +794,9 @@ id	texturePatches;
 	
 	// clip texture name to 8 characters
 	bzero(name,9);
-	strncpy(name,[createName_i	stringValue],8);
+	strncpy(name,CastCString([createName_i	stringValue]),8);
 	strupr(name);
-	[createName_i	setStringValue:name];
+	[createName_i	setStringValue:CastNSString(name)];
 
 	if (	[doomproject_i	textureNamed:name] >= -1)
 	{
@@ -794,7 +809,7 @@ id	texturePatches;
 	
 	if (	[createWidth_i	intValue] &&
 		[createHeight_i	intValue] &&
-		strlen([createName_i	stringValue]))
+		strlen(CastCString([createName_i	stringValue])))
 		[NXApp	stopModal];
 	else
 		NXBeep();
@@ -811,9 +826,9 @@ id	texturePatches;
 	
 	// clip texture name to 8 characters
 	bzero(name,9);
-	strncpy(name,[createName_i	stringValue],8);
+	strncpy(name,CastCString([createName_i	stringValue]),8);
 	strupr(name);
-	[createName_i	setStringValue:name];
+	[createName_i	setStringValue:CastNSString(name)];
 
 	if (	[doomproject_i	textureNamed:name] >= -1)
 	{
@@ -842,7 +857,9 @@ id	texturePatches;
 	id		cell;
 	char		string[3];
 	
-	[setMatrix_i	getNumRows:&nr numCols:&nc ];
+	//[setMatrix_i	getNumRows:&nr numCols:&nc ];
+	nr = [setMatrix_i numberOfRows];
+	nc = [setMatrix_i numberOfColumns];
 	if (nr == 5)
 	{
 		[newSetButton_i	setEnabled:NO ];
@@ -852,9 +869,10 @@ id	texturePatches;
 	
 	[setMatrix_i	addRow ];
 	nr++;
-	cell = [setMatrix_i	cellAt:nr-1 :0 ];
+	//cell = [setMatrix_i	cellAt:nr-1 :0 ];
+	cell = [setMatrix_i cellAtRow:nr-1 column:0];
 	sprintf (string, "%d",nr );
-	[cell		setTitle:string ];
+	[cell		setTitle:CastNSString(string) ];
 	[cell		setTag: nr-1 ];
 	[setMatrix_i	sizeToCells ];
 	[setMatrix_i	selectCell:cell ];
@@ -942,13 +960,14 @@ id	texturePatches;
 	
 	[selectedTexturePatches	empty];
 	
-	[textureView_i		sizeTo:textures[currentTexture].width * 2
-					:textures[currentTexture].height * 2];
+//	[textureView_i		sizeTo:textures[currentTexture].width * 2
+//					:textures[currentTexture].height * 2];
+	[textureView_i setFrameSize:NSMakeSize(textures[currentTexture].width * 2, textures[currentTexture].height * 2)];
 	[textureView_i		display];
 	
 	[textureWidthField_i	setIntValue:textures[currentTexture].width];
 	[textureHeightField_i	setIntValue:textures[currentTexture].height];
-	[textureNameField_i	setStringValue:textures[currentTexture].name];
+	[textureNameField_i	setStringValue:CastNSString(textures[currentTexture].name)];
 	[textureSetField_i		setIntValue:textures[currentTexture].WADindex + 1 ];
 	
 	return self;
@@ -972,9 +991,9 @@ id	texturePatches;
 - setWarning:(BOOL)state
 {
 	if (state == YES)
-		[dragWarning_i	setStringValue:"Selections dragged outside texture!"];
+		[dragWarning_i	setStringValue:@"Selections dragged outside texture!"];
 	else
-		[dragWarning_i	setStringValue:" "];
+		[dragWarning_i	setStringValue:@" "];
 	return self;
 }
 
@@ -989,7 +1008,8 @@ id	texturePatches;
 	texpatch_t	p;
 	apatch_t		*pi;
 	
-	[scrollView_i	getDocVisibleRect:&dvr];
+	//[scrollView_i	getDocVisibleRect:&dvr];
+	dvr = [scrollView_i documentVisibleRect];
 	ct = currentTexture;
 	ox = oldx;
 	oy = oldy;
@@ -1068,7 +1088,7 @@ id	texturePatches;
 	// scroll a little more to the right...
 	//
 	p.r.origin.x += p.r.size.width * 1.5;
-	[textureView_i		scrollRectToVisible:&p.r];
+	[textureView_i		scrollRectToVisible:p.r];
 	[textureView_i		display];
 	return self;
 }
@@ -1116,14 +1136,14 @@ id	texturePatches;
 	t = [patchImages	elementAt:which];
 	[patchWidthField_i		setIntValue:t->r.size.width];
 	[patchHeightField_i	setIntValue:t->r.size.height];
-	[patchNameField_i		setStringValue: t->name ];
+	[patchNameField_i		setStringValue: CastNSString(t->name) ];
 	
 	r = t->r;
 	r.origin.x -= SPACING;
 	r.origin.y -= SPACING;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
-	[texturePatchView_i			scrollRectToVisible:&r];
+	[texturePatchView_i			scrollRectToVisible:r];
 	[texturePatchScrollView_i	display];
 	return self;
 }
@@ -1139,10 +1159,12 @@ id	texturePatches;
 	apatch_t		*p;
 	id			panel;
 	
-	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
-		NULL,NULL,NULL);
+//	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
+//		NULL,NULL,NULL);
+	panel = NSGetAlertPanel(@"Wait...", @"Dumping texture patches.", nil, nil, nil);
 	[panel	orderFront:NULL];
 	NXPing();
+
 	
 	max = [patchImages	count];
 	for (i = 0; i < max; i++)
@@ -1251,12 +1273,13 @@ id	texturePatches;
 {
 	NXSize	theSize;
 	
-	p->image_x2 = [p->image	copyFromZone:NXDefaultMallocZone()];
+	//p->image_x2 = [p->image	copyFromZone:NXDefaultMallocZone()];
+	p->image_x2 = [p->image copyWithZone:NSDefaultMallocZone()];
 	theSize = p->size;
 	theSize.width *= 2;
 	theSize.height *= 2;
-	[p->image_x2	setScalable:YES];
-	[p->image_x2	setSize:&theSize];
+	//[p->image_x2	setScalable:YES];	// TODO ?
+	[p->image_x2	setSize:theSize];
 	return self;
 }		
 
@@ -1341,14 +1364,16 @@ id	texturePatches;
 // user resized the Texture Edit window.
 // change the size of the patch palette.
 //
-- windowDidResize:sender
+//- windowDidResize:sender
+- (void)windowDidResize:(NSNotification *)notification
 {
 	NXRect	r;
 	
 	[self		computePatchDocView:&r];
-	[texturePatchView_i	sizeTo:r.size.width :r.size.height];
+	//[texturePatchView_i	sizeTo:r.size.width :r.size.height];
+	[texturePatchView_i		setFrameSize:r.size];
 	[window_i	display];
-	return self;
+	//return self;
 }
 
 //
@@ -1363,7 +1388,8 @@ id	texturePatches;
 	int		maxwindex;
 	char		string[32];
 	
-	[texturePatchScrollView_i		getDocVisibleRect:&curWindowRect];
+	//[texturePatchScrollView_i		getDocVisibleRect:&curWindowRect];
+	curWindowRect = [texturePatchScrollView_i documentVisibleRect];
 	x = y =  SPACING;
 	maxheight = patchnum = maxwindex = 0;
 	while ((patch = [patchImages	elementAt:patchnum++]) != NULL)
@@ -1487,25 +1513,26 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,char *
 	// make an NXimage to hold the data
 	//
 	image_i = [[NXBitmapImageRep alloc]
-		initData:			NULL 
+		initWithBitmapDataPlanes:			NULL
 		pixelsWide:		width 
 		pixelsHigh:		height
 		bitsPerSample:	4
 		samplesPerPixel:	4 
 		hasAlpha:		YES
 		isPlanar:			NO 
-		colorSpace:		NX_RGBColorSpace 
+		colorSpaceName:		NX_RGBColorSpace
 		bytesPerRow:		width*2
 		bitsPerPixel: 		16
 	];
-
+	
 	if (!image_i)
 		return nil;
 				
 	//
 	// translate the picture
 	//
-	dest_p = [(NXBitmapImageRep *)image_i data];
+	//dest_p = [(NXBitmapImageRep *)image_i data];
+	dest_p = [(NSBitmapImageRep *)image_i bitmapData];
 	memset(dest_p,0,width * height * 2);
 	
 	for (i = 0;i < width; i++)
@@ -1530,7 +1557,8 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,char *
 
 	fastImage_i = [[NXImage	alloc]
 							init];
-	[fastImage_i	useRepresentation:(NXImageRep *)image_i];	
+	//[fastImage_i	useRepresentation:(NXImageRep *)image_i];
+	[fastImage_i addRepresentation:(NSImageRep *)image_i];
 	return fastImage_i;
 }
 

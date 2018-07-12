@@ -2,6 +2,9 @@
 #import "SpecialList.h"
 #import "DoomProject.h"
 
+#import "Storage.h"
+//#import "SpecialListWindow.h"	should be imported? (for setParent)
+
 //
 //	Methods to be implemented by the delegate
 //
@@ -37,7 +40,7 @@
 - saveFrame
 {
 	if (frameString[0])
-		[specialPanel_i	saveFrameUsingName:frameString];
+		[specialPanel_i	saveFrameUsingName:CastNSString(frameString)];
 	return self;
 }
 
@@ -68,14 +71,15 @@
 {
 	if (!specialPanel_i)
 	{
-		[NXApp 
-			loadNibSection:	"SpecialList.nib"
-			owner:			self
-			withNames:		NO
-		];
-		[specialPanel_i	setTitle:title];
+//		[NXApp
+//			loadNibSection:	"SpecialList.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"SpecialList.nib" owner:self topLevelObjects:nil];
+		[specialPanel_i	setTitle:CastNSString(title)];
 		if (frameString[0])
-			[specialPanel_i	setFrameUsingName:frameString];
+			[specialPanel_i	setFrameUsingName:CastNSString(frameString)];
 		[specialPanel_i	setParent:self];
 	}
 	[specialBrowser_i	reloadColumn:0];
@@ -94,8 +98,9 @@
 	
 	[specialBrowser_i	reloadColumn:0];
 	matrix = [specialBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:i :0];
-	[matrix	scrollCellToVisible:i :0];
+	[matrix	selectCellAtRow:i column:0];
+	//[matrix	scrollCellToVisible:i :0];
+	[matrix scrollCellToVisibleAtRow:i column:0];
 	return self;
 }
 			
@@ -148,7 +153,7 @@
 			s[i]='_';
 	}
 	
-	[specialDesc_i	setStringValue:s];
+	[specialDesc_i	setStringValue:CastNSString(s)];
 	return self;
 }
 
@@ -161,7 +166,7 @@
 {
 	special->value = [specialValue_i	intValue];
 	[self	validateSpecialString:NULL];
-	strcpy(special->desc,[specialDesc_i	stringValue]);
+	strcpy(special->desc,CastCString([specialDesc_i	stringValue]));
 	return self;
 }
 
@@ -194,8 +199,9 @@
 	[specialBrowser_i	reloadColumn:0];
 	which = [self	findSpecial:t.value];
 	matrix = [specialBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:which :0];
-	[matrix	scrollCellToVisible:which :0];
+	[matrix	selectCellAtRow:which column:0];
+	//[matrix	scrollCellToVisible:which :0];
+	[matrix scrollCellToVisibleAtRow:which column:0];
 	[doomproject_i	setDirtyProject:TRUE];
 	
 	return self;
@@ -229,7 +235,7 @@
 - fillDataFromSpecial:(speciallist_t *)special
 {
 	[specialValue_i	setIntValue:special->value];
-	[specialDesc_i	setStringValue:special->desc];
+	[specialDesc_i	setStringValue:CastNSString(special->desc)];
 	return self;
 }
 
@@ -280,8 +286,8 @@
 		s = [specialList_i	elementAt:i];
 		if (s->value == which)
 		{
-			[matrix	selectCellAt:i :0];
-			[matrix	scrollCellToVisible:i :0];
+			[matrix	selectCellAtRow:i column:0];
+			[matrix	scrollCellToVisibleAtRow:i column:0];
 			[self	fillDataFromSpecial:s];
 			return self;
 		}
@@ -305,7 +311,7 @@
 	
 	cell = [specialBrowser_i	selectedCell];
 	if (cell)
-		strcpy(name,[cell	stringValue]);
+		strcpy(name,CastCString([cell	stringValue]));
 	max = [specialList_i	count];
 	
 	do
@@ -334,8 +340,8 @@
 	if (which >= 0)
 	{
 		matrix = [specialBrowser_i	matrixInColumn:0];
-		[matrix	selectCellAt:which  :0];
-		[matrix	scrollCellToVisible:which :0];
+		[matrix	selectCellAtRow:which  column:0];
+		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}			
 	
 	return self;
@@ -360,9 +366,10 @@
 	for (i = 0; i < max; i++)
 	{
 		t = [specialList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
-		[cell	setStringValue:t->desc];
+		//[matrix	insertRowAt:i];
+		[matrix insertRow:i];
+		cell = [matrix	cellAtRow:i	column:0];
+		[cell	setStringValue:CastNSString(t->desc)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];

@@ -1,9 +1,8 @@
 #include <appkit/appkit.h>
 
-#if 0
 
 typedef unsigned char byte;
-
+#if 0
 // exception code
 #define LBMERR	NX_APPBASE
 
@@ -509,7 +508,6 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 	return YES;
 }
 
-
 /*
 ==========================================================================
 =
@@ -517,7 +515,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 =
 ==========================================================================
 */
-
+#endif
 void		LBMpaletteTo16 (byte const *lbmpal, unsigned short *pal)
 {
 	int	i, r, g, b;
@@ -530,7 +528,7 @@ void		LBMpaletteTo16 (byte const *lbmpal, unsigned short *pal)
 		pal[i] = NXSwapBigShortToHost( (r<<12) + (g<<8) + (b<<4) + 15 );
 	}
 }
-
+#if 0
 void		LBMpaletteTo32 (byte const *lbmpal, unsigned *pal)
 {
 	int	i, r, g, b;

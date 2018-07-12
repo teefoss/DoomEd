@@ -6,6 +6,8 @@
 #import	"Wadfile.h"
 #import	"TextLog.h"
 
+#import "Storage.h"
+
 id	texturePalette_i;
 
 @implementation TexturePalette
@@ -27,7 +29,7 @@ id	texturePalette_i;
 - saveFrame
 {
 	if (window_i)
-		[window_i	saveFrameUsingName:"TexturePalette"];
+		[window_i	saveFrameUsingName:@"TexturePalette"];
 	return self;
 }
 
@@ -47,10 +49,12 @@ id	texturePalette_i;
 		//
 		// start textures at top
 		//
-		[texturePalView_i		getFrame:&dvr];
+		//[texturePalView_i		getFrame:&dvr];
+		dvr = [texturePalView_i frame];
 		p.x = 0;
 		p.y = dvr.size.height;
-		[texturePalView_i		scrollPoint:&p];
+		//[texturePalView_i		scrollPoint:&p];
+		[texturePalView_i scrollPoint:p];
 		return self;
 }
 
@@ -59,7 +63,7 @@ id	texturePalette_i;
 		[self	finishInit];
 		if ([allTextures	count])
 			[self	selectTexture:0];
-		[window_i	setFrameUsingName:"TexturePalette"];
+		[window_i	setFrameUsingName:@"TexturePalette"];
 		return self;
 }
 
@@ -76,12 +80,12 @@ id	texturePalette_i;
 		
 	if (!window_i)
 	{
-		[NXApp 
-			loadNibSection:	"TexturePalette.nib"
-			owner:			self
-			withNames:		NO
-		];
-
+//		[NXApp
+//			loadNibSection:	"TexturePalette.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"TexturePalette.nib" owner:self topLevelObjects:nil];
 		[self setupPalette];
 		[window_i	setDelegate:self];
 	}
@@ -90,11 +94,17 @@ id	texturePalette_i;
 	return self;
 }
 
-- windowDidMiniaturize:sender
+//- windowDidMiniaturize:sender
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
-	[sender	setMiniwindowIcon:"DoomEd"];
-	[sender	setMiniwindowTitle:"TxPalette"];
-	return self;
+//	[sender	setMiniwindowIcon:"DoomEd"];
+//	[sender	setMiniwindowTitle:"TxPalette"];
+	
+	NSWindow *win = [notification object];
+	NSImage *img = [NSImage imageNamed:@"DoomEd"];
+	[win setMiniwindowImage:img];
+	[win setMiniwindowTitle:@"TxPalette"];
+	//return self;
 }
 
 
@@ -135,11 +145,14 @@ id	texturePalette_i;
 	t.WADindex = textures[which].WADindex;
 	strcpy(t.name,textures[which].name);
 	t.patchamount = textures[which].patchcount;
-	t.image = [[NXImage alloc]
-			initSize:	&s];
-	[t.image	 useCacheWithDepth:NX_TwelveBitRGBDepth];
-	[t.image	lockFocusOn:[t.image lastRepresentation]];
+//	t.image = [[NXImage alloc]
+//			initSize:	&s];
+	t.image = [[NSImage alloc] initWithSize:s];
+	//[t.image	 useCacheWithDepth:NX_TwelveBitRGBDepth];  TODO needed?
 	
+	//[t.image	lockFocus:[[t.image representations] lastObject]];
+	[t.image lockFocus];
+
 	NXSetColor(NXConvertRGBAToColor(1,0,0,1));
 	NXRectFill(&t.r);
 
@@ -162,7 +175,8 @@ id	texturePalette_i;
 					(p.patchInfo.originy);
 		p.r.size.width = p.patch->r.size.width;
 		p.r.size.height = p.patch->r.size.height;
-		[p.patch->image	composite:NX_SOVER toPoint:&p.r.origin];
+		//[p.patch->image	composite:NX_SOVER toPoint:&p.r.origin];
+		[p.patch->image compositeToPoint:p.r.origin operation:NX_SOVER];
 	}
 	[t.image	unlockFocus];
 	return t;
@@ -271,7 +285,8 @@ id	texturePalette_i;
 		
 		t->r.origin.x = x;
 		t->r.origin.y = y;
-		[t->image	getSize:&imagesize];
+		//[t->image	getSize:&imagesize];
+		imagesize = [t->image size];
 		if (imagesize.width > maxwidth)
 			maxwidth = imagesize.width;
 
@@ -286,7 +301,8 @@ id	texturePalette_i;
 	
 	s.width = maxwidth + SPACING*2;
 	s.height = y;
-	[texturePalView_i	sizeTo:s.width :s.height];
+	//[texturePalView_i	sizeTo:s.width :s.height];
+	[texturePalView_i setFrameSize:s];
 
 	return self;
 }
@@ -316,7 +332,7 @@ id	texturePalette_i;
 	
 	selectedTexture = i;
 	t = [self	getTexture:i];
-	[titleField_i	setStringValue:t->name];
+	[titleField_i	setStringValue:CastNSString(t->name)];
 	[widthField_i	setIntValue:t->r.size.width];
 	[heightField_i	setIntValue:t->r.size.height];
 	[patchField_i	setIntValue:t->patchamount];
@@ -325,7 +341,7 @@ id	texturePalette_i;
 	r.origin.y -= SPACING;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
-	[texturePalView_i	scrollRectToVisible:&r];
+	[texturePalView_i	scrollRectToVisible:r];
 	[texturePalScrView_i	display];
 	return i;
 }
@@ -339,7 +355,7 @@ id	texturePalette_i;
 	if (val >= 0)
 	{
 		t = [self	getTexture:val];
-		[titleField_i	setStringValue:t->name];
+		[titleField_i	setStringValue:CastNSString(t->name)];
 		[widthField_i	setIntValue:t->r.size.width];
 		[heightField_i	setIntValue:t->r.size.height];
 		[patchField_i	setIntValue:t->patchamount];
@@ -348,7 +364,7 @@ id	texturePalette_i;
 		r.origin.y -= SPACING;
 		r.size.width += SPACING*2;
 		r.size.height += SPACING*2;
-		[texturePalView_i		scrollRectToVisible:&r];
+		[texturePalView_i		scrollRectToVisible:r];
 		[texturePalScrView_i	display];
 	}
 	return self;
@@ -379,7 +395,7 @@ id	texturePalette_i;
 			r.origin.y -= SPACING;
 			r.size.width += SPACING*2;
 			r.size.height += SPACING*2;
-			[texturePalView_i	scrollRectToVisible:&r];
+			[texturePalView_i	scrollRectToVisible:r];
 			[texturePalScrView_i	display];
 			break;
 		}
@@ -393,7 +409,7 @@ id	texturePalette_i;
 	const char *string;
 	texpal_t	*t;
 	
-	string = [searchField_i	stringValue];
+	string = CastCString([searchField_i	stringValue]);
 	slen = strlen(string);
 	max = [allTextures	count];
 	
@@ -535,7 +551,7 @@ id	texturePalette_i;
 	char	 name[32];
 	char	string[64];
 	
-	strcpy(name,[searchField_i	stringValue]);
+	strcpy(name,CastCString([searchField_i	stringValue]));
 	strupr(name);
 	found = 0;
 	[log_i	msg:"Searching for texture in lines...\n"];
@@ -635,7 +651,7 @@ id	texturePalette_i;
 	char	status[32];
 	
 	
-	strcpy(lsEnteredName,[lsTextField_i	stringValue]);
+	strcpy(lsEnteredName,CastCString([lsTextField_i	stringValue]));
 	if ((!lsEnteredName[0]) || strlen(lsEnteredName)>12)
 	{
 		NXBeep();
@@ -668,7 +684,7 @@ id	texturePalette_i;
 		sprintf(lbmname,"%s/%s.LBM",waddir,textures[j].name);
 		sprintf(status,"Making %s.LBM...",textures[j].name);
 		
-		[lsStatus_i	setStringValue:status];
+		[lsStatus_i	setStringValue:CastNSString(status)];
 		NXPing();
 		strlwr(lbmname);
 		createAndSaveLBM(lbmname, j, fp);
@@ -711,9 +727,12 @@ void createAndSaveLBM(char *name, int cs, FILE *fp)
 	//	CREATE THE TEXTURE GRAPHIC
 	createVgaTexture(texturedata, cs, tw, th);
 
+	// TODO Fix SaveRawLBM
+	
 	// CREATE THE .LBM
+#if 0
 	SaveRawLBM (name, texturedata, tw, th, palette);
-
+#endif
 	free(texturedata);
 	
 	// CREATE THE LUMPY SCRIPT

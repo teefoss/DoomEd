@@ -14,7 +14,7 @@ typedef struct
 	int	oldIndex;
 } texpal_t;
 
-@interface TexturePalette:Object
+@interface TexturePalette:Object <NSWindowDelegate>
 {
 	id	window_i;
 	id	texturePalView_i;

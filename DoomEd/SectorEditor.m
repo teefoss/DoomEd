@@ -8,6 +8,8 @@
 #import	"FlatsView.h"
 #import	"DoomProject.h"
 
+#import "Storage.h"
+
 @implementation SectorEditor
 
 id	sectorEdit_i;
@@ -17,10 +19,16 @@ id	sectorEdit_i;
 	window_i = NULL;
 	sectorEdit_i = self;
 	currentFlat = -1;
-	specialPanel_i = [[[[SpecialList	alloc]
-					setSpecialTitle:"Sector Editor - Specials"]
-					setFrameName:"SectorSpecialPanel"]
-					setDelegate:self];
+
+//	specialPanel_i = [[[[SpecialList	alloc]
+//					setSpecialTitle:"Sector Editor - Specials"]
+//					setFrameName:"SectorSpecialPanel"]
+//					setDelegate:self];
+
+	specialPanel_i = [[SpecialList alloc] init];
+	[specialPanel_i setSpecialTitle:"Sector Editor - Specials"];
+	[specialPanel_i setFrameName:"SectorSpecialPanel"];
+	[specialPanel_i setDelegate:self];
 	return self;
 }
 
@@ -28,7 +36,7 @@ id	sectorEdit_i;
 {
 	[specialPanel_i	saveFrame];
 	if (window_i)
-		[window_i	saveFrameUsingName:"SectorEditor"];
+		[window_i	saveFrameUsingName:@"SectorEditor"];
 	return self;
 }
 
@@ -77,7 +85,7 @@ id	sectorEdit_i;
 	sector.special = 0;
 	sector.tag = 0;
 	
-	[window_i	setFrameUsingName:"SectorEditor"];
+	[window_i	setFrameUsingName:@"SectorEditor"];
 	[self	setCurrentFlat:0];
 	return self;
 }
@@ -95,13 +103,14 @@ id	sectorEdit_i;
 	
 	if (!window_i)
 	{
-		[NXApp 
-			loadNibSection:	"SectorEditor.nib"
-			owner:			self
-			withNames:		NO
-		];
+//		[NXApp
+//			loadNibSection:	"SectorEditor.nib"
+//			owner:			self
+//			withNames:		NO
+//		];
+		[[NSBundle mainBundle] loadNibNamed:@"SectorEditor.nib" owner:self topLevelObjects:nil];
 		[self	setupEditor];
-		[window_i	setAvoidsActivation:YES];
+		//[window_i	setAvoidsActivation:YES];	DNE ?
 	}
 	
 	//
@@ -112,11 +121,16 @@ id	sectorEdit_i;
 	return self;
 }
 
-- windowDidMiniaturize:sender
+//- windowDidMiniaturize:sender
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
-	[sender	setMiniwindowIcon:"DoomEd"];
-	[sender	setMiniwindowTitle:"SectorEdit"];
-	return self;
+//	[sender	setMiniwindowIcon:"DoomEd"];
+//	[sender	setMiniwindowTitle:"SectorEdit"];
+//	return self;
+	NSWindow *w = [notification object];
+	NSImage *icon = [NSImage imageNamed:@"DoomEd"];
+	[w setMiniwindowImage:icon];
+	[w setMiniwindowTitle:@"SectorEdit"];
 }
 
 //============================================================
@@ -241,8 +255,8 @@ id	sectorEdit_i;
 	[tag_i				setIntValue:sector.tag];
 	[cheightfield_i		setIntValue:sector.ceilingheight];
 	[fheightfield_i		setIntValue:sector.floorheight];
-	[cflatname_i		setStringValue:sector.ceilingflat];
-	[fflatname_i		setStringValue:sector.floorflat];
+	[cflatname_i		setStringValue:CastNSString(sector.ceilingflat)];
+	[fflatname_i		setStringValue:CastNSString(sector.floorflat)];
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[specialPanel_i		setSpecial:sector.special];
 
@@ -276,13 +290,13 @@ id	sectorEdit_i;
 
 - selectFloor
 {
-	[floorAndCeiling_i	selectCellAt:0 :1];
+	[floorAndCeiling_i	selectCellAtRow:0 column:1];
 	return self;
 }
 
 - selectCeiling
 {
-	[floorAndCeiling_i	selectCellAt:0 :0];
+	[floorAndCeiling_i	selectCellAtRow:0 column:0];
 	return self;
 }
 
@@ -382,7 +396,7 @@ id	sectorEdit_i;
 	r.origin.y -= SPACING;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
-	[flatPalView_i		scrollRectToVisible:&r];
+	[flatPalView_i		scrollRectToVisible:r];
 	[flatPalView_i		display];
 	[self	setKey:NULL];
 	
@@ -418,8 +432,9 @@ id	sectorEdit_i;
 	flat_t		*p;
 	id			panel;
 	
-	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
-		NULL,NULL,NULL);
+//	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
+//		NULL,NULL,NULL);
+	panel = NSGetAlertPanel(@"Wait...", @"Dumping texture patches.", nil, nil, nil);
 	[panel	orderFront:NULL];
 	NXPing();
 	
@@ -546,7 +561,8 @@ id	sectorEdit_i;
 	char	string[32];
 	
 	[flatPalView_i	dumpDividers];
-	[flatScrPalView_i	getDocVisibleRect:&dvr];
+	//[flatScrPalView_i	getDocVisibleRect:&dvr];
+	dvr = [flatScrPalView_i documentVisibleRect];
 	max = [flatImages	count];
 	maxwidth = FLATSIZE*3 + SPACING*3;
 
@@ -573,7 +589,8 @@ id	sectorEdit_i;
 		x += FLATSIZE + SPACING;
 	}
 	
-	[flatPalView_i	sizeTo:dvr.size.width	:y + FLATSIZE + SPACING];
+	//[flatPalView_i	sizeTo:dvr.size.width	:y + FLATSIZE + SPACING];
+	[flatPalView_i setFrameSize:NSMakeSize(dvr.size.width, y + FLATSIZE + SPACING)];
 	p.x = 0;
 	p.y = y + FLATSIZE*2 + SPACING*2;
 	x = SPACING;
@@ -607,7 +624,7 @@ id	sectorEdit_i;
 		x += FLATSIZE + SPACING;
 	}
 	
-	[flatPalView_i	scrollPoint:&p ];
+	[flatPalView_i	scrollPoint:p ];
 	[flatScrPalView_i	display];
 
 	return self;
@@ -658,18 +675,18 @@ id	sectorEdit_i;
 	{
 		ceiling_flat = which;
 		strncpy(sector.ceilingflat,f->name,9);
-		[cflatname_i	setStringValue:sector.ceilingflat];
-		[curFlat_i		setStringValue:sector.ceilingflat];
+		[cflatname_i	setStringValue:CastNSString(sector.ceilingflat)];
+		[curFlat_i		setStringValue:CastNSString(sector.ceilingflat)];
 	}
 	else
 	{
 		floor_flat = which;
 		strncpy(sector.floorflat,f->name,9);
-		[fflatname_i	setStringValue:sector.floorflat];
-		[curFlat_i		setStringValue:sector.ceilingflat];
+		[fflatname_i	setStringValue:CastNSString(sector.floorflat)];
+		[curFlat_i		setStringValue:CastNSString(sector.ceilingflat)];
 	}
 	
-	[flatPalView_i	scrollRectToVisible:&f->r];
+	[flatPalView_i	scrollRectToVisible:f->r];
 	[flatScrPalView_i	display];
 	[sectorEditView_i	display];
 	[self	setKey:NULL];
@@ -682,14 +699,14 @@ id	sectorEdit_i;
 	NXRect	r;
 	
 	currentFlat = which;
-	[curFlat_i		setStringValue:[self  flatName:which] ];
+	[curFlat_i		setStringValue:CastNSString([self  flatName:which]) ];
 	f = [flatImages	elementAt:which];
 	r = f->r;
 	r.origin.x -= SPACING;
 	r.origin.y -= SPACING;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
-	[flatPalView_i		scrollRectToVisible:&r];
+	[flatPalView_i		scrollRectToVisible:r];
 	[flatScrPalView_i	display];
 	
 	return self;
@@ -777,11 +794,12 @@ id	sectorEdit_i;
 // user resized the Sector Editor window.
 // change the size of the flats/sector palettes.
 //
-- windowDidResize:sender
+//- windowDidResize:sender
+- (void)windowDidResize:(NSNotification *)notification
 {
 	[self		computeFlatDocView];
 	[window_i	display];
-	return self;
+	//return self;
 }
 
 - specialChosen:(int)value
@@ -820,14 +838,14 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 	// make an NXimage to hold the data
 	//
 	image_i = [[NXBitmapImageRep alloc]
-		initData:			NULL 
+		initWithBitmapDataPlanes:			NULL
 		pixelsWide:		64 
 		pixelsHigh:		64
 		bitsPerSample:	4
 		samplesPerPixel:	3 
 		hasAlpha:		NO
 		isPlanar:			NO 
-		colorSpace:		NX_RGBColorSpace 
+		colorSpaceName:		NX_RGBColorSpace
 		bytesPerRow:		128
 		bitsPerPixel: 		16
 	];
@@ -838,7 +856,8 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 	//
 	// translate the picture
 	//
-	 (unsigned char *)dest_p =[(NXBitmapImageRep *)image_i data];
+	// (unsigned char *)dest_p =[(NXBitmapImageRep *)image_i data];
+	dest_p = [(NXBitmapImageRep *)image_i bitmapData];
 	memset(dest_p,0,64 * 64 * sizeof(short));
 	
 	for (i = 0;i < 64*64; i++)
@@ -846,6 +865,7 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 
 	fastImage_i = [[NXImage	alloc]
 							init];
-	[fastImage_i	useRepresentation:(NXImageRep *)image_i];	
+	//[fastImage_i	useRepresentation:(NXImageRep *)image_i];
+	[fastImage_i addRepresentation:(NSImageRep *)image_i];
 	return fastImage_i;
 }

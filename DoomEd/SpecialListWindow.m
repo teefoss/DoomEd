@@ -3,6 +3,8 @@
 #import "SpecialListWindow.h"
 #import	"TextureEdit.h"
 
+#import "Storage.h"
+
 @implementation SpecialListWindow
 
 - setParent:(id)p
@@ -16,7 +18,8 @@
 //	Match keypress to first letter
 //
 //===================================================================
-- keyDown:(NXEvent *)event
+//- keyDown:(NXEvent *)event
+- (void)keyDown:(NSEvent *)event
 {
 	char	key[2];
 	char	string2[32];
@@ -28,7 +31,8 @@
 	int		size;
 	int		tries;
 	
-	key[0] = event->data.key.charCode;
+	//key[0] = event->data.key.charCode;
+	key[0] = [event keyCode];
 	strcat(string,key);
 	strupr(string);
 	size = strlen(string);
@@ -64,7 +68,7 @@
 			tries--;
 		}
 	}
-	return self;
+	//return self;
 }
 
 @end

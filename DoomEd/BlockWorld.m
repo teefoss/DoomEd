@@ -613,7 +613,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 [self displayBlockMap];
 #endif
 
-	pan = NXGetAlertPanel ("One moment","Filling block map",NULL,NULL,NULL);
+	pan = NSGetAlertPanel (@"One moment",@"Filling block map",NULL,NULL,NULL);
 	[pan display];
 	[pan orderFront: NULL];
 	NXPing ();
