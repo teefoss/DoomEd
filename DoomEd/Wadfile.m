@@ -1,7 +1,6 @@
 #import "Wadfile.h"
 #import "idfunctions.h"
 #import <ctype.h>
-#import "Storage.h"
 
 typedef struct
 {
@@ -113,7 +112,8 @@ typedef struct
 	close (handle);
 	[info free];
 	free (pathname);
-	return [super free];
+	[super release];
+	return self;
 }
 
 //=============================================================================
@@ -141,7 +141,10 @@ typedef struct
 {
 	lumpinfo_t	*inf;
 	inf = [info elementAt: lump];
-	return inf->name;
+	const char *ret[8];
+	strncpy(ret, inf->name, 8);
+	return ret;
+	//return inf->name;
 }
 
 /*

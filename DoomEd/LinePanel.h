@@ -8,23 +8,23 @@ extern	id	lineSpecialPanel_i;
 
 @interface LinePanel:Object
 {
-	IBOutlet id	p1_i;
-	IBOutlet id	p2_i;
-	IBOutlet id	special_i;
+	id	p1_i;
+	id	p2_i;
+	id	special_i;
 	
-	IBOutlet id pblock_i;
-	IBOutlet id toppeg_i;
-	IBOutlet id bottompeg_i;
-	IBOutlet id twosided_i;
-	IBOutlet id secret_i;
-	IBOutlet id soundblock_i;
-	IBOutlet id dontdraw_i;
-	IBOutlet id monsterblock_i;
+	id pblock_i;
+	id toppeg_i;
+	id bottompeg_i;
+	id twosided_i;
+	id secret_i;
+	id soundblock_i;
+	id dontdraw_i;
+	id monsterblock_i;
 	
-	IBOutlet id	sideradio_i;
-	IBOutlet id	sideform_i;
-	IBOutlet id	tagField_i;
-	IBOutlet id	linelength_i;
+	id	sideradio_i;
+	id	sideform_i;
+	id	tagField_i;
+	id	linelength_i;
 	
 	id	window_i;
 	id	firstColCalc_i;
@@ -34,7 +34,7 @@ extern	id	lineSpecialPanel_i;
 }
 
 - emptySpecialList;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - updateInspector: (BOOL)force;
 - sideRadioTarget:sender;
 - updateLineInspector;

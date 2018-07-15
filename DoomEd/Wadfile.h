@@ -1,11 +1,13 @@
 #import <appkit/appkit.h>
 #import "NXConvert.h"
 
+#import "Storage.h"
+
 @interface Wadfile : Object
 {
 	int		handle;
 	char		*pathname;
-	id		info;
+	Storage		*info;
 	BOOL	dirty;
 }
 

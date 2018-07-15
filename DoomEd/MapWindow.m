@@ -28,8 +28,8 @@ static	int	cornerx = 128, cornery = 64;
 //
 // set up the window
 //
-	NSRect screenframe = [[self screen] frame];
-	screensize = screenframe.size;
+	screensize = [[self screen] frame].size;
+	
 	//[NXApp getScreenSize: &screensize];
 	if (cornerx + newsize.width > screensize.width - 70)
 		cornerx = 128;
@@ -43,11 +43,10 @@ static	int	cornerx = 128, cornery = 64;
 	cornerx += 32;
 	cornery += 32;
 #endif
-	[self initWithContentRect:wframe
-					styleMask:NSWindowStyleMaskTitled
+	self = [super initWithContentRect:wframe
+					styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable | NSWindowStyleMaskMiniaturizable
 					  backing:NSBackingStoreBuffered
 						defer:NO];
-
 //	[self
 //		initContent:		&wframe
 //		style:			NX_RESIZEBARSTYLE
@@ -60,13 +59,12 @@ static	int	cornerx = 128, cornery = 64;
 
 // initialize the map view 
 	mapview_i = [[MapView alloc] initFromEditWorld];
-	//[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
 	
 //		
 // initialize the pop up menus
 //
-	//scalemenu_i = [[PopUpList alloc] init]; //TODO ui
-//	scalemenu_i = [[NSMenu alloc] init];
+//	scalemenu_i = [[PopUpList alloc] init]; //TODO ui
+	scalemenu_i = [[NSMenu alloc] init];
 	//[scalemenu_i setTarget: mapview_i];
 	
 //	[scalemenu_i setAction: @selector(scaleMenuTarget:)];
@@ -121,22 +119,21 @@ static	int	cornerx = 128, cornery = 64;
 	
 // initialize the scroll view
 	wframe.origin.x = wframe.origin.y = 0;
-	scrollview_i = [[PopScrollView alloc] initFrame:&wframe
-											button1:scalebutton_i
-											button2:gridbutton_i];
-//	scrollview_i = [[PopScrollView alloc]
-//		initFrame: 	&wframe
-//		button1: 		scalebutton_i
-//		button2:		gridbutton_i
-//	];
+	//scrollview_i = [[NSScrollView alloc] initWithFrame:wframe];
+	scrollview_i = [[PopScrollView alloc]
+		initFrame: 	&wframe
+		button1: 		scalebutton_i
+		button2:		gridbutton_i
+	];
 	//[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
-	[scrollview_i setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
 // link objects together
+	
 	[self setDelegate: self];
 
 	[scrollview_i setDocumentView:mapview_i];
 	[self setContentView:scrollview_i];
+
 //	oldobj_i = [scrollview_i setDocView: mapview_i];
 //	if (oldobj_i)
 //		[oldobj_i free];
@@ -146,9 +143,13 @@ static	int	cornerx = 128, cornery = 64;
 	
 // scroll to the middle
 	[editworld_i getBounds: &mapbounds];
+	//[mapview_i setFrame:mapbounds];
 	origin.x = mapbounds.origin.x + mapbounds.size.width / 2 - newsize.width /2;
 	origin.y = mapbounds.origin.y + mapbounds.size.height / 2 - newsize.width /2;
 	[mapview_i setOrigin: &origin scale:1];
+
+	//[mapview_i release];
+	[scrollview_i release];
 
 	return self;
 }
@@ -158,10 +159,10 @@ static	int	cornerx = 128, cornery = 64;
 	return mapview_i;
 }
 
-//- scalemenu
-//{
-//	return scalemenu_i;
-//}
+- scalemenu
+{
+	return scalemenu_i;
+}
 
 - scalebutton
 {
@@ -169,10 +170,10 @@ static	int	cornerx = 128, cornery = 64;
 }
 
 
-//- gridmenu
-//{
-//	return gridmenu_i;
-//}
+- gridmenu
+{
+	return gridmenu_i;
+}
 
 - gridbutton
 {
@@ -210,13 +211,8 @@ static	int	cornerx = 128, cornery = 64;
 - (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
 //- windowWillResize:sender toSize:(NXSize *)frameSize
 {
-	NSRect r = NSZeroRect;
-	//oldscreenorg.x = oldscreenorg.y = 0;
-	
-	//[self convertBaseToScreen: &oldscreenorg];
-	[self convertRectToScreen:r];
-	oldscreenorg = r.origin;
-	
+	oldscreenorg.x = oldscreenorg.y = 0;
+	oldscreenorg = [self convertBaseToScreen: oldscreenorg];
 	[mapview_i getCurrentOrigin: &presizeorigin];
 	//return self;
 	return frameSize;
@@ -232,10 +228,10 @@ static	int	cornerx = 128, cornery = 64;
 =
 ======================
 */
-
 - (void)windowDidResize:(NSNotification *)notification
 //- windowDidResize:sender
 {
+	printf("windowdidresize\n");
 	NXRect	wincont, scrollcont;
 	float		scale;
 	NXPoint	newscreenorg;
@@ -244,7 +240,7 @@ static	int	cornerx = 128, cornery = 64;
 // change frame if needed
 //	
 	newscreenorg.x = newscreenorg.y = 0;
-	[self convertBaseToScreen: newscreenorg];  // TODO this needs to be updated
+	newscreenorg = [self convertBaseToScreen: newscreenorg];  // TODO this needs to be updated
 
 	scale = [mapview_i currentScale];
 	presizeorigin.x += (newscreenorg.x - oldscreenorg.x)/scale;
@@ -254,24 +250,31 @@ static	int	cornerx = 128, cornery = 64;
 //
 // resize drag image
 //
-	// not needed?
-#if 0
-	[Window
-		getContentRect:	&wincont 
-		forFrameRect:		&frame
-		style:			NX_RESIZEBARSTYLE
-	];
+//	[Window
+//		getContentRect:	&wincont
+//		forFrameRect:		&frame
+//		style:			NX_RESIZEBARSTYLE
+//	];
+	wincont = [NSWindow contentRectForFrameRect:[self frame]
+									  styleMask:NSWindowStyleMaskResizable];
 
-	[ScrollView
-		getContentSize:	&scrollcont.size
-		forFrameSize:		&wincont.size
-		horizScroller:		YES
-		vertScroller:		YES
-		borderType:		NX_NOBORDER
-	];
-#endif
-
+//	[ScrollView
+//		getContentSize:	&scrollcont.size
+//		forFrameSize:		&wincont.size
+//		horizScroller:		YES
+//		vertScroller:		YES
+//		borderType:		NX_NOBORDER
+//	];
+	scrollcont.size = [NSScrollView contentSizeForFrameSize:wincont.size
+									  hasHorizontalScroller:YES
+										hasVerticalScroller:YES
+												 borderType:NSNoBorder];
 	//return self;
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+	[editworld_i windowWillClose:self];
 }
 
 

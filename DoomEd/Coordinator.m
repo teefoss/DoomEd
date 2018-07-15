@@ -57,7 +57,7 @@ BOOL	debugflag = NO;
 =============================================================================
 */
 
-- (BOOL)appAcceptsAnotherFile: sender
+- (BOOL)appAcceptsAnotherFile: sender	// TODO
 {
 	if (![editworld_i loaded])
 		return YES;
@@ -77,7 +77,7 @@ BOOL	debugflag = NO;
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
 	if (![doomproject_i loaded])
-		[doomproject_i loadProject: [prefpanel_i  getProjectPath] ];
+		[doomproject_i loadProject: [[prefpanel_i  getProjectPath] UTF8String] ];
 	[doomproject_i	setDirtyProject:FALSE];
 	[toolPanel_i	setFrameUsingName:TOOLNAME];
 	
@@ -100,7 +100,7 @@ BOOL	debugflag = NO;
 	
 	startupSound_i = [NSSound soundNamed:@"D_Dbite"];
 	[startupSound_i	play];
-	[startupSound_i	release];
+	//[startupSound_i	release];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification

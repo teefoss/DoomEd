@@ -15,15 +15,18 @@
 - initFrame:(const NXRect *)frameRect button1:b1 button2:b2
 {
 	//[super  initFrame: frameRect];
-	[super initWithFrame:*frameRect];
+	self = [super initWithFrame:*frameRect];
 	[self addSubview: b1];
 	[self addSubview: b2];
 
 	button1 = b1;
 	button2 = b2;
 
-	[self setHasVerticalRuler:YES];
 	[self setHasVerticalScroller:YES];
+	[self setHasVerticalScroller:YES];
+	[self setBorderType:NSNoBorder];
+	[self setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+
 //	[self setHorizScrollerRequired: YES];
 //	[self setVertScrollerRequired: YES];
 	
@@ -41,7 +44,8 @@
 =================
 */
 
-- tile
+//- tile
+- (void)tile
 {
 	NXRect	scrollerframe;
 	NXRect	buttonframe, buttonframe2;
@@ -70,7 +74,7 @@
 	//[hScroller setFrame: &scrollerframe];
 	[[self horizontalScroller] setFrame:scrollerframe];
 
-	return self;
+	//return self;
 }
 
 

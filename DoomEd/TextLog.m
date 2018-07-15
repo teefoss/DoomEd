@@ -13,9 +13,7 @@
 
 - initTitle:(NSString *)title
 {
-	window_i = [[NSBundle mainBundle] loadNibNamed:@"TextLoad.nib"
-											 owner:self
-								   topLevelObjects:nil];
+	window_i = [NSBundle loadNibNamed:@"TextLoad.nib" owner:self];
 	
 //	window_i =	[NXApp
 //				loadNibSection:	"TextLog.nib"

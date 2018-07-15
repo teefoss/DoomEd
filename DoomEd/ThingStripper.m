@@ -1,7 +1,6 @@
 #import	"ThingPanel.h"
 #import	"ThingStripper.h"
 
-#import "Storage.h"
 
 @implementation ThingStripper
 //=====================================================================
@@ -19,7 +18,7 @@
 {
 	if (!thingStripPanel_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed:@"ThingStripper.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"ThingStripper.nib" owner:self];
 //		[NXApp
 //			loadNibSection:	"ThingStripper.nib"
 //			owner:			self

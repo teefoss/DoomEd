@@ -30,9 +30,7 @@
 {
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed:@"FindLine.nib"
-									  owner:self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"FindLine.nib" owner:self];
 //		[NXApp
 //			loadNibSection:	"FindLine.nib"
 //			owner:			self

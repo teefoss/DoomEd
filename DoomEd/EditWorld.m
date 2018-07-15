@@ -306,7 +306,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 		[doomproject_i	setDirtyMap:FALSE];
 	}	
 
-	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
+	if ([windowlist_i count] > 0)
+		[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
 	[windowlist_i makeObjectsPerformSelector:@selector(release)];
 	[windowlist_i release];
 	windowlist_i = [[NSMutableArray alloc] init];
@@ -335,7 +336,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 - newWindow:sender
 {
-	MapWindow	*win;
+	id	win;
 	
 	if (!loaded)
 	{
@@ -349,7 +350,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		return NULL;
 		
 	[windowlist_i addObject: win];
-	[win setDelegate: self];
+	//[win setDelegate: self]; call editworld win delegate methods from in mapwindow
 	[win setTitleWithRepresentedFilename:CastNSString(pathname)];
 	[win	setFrameUsingName:WORLDNAME];
 	[win display];
@@ -640,7 +641,9 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - getMainWindow
 {
-	return [windowlist_i	objectAtIndex:0];
+	if ([windowlist_i count] > 0)
+		return [windowlist_i	objectAtIndex:0];
+	return NULL;
 }
 
 /*
@@ -690,7 +693,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 		bounds.origin.x = bounds.origin.y = 0;
 		bounds.size.width = bounds.size.height = 0;
 	}
-	
+	printf("map bounds: (%f,%f,%f,%f)\n",bounds.origin.x,bounds.origin.y,bounds.size.width,bounds.size.height);
 	*theRect = bounds;
 	return self;
 }
@@ -1383,7 +1386,8 @@ Updates dirty rect based on old and new positions
 	{
 		NXSetRect (&drect, data->origin.x - THINGDRAWSIZE/2
 		, data->origin.y - THINGDRAWSIZE/2,THINGDRAWSIZE, THINGDRAWSIZE);
-		NXUnionRect (&drect, &dirtyrect);
+		//NXUnionRect (&drect, &dirtyrect);
+		dirtyrect = NSUnionRect(drect, dirtyrect);
 	}
 
 // change the thing	
@@ -1394,7 +1398,8 @@ Updates dirty rect based on old and new positions
 	{
 		NXSetRect (&drect, data->origin.x - THINGDRAWSIZE/2
 		, data->origin.y - THINGDRAWSIZE/2,THINGDRAWSIZE, THINGDRAWSIZE);
-		NXUnionRect (&drect, &dirtyrect);
+		//NXUnionRect (&drect, &dirtyrect);
+		dirtyrect = NSUnionRect(drect, dirtyrect);
 	}
 	
 	return nil;

@@ -73,7 +73,6 @@
 		301C348520E9357E0076185A /* postscript.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C348420E9357E0076185A /* postscript.m */; };
 		301C348820E983D80076185A /* NXConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C348720E983D80076185A /* NXConvert.m */; };
 		30734C3920E70801006C06E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3820E70801006C06E4 /* Assets.xcassets */; };
-		30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30734C3A20E70801006C06E4 /* MainMenu.xib */; };
 		3095F69120F5442500570C92 /* thingstripper.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F67F20F5442200570C92 /* thingstripper.nib */; };
 		3095F69220F5442500570C92 /* sectoreditor.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68020F5442200570C92 /* sectoreditor.nib */; };
 		3095F69320F5442500570C92 /* preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F68120F5442200570C92 /* preferences.nib */; };
@@ -208,7 +207,6 @@
 		301C348720E983D80076185A /* NXConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXConvert.m; sourceTree = "<group>"; };
 		30734C3220E707FE006C06E4 /* DoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30734C3820E70801006C06E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		30734C3B20E70801006C06E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30734C3D20E70801006C06E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30734C4020E70801006C06E4 /* DoomEd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoomEd.entitlements; sourceTree = "<group>"; };
 		3095F67F20F5442200570C92 /* thingstripper.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingstripper.nib; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				30734C3820E70801006C06E4 /* Assets.xcassets */,
-				30734C3A20E70801006C06E4 /* MainMenu.xib */,
 				30734C3D20E70801006C06E4 /* Info.plist */,
 				30734C4020E70801006C06E4 /* DoomEd.entitlements */,
 				3010A6D420E7087E0007A544 /* BlockWorld.h */,
@@ -441,6 +438,11 @@
 				TargetAttributes = {
 					30734C3120E707FE006C06E4 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -490,7 +492,6 @@
 				3010A70420E708860007A544 /* PB.project in Resources */,
 				3010A71120E708860007A544 /* Drip.snd in Resources */,
 				3010A70B20E708860007A544 /* pathops.pswm in Resources */,
-				30734C3C20E70801006C06E4 /* MainMenu.xib in Resources */,
 				3095F6AB20F6AB2500570C92 /* thingpalette.nib in Resources */,
 				3095F69620F5442500570C92 /* speciallist.nib in Resources */,
 				3095F69820F5442500570C92 /* flatremapper.nib in Resources */,
@@ -565,17 +566,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		30734C3A20E70801006C06E4 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				30734C3B20E70801006C06E4 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		30734C4120E70801006C06E4 /* Debug */ = {
@@ -691,7 +681,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = DoomEd/DoomEd.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = D54ZHB8K4R;
@@ -709,7 +698,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = DoomEd/DoomEd.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = D54ZHB8K4R;

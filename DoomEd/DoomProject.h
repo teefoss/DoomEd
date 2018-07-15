@@ -50,7 +50,7 @@ extern	char	bsphost[32];		// bsp host machine
 
 //============================================================================
 
-@interface DoomProject : Object
+@interface DoomProject : Object <NSBrowserDelegate>
 {
 	BOOL	loaded;
 	char	projectdirectory[1024];
@@ -61,7 +61,7 @@ extern	char	bsphost[32];		// bsp host machine
 	int		texturessize;
 	
 	id		window_i;
-	NSString		*projectpath_i;
+	id		projectpath_i;
 	id		wadpath_i;
 	id		maps_i;
 	id		thingPanel_i;

@@ -15,6 +15,10 @@ extern	BOOL	linecross[9][9];
 	float		scale;
 	
 	int		gridsize;
+	
+	NSPoint *fixed;		// TF: added for lineDrag animation, now done in drawRect
+	NSPoint *drag;		// "	"
+	NSRect	*selbox;		// " selection box
 }
 
 - initFromEditWorld;

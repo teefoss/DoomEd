@@ -46,7 +46,7 @@ id	thingPalette_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[[NSBundle mainBundle] loadNibNamed:@"ThingPalette.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"ThingPalette.nib" owner:self];
 		
 		[window_i	setDelegate:self];
 		[self		computeThingDocView];

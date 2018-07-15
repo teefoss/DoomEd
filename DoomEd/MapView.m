@@ -16,7 +16,8 @@ BOOL	linecross[9][9];
 
 @implementation MapView
 
-+ initialize
++ (void)initialize
+//+ initialize
 {
 	int	x1,y1,x2,y2;
 	
@@ -32,7 +33,7 @@ BOOL	linecross[9][9];
 						linecross[y1*3+x1][y2*3+x2] = NO;
 				}
 		
-	return self;
+	//return self;
 }
 
 
@@ -59,8 +60,7 @@ BOOL	linecross[9][9];
 	
 	NXSetRect (&aRect, 0,0, 100,100);	// call -setOrigin after installing in clip view
 	[super initWithFrame: aRect];			// to set the proper rectangle
-	//[self setOpaque: YES];
-		
+	//[self setOpaque: YES];	
 	return self;
 }
 
@@ -146,7 +146,7 @@ printf ("Done\n");
 	float			nscale;
 	NXRect		visrect;
 	
-	item = CastCString([[sender selectedCell] title]);
+	item = [[[sender selectedCell] title] UTF8String];
 	sscanf (item,"%f",&nscale);
 	nscale /= 100;
 	
@@ -182,7 +182,7 @@ printf ("Done\n");
 	char	const	*item;
 	int			grid;
 	
-	item = CastCString([[sender selectedCell] title]);
+	item = [[[sender selectedCell] title] UTF8String];
 	sscanf (item,"grid %d",&grid);
 
 	if (grid == gridsize)
@@ -387,10 +387,17 @@ printf ("Done\n");
 	if (scl != scale)
 	{
 //printf ("changed scale\n");
-		NSRect frame = [self frame];
+		
+		// setDrawSize::
+		// Scales the View's coordinate system so that width and height define the size
+		// of the View's frame rectangle in its own coordinates.  If the View's drawing
+		// coordinates have been rotated, the View's frame rectangle size won't necessarily
+		// be the same as its bounds rectangle size.
+		
 		//[self setDrawSize: frame.size.width/scl : frame.size.height/scl];
-		[self setBoundsSize:NSMakeSize(frame.size.width/scl, frame.size.height/scl)]; // TODO is this right?
+		[self setBoundsSize:NSMakeSize([self frame].size.width/scl, [self frame].size.height/scl)]; // TODO is this right?
 		scale = scl;
+		[self setNeedsDisplay:YES];
 	}
 	
 	
@@ -398,14 +405,17 @@ printf ("Done\n");
 // get the rects that is displayed in the superview
 //
 	newbounds = [[self superview] visibleRect];
-	[self convertRect:newbounds fromView:[self superview]];
+//	newbounds = [(NSScrollView *)[self superview] documentVisibleRect];	TODO
+	newbounds = [self convertRect:newbounds fromView:[self superview]];
 	//[superview getVisibleRect: &newbounds];
 	//[self convertRectFromSuperview: &newbounds];
 	newbounds.origin = *org;
 	
 	[editworld_i getBounds: &map];
+	printf("map: %f:%f:%f:%f",map.origin.x,map.origin.y,map.size.width,map.size.height);
 	
-	NXUnionRect (&map, &newbounds);
+	//NXUnionRect (&map, &newbounds);
+	newbounds = NSUnionRect(map, newbounds);
 	
 	NSRect bounds = [self bounds];
 	if (
@@ -414,8 +424,17 @@ printf ("Done\n");
 	)
 	{
 //printf ("changed size\n");
+		
+		// sizeTo::
+		// Resizes the View's frame rectangle to the specified width and height in
+		// its superview's coordinates.  It may also initiate a descendantFrameChanged:
+		// message to the View's superview.
+		
 		//[self sizeTo: newbounds.size.width*scale : newbounds.size.height*scale];
 		[self setFrameSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
+		[self setBoundsSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
+
+		[self setNeedsDisplay:YES];
 	}
 
 	if (
@@ -424,8 +443,16 @@ printf ("Done\n");
 	)
 	{
 //printf ("changed origin\n");
+		
+		// setDrawOrigin::
+		// Shifts the View's coordinate system so that (x, y) corresponds to the same
+		// point as the View's frame rectangle origin.  If the View's coordinates have
+		// been rotated or flipped, this won't necessarily coincide with its bounds rectangle origin.
+		
 		//[self setDrawOrigin: newbounds.origin.x : newbounds.origin.y];
-		[self setFrameOrigin:NSMakePoint(newbounds.origin.x, newbounds.origin.y)];
+		[self setBoundsOrigin:newbounds.origin];
+		[self setFrameOrigin:newbounds.origin];
+		[self setNeedsDisplay:YES];
 	}
 		
 	return self;

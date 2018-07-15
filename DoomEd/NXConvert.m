@@ -8,7 +8,7 @@
 
 #import "NXConvert.h"
 
-NSInteger
+NSInteger	// TODO fix this
 NXRunAlertPanel
 (const char *title,
  const char *msgFormat,
@@ -21,8 +21,10 @@ NXRunAlertPanel
 	
 	[alert setMessageText:[NSString stringWithCString:title encoding:NSUTF8StringEncoding]];
 	[alert setInformativeText:[NSString stringWithCString:msgFormat encoding:NSUTF8StringEncoding]];
-	[alert addButtonWithTitle:[NSString stringWithCString:defaultButton encoding:NSUTF8StringEncoding]];
-	[alert addButtonWithTitle:[NSString stringWithCString:alternateButton encoding:NSUTF8StringEncoding]];
+	if (defaultButton)
+		[alert addButtonWithTitle:[NSString stringWithCString:defaultButton encoding:NSUTF8StringEncoding]];
+	if (alternateButton)
+		[alert addButtonWithTitle:[NSString stringWithCString:alternateButton encoding:NSUTF8StringEncoding]];
 	
 	return [alert runModal];
 }

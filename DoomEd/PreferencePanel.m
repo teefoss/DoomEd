@@ -7,18 +7,18 @@
 
 id	prefpanel_i;
 
-char		*ucolornames[NUMCOLORS] =
+NSString		*ucolornames[NUMCOLORS] =
 {
-	"back_c",
-	"grid_c",
-	"tile_c",
-	"selected_c",
-	"point_c",
-	"onesided_c",
-	"twosided_c",
-	"area_c",
-	"thing_c",
-	"special_c"
+	@"back_c",
+	@"grid_c",
+	@"tile_c",
+	@"selected_c",
+	@"point_c",
+	@"onesided_c",
+	@"twosided_c",
+	@"area_c",
+	@"thing_c",
+	@"special_c"
 };
 
 //char		launchTypeName[] = "launchType";
@@ -26,16 +26,16 @@ char		*ucolornames[NUMCOLORS] =
 NSString	*launchTypeName = @"launchType";
 NSString	*projectPathName = @"projectPath";
 
-char		*openupNames[NUMOPENUP] =
+NSString		*openupNames[NUMOPENUP] =
 {
-	"texturePaletteOpen",
-	"lineInspectorOpen",
-	"lineSpecialsOpen",
-	"errorLogOpen",
-	"sectorEditorOpen",
-	"thingPanelOpen",
-	"sectorSpecialsOpen",
-	"textureEditorOpen"
+	@"texturePaletteOpen",
+	@"lineInspectorOpen",
+	@"lineSpecialsOpen",
+	@"errorLogOpen",
+	@"sectorEditorOpen",
+	@"thingPanelOpen",
+	@"sectorSpecialsOpen",
+	@"textureEditorOpen"
 };
 int			openupValues[NUMOPENUP];
 	
@@ -43,8 +43,6 @@ int			openupValues[NUMOPENUP];
 
 +(void) initialize
 {
-	
-//	static NXDefaultsVector defaults =
 	NSDictionary *defaults =
 	@{
 		@"back_c":@"1:1:1",
@@ -68,35 +66,36 @@ int			openupValues[NUMOPENUP];
 		@"projectPath":@"/RavenDev/maps/project.dpr",
 #endif
 		@"texturePaletteOpen":	@"1",
-	@"lineInspectorOpen":	@"1",
-@"lineSpecialsOpen":	@"1",
-@"errorLogOpen":		@"0",
-@"sectorEditorOpen":	@"1",
-@"thingPanelOpen":		@"0",
-@"sectorSpecialsOpen":	@"0",
-@"textureEditorOpen":	@"0",
+		@"lineInspectorOpen":	@"1",
+		@"lineSpecialsOpen":	@"1",
+		@"errorLogOpen":		@"0",
+		@"sectorEditorOpen":	@"1",
+		@"thingPanelOpen":		@"0",
+		@"sectorSpecialsOpen":	@"0",
+		@"textureEditorOpen":	@"0",
 		//{NULL}
 	};
 
 	//NXRegisterDefaults(APPDEFAULTS, defaults);
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
-
-	//return self;
 }
 
-- getColor: (NSColor *)clr fromString: (char const *)string
+//- getColor: (NSColor *)clr fromString: (char const *)string
+- (NSColor *)getColorfromString: (char const *)string
 {
 	float	r,g,b;
 	
 	sscanf (string,"%f:%f:%f",&r,&g,&b);
+	NSColor *new = [[NSColor alloc] init];
+	new = [NSColor colorWithRed:r green:g blue:b alpha:1.0];
 	//*clr = NXConvertRGBToColor(r,g,b);
-	clr = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1];
-	return self;
+	return new;
 }
 
-- getString: (char *)string fromColor: (NXColor *)clr
+- (NSString *)getStringfromColor: (NXColor *)clr
 {
-	char		temp[40];
+	//char		temp[40];
+	NSString	*temp;
 	float	r,g,b;
 	
 //	r = NXRedComponent(*clr);
@@ -106,10 +105,12 @@ int			openupValues[NUMOPENUP];
 	g = [clr greenComponent];
 	b = [clr blueComponent];
 	
-	sprintf (temp,"%1.2f:%1.2f:%1.2f",r,g,b);
-	strcpy (string, temp);
+//	sprintf (temp,"%1.2f:%1.2f:%1.2f",r,g,b);
+//	strcpy (string, temp);
+	temp = [NSString new];
+	temp = [NSString stringWithFormat:@"%1.2f:%1.2f:%1.2f",r,g,b];
 	
-	return self;
+	return temp;
 }
 
 - getLaunchThingTypeFrom:(const char *)string
@@ -118,11 +119,11 @@ int			openupValues[NUMOPENUP];
 	return self;
 }
 
-- getProjectPathFrom:(const char *)string
-{
-	sscanf(string,"%s",projectPath);
-	return self;
-}
+//- getProjectPathFrom:(const char *)string
+//{
+//	sscanf(string,"%s",projectPath);
+//	return self;
+//}
 
 
 /*
@@ -141,29 +142,33 @@ int			openupValues[NUMOPENUP];
 	prefpanel_i = self;
 	window_i = NULL;		// until nib is loaded
 
-	//...fromString: NXGetDefaultValue(APPDEFAULTS, ucolornames[i])];
-
+//	for (i=0 ; i<NUMCOLORS ; i++)
+//		[self getColor: &color[i]
+//			fromString: NXGetDefaultValue(APPDEFAULTS, ucolornames[i])];
+	
+	color = [[NSMutableArray alloc] init];
 	for (i=0 ; i<NUMCOLORS ; i++)
 	{
-		const char *name = CastCString([[NSUserDefaults standardUserDefaults] valueForKey:CastNSString(ucolornames[i])]);
-		[self getColor:color[i] fromString:name];
+		NSString *name = [[NSUserDefaults standardUserDefaults] stringForKey:ucolornames[i]];
+		[color addObject:[self getColorfromString:[name UTF8String]]];
 	}
-		
-	[self		getLaunchThingTypeFrom:
+	
+	NSString *ltype = [[NSUserDefaults standardUserDefaults] stringForKey:launchTypeName];
+	[self		getLaunchThingTypeFrom: [ltype UTF8String]];
 				//NXGetDefaultValue(APPDEFAULTS,launchTypeName)];
-	 CastCString([[NSUserDefaults standardUserDefaults] valueForKey:launchTypeName])];
 
-	[self		getProjectPathFrom:
+	projectPath = [NSString new];
+	projectPath = [[NSUserDefaults standardUserDefaults] stringForKey:projectPathName];
 				//NXGetDefaultValue(APPDEFAULTS,projectPathName)];
-	 CastCString([[NSUserDefaults standardUserDefaults] valueForKey:projectPathName])];
+	  
 	//
 	// openup defaults
 	//
 	for (i = 0;i < NUMOPENUP;i++)
 	{
-		const char *name = CastCString([[NSUserDefaults standardUserDefaults] valueForKey:CastNSString(openupNames[i])]);
+		NSString *name = [[NSUserDefaults standardUserDefaults] stringForKey:openupNames[i]];
 		//sscanf(NXGetDefaultValue(APPDEFAULTS,openupNames[i]),"%d",&val);
-		sscanf(name,"%d",&val);
+		sscanf([name UTF8String],"%d",&val);
 //		[[openupDefaults_i findCellWithTag:i] setIntValue:val];		original commented out
 		openupValues[i] = val;
 	}
@@ -185,20 +190,28 @@ int			openupValues[NUMOPENUP];
 {
 	int		i;
 	char	string[40];
-	
+	NSString *str = [NSString new];
+
 	for (i=0 ; i<NUMCOLORS ; i++)
 	{
-		[self getString: string  fromColor:color[i]];
+		str = [self getStringfromColor:color[i]];
 		//NXWriteDefault(APPDEFAULTS, ucolornames[i], string);
-		[[NSUserDefaults standardUserDefaults] setObject:CastNSString(string) forKey:CastNSString(ucolornames[i])];
+		[[NSUserDefaults standardUserDefaults] setObject:str forKey:ucolornames[i]];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 	
-	sprintf(string,"%d",launchThingType);
+	// ---- store launch type
+	//sprintf(string,"%d",launchThingType);
 	//NXWriteDefault(APPDEFAULTS,launchTypeName,string);
-	[[NSUserDefaults standardUserDefaults] setObject:CastNSString(string) forKey:launchTypeName];
+	str = [NSString stringWithFormat:@"%i",launchThingType];
+	[[NSUserDefaults standardUserDefaults] setObject:str forKey:launchTypeName];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
+	// ---- store project path
 	//NXWriteDefault(APPDEFAULTS,projectPathName,projectPath);
-	[[NSUserDefaults standardUserDefaults] setObject:CastNSString(projectPath) forKey:projectPathName];
+	//str = [NSString stringWithCString:projectPath encoding:NSUTF8StringEncoding];
+	[[NSUserDefaults standardUserDefaults] setObject:projectPath forKey:projectPathName];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
 	for (i = 0;i < NUMOPENUP;i++)
 	{
@@ -206,7 +219,8 @@ int			openupValues[NUMOPENUP];
 //			[[openupDefaults_i findCellWithTag:i] intValue]);	original commented out
 		sprintf(string,"%d",openupValues[i]);
 		//NXWriteDefault(APPDEFAULTS,openupNames[i],string);
-		[[NSUserDefaults standardUserDefaults] setObject:CastNSString(string) forKey:CastNSString(openupNames[i])];
+		[[NSUserDefaults standardUserDefaults] setObject:CastNSString(string) forKey:openupNames[i]];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 	
 	if (window_i)
@@ -229,9 +243,7 @@ int			openupValues[NUMOPENUP];
 	
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed:@"preferences.nib"
-									  owner:self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"preferences" owner:self];
 //		[NXApp
 //			loadNibSection:	"preferences.nib"
 //			owner:			self
@@ -240,20 +252,38 @@ int			openupValues[NUMOPENUP];
 		
 		[window_i	setFrameUsingName:PREFNAME];
 		
-		colorwell[0] = backcolor_i;
-		colorwell[1] = gridcolor_i;
-		colorwell[2] = tilecolor_i;
-		colorwell[3] = selectedcolor_i;
-		colorwell[4] = pointcolor_i;
-		colorwell[5] = onesidedcolor_i;
-		colorwell[6] = twosidedcolor_i;
-		colorwell[7] = areacolor_i;
-		colorwell[8] = thingcolor_i;
-		colorwell[9] = specialcolor_i;
-
+//		colorwell[0] = backcolor_i;
+//		colorwell[1] = gridcolor_i;
+//		colorwell[2] = tilecolor_i;
+//		colorwell[3] = selectedcolor_i;
+//		colorwell[4] = pointcolor_i;
+//		colorwell[5] = onesidedcolor_i;
+//		colorwell[6] = twosidedcolor_i;
+//		colorwell[7] = areacolor_i;
+//		colorwell[8] = thingcolor_i;
+//		colorwell[9] = specialcolor_i;
+		if (!colorwell)
+		{
+			colorwell = [NSMutableArray new];
+			[colorwell addObject:backcolor_i];
+			[colorwell addObject:gridcolor_i];
+			[colorwell addObject:tilecolor_i];
+			[colorwell addObject:selectedcolor_i];
+			[colorwell addObject:pointcolor_i];
+			[colorwell addObject:onesidedcolor_i];
+			[colorwell addObject:twosidedcolor_i];
+			[colorwell addObject:areacolor_i];
+			[colorwell addObject:thingcolor_i];
+			[colorwell addObject:specialcolor_i];
+		}
 		for (i=0 ; i<NUMCOLORS ; i++)
-			[colorwell[i] setColor: color[i]];
-			
+		{
+			[[colorwell objectAtIndex:i] setColor: [color objectAtIndex:i]];
+		}
+		
+		//[backcolor_i setColor:color[0]];
+		//[gridcolor_i setColor:[NSColor blueColor]];
+
 		for (i = 0;i < NUMOPENUP;i++)
 			[[openupDefaults_i cellWithTag:i] setState:openupValues[i]];
 //			[[openupDefaults_i	findCellWithTag:i]
@@ -261,10 +291,10 @@ int			openupValues[NUMOPENUP];
 	}
 
 	[launchThingType_i  	setIntValue:launchThingType];
-	[projectDefaultPath_i	setStringValue:CastNSString(projectPath)];
+	[projectDefaultPath_i	setStringValue:projectPath];
 
-	[window_i orderFront:self];
-
+	//[window_i orderFront:self];
+	[window_i makeKeyAndOrderFront:self];
 	return self;
 }
 
@@ -284,7 +314,8 @@ int			openupValues[NUMOPENUP];
 // get current colors
 
 	for (i=0 ; i<NUMCOLORS ; i++)
-		color[i] = [colorwell[i] color];
+		//color[i] = [colorwell[i] color];
+		[color setObject:[colorwell[i] color] atIndexedSubscript:i];
 
 // update all windows
 //	list = [NXApp windowList];
@@ -319,7 +350,8 @@ int			openupValues[NUMOPENUP];
 
 - projectPathChanged:sender
 {
-	strcpy(projectPath, CastCString([sender	stringValue]) );
+//	strcpy(projectPath, [[sender	stringValue] UTF8String] );
+	projectPath = [sender stringValue];
 	return self;
 }
 // TODO check this
@@ -330,7 +362,7 @@ int			openupValues[NUMOPENUP];
 	return self;
 }
 
-- (char *)getProjectPath
+- (NSString *)getProjectPath
 {
 	return	projectPath;
 }

@@ -2,6 +2,7 @@
 #import <appkit/appkit.h>
 #import "NXConvert.h"
 
+#import "Storage.h"
 typedef struct
 {
 	int		value;
@@ -15,7 +16,7 @@ typedef struct
 	id	thingBrowser_i;		// nib outlets
 	id	thingStripPanel_i;
 
-	id	thingList_i;
+	Storage	*thingList_i;
 }
 
 - displayPanel:sender;

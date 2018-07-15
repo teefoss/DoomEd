@@ -76,7 +76,7 @@
 //			owner:			self
 //			withNames:		NO
 //		];
-		[[NSBundle mainBundle] loadNibNamed:@"SpecialList.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"SpecialList.nib" owner:self];
 		[specialPanel_i	setTitle:CastNSString(title)];
 		if (frameString[0])
 			[specialPanel_i	setFrameUsingName:CastNSString(frameString)];

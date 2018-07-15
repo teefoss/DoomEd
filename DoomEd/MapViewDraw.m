@@ -7,6 +7,10 @@
 #import "ThingPanel.h"
 
 #import "postscript.h"
+#import "SettingsPanel.h"
+
+#define FRAMEWIDTH		4
+#define SELECTIONGRAY	0.5
 
 @implementation MapView (MapViewDraw)
 
@@ -117,7 +121,8 @@
 		for ( ; x<=stopx ; x+= 64)
 			AddLineToPath (tilepath, x, top, x, bottom);
 	
-		FinishPath (TILE_C);
+		[tilepath stroke];
+		//FinishPath (TILE_C);
 	}
 
 	return self;
@@ -179,6 +184,7 @@
 //	StartPath (SPECIAL_C);
 	NSBezierPath *linepath = [[NSBezierPath alloc] init];
 	NSBezierPath *normalpath = [[NSBezierPath alloc] init];
+
 
 // only draw the lines that might intersect the visible rect
 
@@ -362,6 +368,9 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 //- drawSelf:(const NXRect *)rects :(int)rectCount
 
 {
+	[super drawRect:dirtyRect];
+	[[NSGraphicsContext currentContext] setShouldAntialias:NO];		// No antialiasing in '93!
+	
 	NXRect	newrect;
 //printf ("drawself\n");
 //
@@ -376,11 +385,11 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	}
 #endif
 	// TODO - later (TF)
-#if 0
+#if 1
 	if (!debugflag)
 	{
 		NXSetColor ([prefpanel_i colorFor: BACK_C]);
-		NXRectFill (rects);
+		NXRectFill (&dirtyRect);
 	}
 #endif
 	PSsetlinewidth (0.15);
@@ -407,6 +416,24 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	printf ("Rects: %f, %f, %f, %f\n", rects->origin.x, rects->origin.y, rects->size.width, rects->size.height);
 	}
 #endif
+	
+	if (fixed != NULL && drag != NULL)
+	{
+		NSBezierPath *path = [NSBezierPath new];
+		[path setLineWidth:0.15];
+		[[prefpanel_i colorFor:[settingspanel_i segmentType]] set];
+		[path moveToPoint:*fixed];
+		[path lineToPoint:*drag];
+		[path stroke];
+	}
+
+	if (selbox)
+	{
+		[[NSColor colorWithWhite:SELECTIONGRAY alpha:1.0] set];
+		[NSBezierPath setDefaultLineWidth:FRAMEWIDTH];
+		[NSBezierPath strokeRect:*selbox];
+		[NSBezierPath setDefaultLineWidth:1.0];
+	}
 	
 	//return self;
 }

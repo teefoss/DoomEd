@@ -18,7 +18,7 @@
 #import "postscript.h"
 
 id	doomproject_i;
-Wadfile	*wadfile_i;
+id  wadfile_i;
 id	log_i;
 
 int	pp_panel;
@@ -98,6 +98,8 @@ char	bsphost[32];		// bsp host machine
 - setDirtyMap:(BOOL)truth
 {
 	mapdirty = truth;
+	if (![editworld_i getMainWindow])
+		return self;
 	[[editworld_i getMainWindow] setDocumentEdited:truth];
 	//[[editworld_i	getMainWindow] setDocEdited:truth];
 	return self;
@@ -212,8 +214,8 @@ char	bsphost[32];		// bsp host machine
 	
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed:@"Project.nib" owner:self topLevelObjects:nil];
-//		[NXApp 
+		[NSBundle loadNibNamed:@"project" owner:self];
+//		[NXApp
 //			loadNibSection:	"Project.nib"
 //			owner:			self
 //			withNames:		NO
@@ -249,8 +251,8 @@ char	bsphost[32];		// bsp host machine
 	id			openpanel;
 	//static char	*suffixlist[] = {"dpr", 0};
 	NSArray* suffixlist = [NSArray arrayWithObjects:@"dpr", nil];
-	char		const	*filename;
-	NSString *filename_ns;
+	//char		const	*filename;
+	NSString *filename;
 
 	[self	checkDirtyProject];
 	
@@ -264,10 +266,9 @@ char	bsphost[32];		// bsp host machine
 	printf("Purging existing flats.\n");
 	[ sectorEdit_i	dumpAllFlats ];
 	
-	filename_ns = [openpanel filename];
-	filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
+	filename = [openpanel filename];
 	
-	if (![self loadProject: filename])
+	if (![self loadProject: [filename UTF8String]])
 	{
 		NXRunAlertPanel("Uh oh!","Couldn't load your project!",
 			"OK",NULL,NULL);
@@ -296,8 +297,8 @@ char	bsphost[32];		// bsp host machine
 {
 	FILE		*stream;
 	id			panel;
-	char		const *filename;
-	NSString	*filename_ns;
+	//char		const *filename;
+	NSString	*filename;
 	//static char *fileTypes[] = { "wad",NULL};
 	NSArray* fileTypes = [NSArray arrayWithObjects:@"wad", nil];
 	char		projpath[1024];
@@ -311,20 +312,27 @@ char	bsphost[32];		// bsp host machine
 	panel = [OpenPanel new];
 	[panel setTitle: @"Project directory"];
 	[panel setCanChooseDirectories:YES];
-	if (! [panel runModal] )
+//	if (! [panel runModal] )
+//		return self;
+	if ([panel runModal] != NSModalResponseOK)
 		return self;
-		
-	filename_ns = [panel filename];
-	filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
 	
-	if (!filename || !*filename)
+	filename = [panel filename];
+	//filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
+	
+	if (!filename)// || !*filename)
 	{
-		NXRunAlertPanel("Nope.","I need a directory for projects to"
-			" create one.","OK",NULL,NULL);
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Nope."];
+		[alert setInformativeText:@"I need a directory for projects to create one."];
+		[alert addButtonWithTitle:@"OK"];
+		[alert runModal];
+//		NXRunAlertPanel("Nope.","I need a directory for projects to"
+//			" create one.","OK",NULL,NULL);
 		return self;
 	}
 		
-	strcpy (projectdirectory, filename);
+	strcpy (projectdirectory, [filename UTF8String]);
 	
 	//
 	// get wadfile
@@ -334,18 +342,21 @@ char	bsphost[32];		// bsp host machine
 	if (! [panel runModalForTypes: fileTypes] )
 		return self;
 		
-	filename_ns = [panel filename];
-	filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
+	filename = [panel filename];
+	//filename = [filename_ns cStringUsingEncoding:NSUTF8StringEncoding];
 	
-	if (!filename || !*filename)
+	if (!filename)// || !*filename)
 	{
 		NXRunAlertPanel("Nope.","I need a WADfile for this project.",
 			"OK",NULL,NULL);
 		return self;
 	}
 		
-	strcpy (wadfile, filename);
-		
+	strcpy (wadfile, [filename UTF8String]);
+
+	printf("\nwadfile: %s\n", wadfile);
+	printf("projectdirectory: %s\n\n", projectdirectory);
+	
 	//
 	// create default data: project file
 	//
@@ -399,7 +410,7 @@ char	bsphost[32];		// bsp host machine
 	
 	printf("Purging existing texture patches.\n");
 	[ textureEdit_i	dumpAllPatches ];	
-	[ textureEdit_i	initPatches ];
+	[ textureEdit_i	initPatches ];		// TODO not working right
 	
 	numtextures = 0;
 	[texturePalette_i	selectTexture:-1];
@@ -509,16 +520,11 @@ char	bsphost[32];		// bsp host machine
 
 - updatePanel
 {
-	projectpath_i = CastNSString(projectdirectory);
-	wadpath_i = CastNSString(wadfile);
-	BSPprogram_i = CastNSString(bspprogram);
-	BSPhost_i = CastNSString(bsphost);
-	mapwaddir_i = CastNSString(mapwads);
-//	[projectpath_i setStringValue: CastNSString(projectdirectory)];
-//	[wadpath_i setStringValue: wadfile];
-//	[BSPprogram_i	setStringValue: bspprogram];
-//	[BSPhost_i		setStringValue: bsphost];
-//	[mapwaddir_i	setStringValue: mapwads];
+	[projectpath_i setStringValue: CastNSString(projectdirectory)];
+	[wadpath_i setStringValue: CastNSString(wadfile)];
+	[BSPprogram_i	setStringValue: CastNSString(bspprogram)];
+	[BSPhost_i		setStringValue: CastNSString(bsphost)];
+	[mapwaddir_i	setStringValue: CastNSString(mapwads)];
 	[maps_i reloadColumn: 0];
 	return self;
 }
@@ -555,11 +561,16 @@ char	bsphost[32];		// bsp host machine
 	
 	strcpy (projpath, projectdirectory);
 	strcat (projpath, "/project.dpr");
-	
+
 	stream = fopen (projpath,"r");
 	if (!stream)
 	{
-		NXRunAlertPanel ("Error","Couldn't open %s",NULL,NULL,NULL, projpath);
+		//NXRunAlertPanel ("Error","Couldn't open %s",NULL,NULL,NULL, projpath);
+		NSString *text = [[NSString alloc] initWithFormat:@"Couldn't open %s", projpath];
+		NSAlert *alert = [NSAlert new];
+		[alert setMessageText:@"Error"];
+		[alert setInformativeText:text];
+		[alert runModal];
 		return nil;	
 	}
 	version = -1;
@@ -689,13 +700,14 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+//- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	int	i;
 	id	cell;
 
 	if (column != 0)
-		return 0;
+		return;// 0;
 
 	[self	sortMaps];
 		
@@ -710,7 +722,7 @@ char	bsphost[32];		// bsp host machine
 		[cell setEnabled: YES];
 	}
 	
-	return nummaps;
+	//return nummaps;
 }
 
 /*
@@ -727,16 +739,16 @@ char	bsphost[32];		// bsp host machine
 {
 	FILE		*stream;
 	char		pathname[1024];
-	NSString	*title_ns;
-	const char	*title;
+	NSString	*title;
+	//const char	*title;
 	int		len, i;
 
 	//
 	// get filename for map
 	//	
-	title_ns = [mapNameField_i stringValue];
-	title = CastCString(title_ns);
-	len = strlen (title);
+	title = [mapNameField_i stringValue];
+	//len = strlen (title);
+	len = [title length];
 	if (len < 1 || len > 8)
 	{
 		NXRunAlertPanel ("Error","Map names must be 1 to 8 characters",
@@ -745,7 +757,7 @@ char	bsphost[32];		// bsp host machine
 	}
 	
 	for (i=0 ; i<nummaps ; i++)
-		if (!strcmp(title, mapnames[i]))
+		if (!strcmp([title UTF8String], mapnames[i]))
 		{
 			NXRunAlertPanel ("Error","Map name in use",NULL, NULL, NULL);
 			return nil;
@@ -756,14 +768,14 @@ char	bsphost[32];		// bsp host machine
 	//
 	strcpy (pathname, projectdirectory);
 	strcat (pathname, "/");
-	strcat (pathname,title);
+	strcat (pathname,[title UTF8String]);
 	strcat (pathname,".dwd");
 	stream = fopen (pathname,"w");
 	if (!stream)
 	{
 		NXRunAlertPanel ("Error","Could not open %s",
 			NULL, NULL, NULL, pathname);
-		return nil;	
+		return nil;
 	}
 	fprintf (stream, "WorldServer version 0\n");
 	fclose (stream);
@@ -771,7 +783,7 @@ char	bsphost[32];		// bsp host machine
 //
 // add the map and update the browser
 //
-	strcpy (mapnames[nummaps], title);
+	strcpy (mapnames[nummaps], [title UTF8String]);
 	nummaps++;
 	
 	[self updatePanel];
@@ -793,8 +805,8 @@ char	bsphost[32];		// bsp host machine
 - openMap:sender
 {
 	id			cell;
-	const char	*title;
-	NSString	*title_ns;
+	//const char	*title;
+	NSString	*title;
 	char			fullpath[1024];
 	char			string[80];
 
@@ -802,15 +814,14 @@ char	bsphost[32];		// bsp host machine
 		[editworld_i closeWorld];
 	
 	cell = [sender selectedCell];
-	title_ns = [cell stringValue];
-	title = CastCString(title_ns);
+	title = [cell stringValue];
 	
 	strcpy (fullpath, projectdirectory);
 	strcat (fullpath,"/");
-	strcat (fullpath,title);
+	strcat (fullpath,[title UTF8String]);
 	strcat (fullpath,".dwd");
 	
-	sprintf( string, "\nLoading map %s\n",title );
+	sprintf( string, "\nLoading map %s\n",[title UTF8String] );
 	[ log_i	msg:string ];
 	[editworld_i loadWorldFile: fullpath];
 	

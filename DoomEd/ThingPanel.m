@@ -22,6 +22,7 @@ id	thingpanel_i;
 
 - init
 {
+	self = [super init];
 	thingpanel_i = self;
 	window_i = NULL;		// until nib is loaded
 	masterList_i = [[Storage	alloc]
@@ -57,7 +58,7 @@ id	thingpanel_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[[NSBundle mainBundle] loadNibNamed:@"thing.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"thing.nib" owner:self];
 		[window_i	setFrameUsingName:THINGNAME];
 		[window_i	setDelegate:self];
 		[thingBrowser_i	reloadColumn:0];
@@ -67,16 +68,18 @@ id	thingpanel_i;
 		[window_i	setParent:self];
 		
 		// (TF) Set wrapping button title
-		NSString *str1 = @"Suggest New";
-		NSString *str2 = @"Type";
-		NSString *title = [NSString stringWithFormat:@"%@\r%@", str1,str2];
-		NSAttributedString *attrTitle = [[NSAttributedString alloc]
-										 initWithString:title
-										 attributes:@{
-													  NSFontAttributeName : @"Helvetica-Bold",
-													  NSFontSizeAttribute : @14
-													  }];
-		[suggestButton_i setAttributedTitle:attrTitle];
+//		const char *ctitle = "Suggest New\nType";
+//		NSString *str1 = @"Suggest New";
+//		NSString *str2 = @"Type";
+//		NSString *title = [[NSString alloc] initWithFormat:@"%@\r%@", str1,str2];
+//		NSString *title = [[NSString alloc] initWithCString:ctitle encoding:NSUTF8StringEncoding];
+//		NSAttributedString *attrTitle = [[NSAttributedString alloc]
+//										 initWithString:title
+//										 attributes:@{
+//													  NSFontAttributeName : @"Helvetica-Bold",
+//													  NSFontSizeAttribute : @14
+//													  }];
+//		[suggestButton_i setAttributedTitle:attrTitle];
 	}
 
 	[window_i makeKeyAndOrderFront:self];

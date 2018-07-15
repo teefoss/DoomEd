@@ -85,7 +85,7 @@ id	texturePalette_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[[NSBundle mainBundle] loadNibNamed:@"TexturePalette.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"TexturePalette.nib" owner:self];
 		[self setupPalette];
 		[window_i	setDelegate:self];
 	}

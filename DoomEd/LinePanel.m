@@ -20,6 +20,7 @@ id	lineSpecialPanel_i;
 
 - init
 {
+	self = [super init];
 	linepanel_i = self;
 	window_i = NULL;		// until nib is loaded
 
@@ -90,7 +91,7 @@ id	lineSpecialPanel_i;
 ==============
 */
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (!window_i)
 	{
@@ -99,16 +100,15 @@ id	lineSpecialPanel_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[[NSBundle mainBundle] loadNibNamed:@"line.nib"
-									  owner:self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"line" owner:self];
 		[window_i	setFrameUsingName:@"LineInspector"];
 		[firstColCalc_i		setFrameUsingName:@"FirstColCalc"];
 	}
 
+	//[window_i makeKeyAndOrderFront:NULL];
 	[window_i orderFront:self];
 
-	return self;
+	//return self;
 }
 
 /*

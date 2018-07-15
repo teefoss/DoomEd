@@ -2,7 +2,6 @@
 #import	"SectorEditor.h"
 #import "FlatsView.h"
 
-#import "Storage.h"
 #import "postscript.h"
 
 

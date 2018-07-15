@@ -16,6 +16,7 @@ id	sectorEdit_i;
 
 - init
 {
+	self = [super init];
 	window_i = NULL;
 	sectorEdit_i = self;
 	currentFlat = -1;
@@ -108,7 +109,7 @@ id	sectorEdit_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[[NSBundle mainBundle] loadNibNamed:@"SectorEditor.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"SectorEditor.nib" owner:self];
 		[self	setupEditor];
 		//[window_i	setAvoidsActivation:YES];	DNE ?
 	}

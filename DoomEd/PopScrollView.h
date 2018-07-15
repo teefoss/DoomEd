@@ -7,6 +7,6 @@
 }
 
 - initFrame:(const NXRect *)frameRect button1: b1 button2: b2;
-- tile;
+//- tile;
 
 @end

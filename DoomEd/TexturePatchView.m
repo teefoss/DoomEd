@@ -5,7 +5,6 @@
 #import 	"TexturePatchView.h"
 #import	"TextureEdit.h"
 
-#import "Storage.h"
 #import "postscript.h"
 
 @implementation TexturePatchView

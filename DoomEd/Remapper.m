@@ -33,7 +33,7 @@
 	
 	if (! remapPanel_i )
 	{
-		[[NSBundle mainBundle] loadNibNamed:@"Remapper.nib" owner:self topLevelObjects:nil];
+		[NSBundle loadNibNamed:@"Remapper.nib" owner:self];
 //		[NXApp
 //			loadNibSection:	"Remapper.nib"
 //			owner:			self

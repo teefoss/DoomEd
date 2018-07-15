@@ -241,7 +241,6 @@
 
 //=============================================================================
 
-
 /*
 ================
 =
@@ -258,36 +257,42 @@
 	NXPoint	fixedpoint, dragpoint;	// endpoints of the line
 		
 	//oldMask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
-	NSBezierPath *path = [[NSBezierPath alloc] init];
-	[path setLineWidth:0.15];
-	NSColor *currentcolor = [prefpanel_i colorFor:[settingspanel_i segmentType]];
-	[currentcolor set];
 	
 	[self lockFocus];
-	//PSsetinstance (YES);	// TODO what is that?
+	//PSsetinstance (YES);	// TODO what is this?
 	//PSsetlinewidth (0.15);
 	NXSetColor ([prefpanel_i colorFor: [settingspanel_i segmentType]]);
 
 	[self getGridPoint: &fixedpoint from: event];		// handle grid and sutch
 	
-	do 
+	fixed = &fixedpoint;
+	NSRect r;
+	do
 	{
 		[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
-		
-		[path moveToPoint:fixedpoint];
-		[path lineToPoint:dragpoint];
-		[path stroke];
-//		PSnewinstance ();
-//
-//		PSmoveto (fixedpoint.x, fixedpoint.y);
-//		PSlineto (dragpoint.x, dragpoint.y);
-//		PSstroke ();
-//		NXPing ();
+
+		//		PSnewinstance ();
+		//		PSmoveto (fixedpoint.x, fixedpoint.y);
+		//		PSlineto (dragpoint.x, dragpoint.y);
+		//		PSstroke ();
+		//		NXPing ();
+
+		// drawing moved to drawRect: (TF)
+		drag = &dragpoint;
+		IDRectFromPoints(&r, &fixedpoint, &dragpoint);
+		r.origin.x -= 20;
+		r.origin.y -= 20;
+		r.size.width += 40;
+		r.size.height += 40;
+		[self displayDirty:&r];
 		
 		//event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
 		event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 	} while ([event type] != NSEventTypeLeftMouseUp); //(event->type != NX_LMOUSEUP);
+	fixed = drag = NULL;
 	
+//	[lineLayer removeFromSuperlayer];
+//	lineLayer = nil;
 //
 // add to the world
 //
@@ -309,6 +314,7 @@
 }
 
 //=============================================================================
+
 
 /*
 ================
@@ -568,8 +574,10 @@
 		currentdragrect.origin.x += cursor.x;
 		currentdragrect.origin.y += cursor.y;
 		updaterect = currentdragrect;
-		NXUnionRect (&olddragrect, &updaterect);
-		NXUnionRect (&fixedrect, &updaterect);
+		//NXUnionRect (&olddragrect, &updaterect);
+		updaterect = NSUnionRect(olddragrect, updaterect);
+		//NXUnionRect (&fixedrect, &updaterect);
+		updaterect = NSUnionRect(fixedrect, updaterect);
 		olddragrect = currentdragrect;
 		[self displayDirty: &updaterect];
 		
@@ -632,17 +640,12 @@
 // move drag
 //	
 	//oldMask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
-
-	
 	
 	[self lockFocus];
 //	PSsetinstance (YES);
 //	PSsetgray (SELECTIONGRAY);
-	NSBezierPath *framepath = [[NSBezierPath alloc] init];
-	[framepath setLineWidth:FRAMEWIDTH];
-	NSColor *gray = [NSColor colorWithWhite:SELECTIONGRAY alpha:1.0];
-	[gray set];
 	
+	NSRect updaterect = [self visibleRect];
 	do 
 	{
 		//
@@ -652,16 +655,13 @@
 //		dragcorner = event->location;
 //		[self convertPoint:&dragcorner  fromView:NULL];
 		IDRectFromPoints (&newframe, &fixedcorner, &dragcorner);
-				
+		selbox = &newframe;
+
+		[self displayDirty:&updaterect];
 		//
 		// redraw new frame
 		//
-		[framepath moveToPoint:newframe.origin];
-		[framepath lineToPoint:NSMakePoint(newframe.origin.x+newframe.size.width, newframe.origin.y)];
-		[framepath lineToPoint:NSMakePoint(newframe.origin.x+newframe.size.width, newframe.origin.y+newframe.size.height)];
-		[framepath lineToPoint:NSMakePoint(newframe.origin.x, newframe.origin.y+newframe.size.height)];
-		[framepath closePath];
-		[framepath stroke];
+		
 //		PSnewinstance ();
 //		NXFrameRectWithWidth(&newframe, FRAMEWIDTH);
 //		NXPing ();
@@ -825,25 +825,12 @@
 //		PSlineto (p2->x,p2->y);
 //		PSinstroke (clickpoint.x, clickpoint.y, &instroke);
 		
-		// swift
-//		let layer = CAShapeLayer()
-//		layer.lineWidth = 32.0
-//		let path = CGMutablePath()
-//		path.move(to: p1)
-//		path.addLine(to: p2)
-//		layer.path = path
-//		let newPath = path.copy(strokingWithWidth: 32.0, lineCap: .butt, lineJoin: .miter, miterLimit: 1.0)
-
-		CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
-		CGContextSetLineWidth(context, CPOINTDRAW*scale);
-		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathMoveToPoint(path, NULL, p1->x, p1->y);
-		CGPathAddLineToPoint(path, NULL, p2->x, p2->y);
-		CGPathCloseSubpath(path);
-		CGContextAddPath(context, path);
-		CGContextStrokePath(context);
-		CGPathContainsPoint(path, NULL, clickpoint, instroke);
-		CGPathRelease(path);
+		NSRect clickradius;
+		clickradius.origin.x = clickpoint.x - CPOINTDRAW*scale;
+		clickradius.origin.y = clickpoint.y - CPOINTDRAW*scale;
+		clickradius.size.width = CPOINTDRAW*scale*2;
+		clickradius.size.height = CPOINTDRAW*scale*2;
+		instroke = LineInRect(p1->x, p1->y, p2->x, p2->y, clickradius);
 		
 		if (instroke)
 		{
@@ -1079,7 +1066,6 @@
 //- mouseDown:(NXEvent *)thisEvent
 {
 	int	tool;
-		
 	tool = [toolpanel_i currentTool];
 	
 	switch ( tool )

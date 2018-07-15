@@ -53,12 +53,13 @@ typedef enum
 	id	projectDefaultPath_i;	// textfield
 	id	openupDefaults_i;		// grid of check boxes
 	
-    id	window_i;
+	id  window_i;
 	
-	id		colorwell[NUMCOLORS];	// array of colorwells
-	NXColor	*color[NUMCOLORS];
+	NSMutableArray		*colorwell;	// array of nscolorwells
+	NSMutableArray		*color;		// array of nscolor
 	int		launchThingType;
-	char	projectPath[128];
+	//char	projectPath[128];
+	NSString *projectPath;
 }
 
 - menuTarget:sender;
@@ -74,7 +75,7 @@ typedef enum
 //
 - (NXColor *)colorFor: (int)ucolor;
 - (int)getLaunchThingType;
-- (char *)getProjectPath;
+- (NSString *)getProjectPath;
 - (BOOL)openUponLaunch:(openup_e)type;
 
 @end
