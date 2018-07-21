@@ -83,7 +83,7 @@
 		[specialPanel_i	setParent:self];
 	}
 	[specialBrowser_i	reloadColumn:0];
-	[specialPanel_i	makeKeyAndOrderFront:NULL];
+	[specialPanel_i	makeKeyAndOrderFront:self];
 	return self;
 }
 

@@ -8,6 +8,9 @@ id	settingspanel_i;
 
 - init
 {
+	self = [super init];
+	if (!self)
+		printf("SettingsPanel init failed");
 	settingspanel_i = self;
 	segmenttype = ONESIDED_C;
 	return self;

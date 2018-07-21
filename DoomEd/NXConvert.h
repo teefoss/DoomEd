@@ -62,7 +62,7 @@ void 	NXBeep(void);
 
 //		Geometry
 void	NXSetRect(NXRect *aRect, NXCoord x, NXCoord y, NXCoord width, NXCoord height);
-NSRect  *NXUnionRect(const NSRect *aRect, const NSRect *bRect);
+NSRect *NXUnionRect(NSRect *const aRect, NSRect *const bRect);
 NSRect  *NXIntersectionRect(const NSRect *aRect, NSRect *bRect);
 BOOL 	NXIntersectsRect(const NXRect *aRect, const NXRect *bRect);
 BOOL 	NXPointInRect(const NXPoint *aPoint, const NXRect *aRect);

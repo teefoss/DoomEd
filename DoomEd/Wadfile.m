@@ -141,10 +141,7 @@ typedef struct
 {
 	lumpinfo_t	*inf;
 	inf = [info elementAt: lump];
-	const char *ret[8];
-	strncpy(ret, inf->name, 8);
-	return ret;
-	//return inf->name;
+	return inf->name;
 }
 
 /*

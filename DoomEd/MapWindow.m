@@ -274,7 +274,8 @@ static	int	cornerx = 128, cornery = 64;
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	[editworld_i windowWillClose:self];
+	if (editworld_i)
+		[editworld_i windowWillClose:self]; // TODO fix this
 }
 
 

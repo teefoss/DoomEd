@@ -2480,7 +2480,7 @@ static	byte		*buffer, *buf_p;
 	[thermoMsg_i	setStringValue:CastNSString(msg)];
 	[thermoView_i	setThermoWidth:0 max:1000];
 	[thermoView_i	display];
-	[thermoWindow_i	makeKeyAndOrderFront:NULL];
+	[thermoWindow_i	makeKeyAndOrderFront:self];
 	NXPing();
 	return self;
 }

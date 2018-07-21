@@ -41,10 +41,10 @@ id	lineSpecialPanel_i;
 //					setSpecialTitle:"Line Inspector - Specials"]
 //					setFrameName:"LineSpecialPanel"]
 //					setDelegate:self];
-	lineSpecialPanel_i = [(SpecialList *)[SpecialList alloc] init];
-	[lineSpecialPanel_i setSpecialTitle:"Line Inspector - Specials"];
-	[lineSpecialPanel_i setFrameName:"LineSpecialPanel"];
-	[lineSpecialPanel_i setDelegate:self];
+//	lineSpecialPanel_i = [(SpecialList *)[SpecialList alloc] init];
+//	[lineSpecialPanel_i setSpecialTitle:"Line Inspector - Specials"];
+//	[lineSpecialPanel_i setFrameName:"LineSpecialPanel"];
+//	[lineSpecialPanel_i setDelegate:self];
 	return self;
 }
 
@@ -91,7 +91,7 @@ id	lineSpecialPanel_i;
 ==============
 */
 
-- (IBAction)menuTarget:sender
+- menuTarget:sender
 {
 	if (!window_i)
 	{
@@ -105,10 +105,10 @@ id	lineSpecialPanel_i;
 		[firstColCalc_i		setFrameUsingName:@"FirstColCalc"];
 	}
 
-	//[window_i makeKeyAndOrderFront:NULL];
-	[window_i orderFront:self];
+	[window_i makeKeyAndOrderFront:self];
+	//[window_i orderFront:self];
 
-	//return self;
+	return self;
 }
 
 /*
@@ -160,11 +160,21 @@ id	lineSpecialPanel_i;
 
 - setSide: (worldside_t *)side
 {
-	[sideform_i setIntValue: side->flags at: 0] ;
-	[sideform_i setIntValue: side->firstcollumn at: 1];
-	[sideform_i setStringValue: side->toptexture at: 2];
-	[sideform_i setStringValue: side->midtexture at: 3];
-	[sideform_i setStringValue: side->bottomtexture at: 4];
+//	[sideform_i setIntValue: side->flags at: 0] ;
+//	[sideform_i setIntValue: side->firstcollumn at: 1];
+//	[sideform_i setStringValue: side->toptexture at: 2];
+//	[sideform_i setStringValue: side->midtexture at: 3];
+//	[sideform_i setStringValue: side->bottomtexture at: 4];
+	
+	NSString *top = [[NSString alloc] initWithCString:side->toptexture encoding:NSUTF8StringEncoding];
+	NSString *mid = [[NSString alloc] initWithCString:side->midtexture encoding:NSUTF8StringEncoding];
+	NSString *bot = [[NSString alloc] initWithCString:side->bottomtexture encoding:NSUTF8StringEncoding];
+
+	[[sideform_i cellAtRow:0 column:0] setIntValue:side->flags];
+	[[sideform_i cellAtRow:1 column:0] setIntValue:side->firstcollumn];
+	[[sideform_i cellAtRow:2 column:0] setStringValue:top];
+	[[sideform_i cellAtRow:3 column:0] setStringValue:mid];
+	[[sideform_i cellAtRow:4 column:0] setStringValue:bot];
 
 	return self;
 }
@@ -323,7 +333,7 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- (IBAction)specialChanged: sender
+- specialChanged: sender
 {
 	int		i,value;
 	
@@ -337,7 +347,7 @@ id	lineSpecialPanel_i;
 	
 	[lineSpecialPanel_i	setSpecial:[special_i	intValue]];
 	[editworld_i updateWindows];
-	//return self;
+	return self;
 }
 
 
@@ -398,7 +408,10 @@ id	lineSpecialPanel_i;
 	
 	tag = [[sender selectedCell] tag];
 	//[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
-	[texturePalette_i setSelTexture:(char *)[[sideform_i cellAtRow:2+tag column:0] stringValue]];
+
+	const char *name = [[[sideform_i cellAtRow:2+tag column:0] stringValue] UTF8String];
+//	[texturePalette_i setSelTexture:(char *)[[sideform_i cellAtRow:2+tag column:0] stringValue]];
+	[texturePalette_i setSelTexture:name];
 	return self;
 }
 

@@ -85,12 +85,13 @@ id	texturePalette_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[NSBundle loadNibNamed:@"TexturePalette.nib" owner:self];
+		[NSBundle loadNibNamed:@"texturepalette" owner:self];
 		[self setupPalette];
 		[window_i	setDelegate:self];
 	}
 
-	[window_i	makeKeyAndOrderFront:NULL];
+	//[window_i	makeKeyAndOrderFront:NULL];
+	[window_i makeKeyAndOrderFront:self];
 	return self;
 }
 
@@ -388,7 +389,8 @@ id	texturePalette_i;
 			if (!window_i)
 				[self	menuTarget:NULL];
 			else
-				[window_i	orderFront:NULL];
+				//[window_i	orderFront:NULL];
+				[window_i makeKeyAndOrderFront:self];
 			[self	selectTexture:i];
 			r = t->r;
 			r.origin.x -= SPACING;

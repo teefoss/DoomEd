@@ -417,6 +417,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	}
 #endif
 	
+	// TF:
 	if (fixed != NULL && drag != NULL)
 	{
 		NSBezierPath *path = [NSBezierPath new];
@@ -427,6 +428,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 		[path stroke];
 	}
 
+	// TF:
 	if (selbox)
 	{
 		[[NSColor colorWithWhite:SELECTIONGRAY alpha:1.0] set];

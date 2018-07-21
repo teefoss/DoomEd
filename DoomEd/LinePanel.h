@@ -7,10 +7,10 @@ extern	id	linepanel_i;
 extern	id	lineSpecialPanel_i;
 
 @interface LinePanel:Object
-{
-	id	p1_i;
+{						// TF:
+	id	p1_i;			// labels
 	id	p2_i;
-	id	special_i;
+	id	special_i;		// text field
 	
 	id pblock_i;
 	id toppeg_i;
@@ -34,22 +34,22 @@ extern	id	lineSpecialPanel_i;
 }
 
 - emptySpecialList;
-- (IBAction)menuTarget:sender;
+- menuTarget:sender;
 - updateInspector: (BOOL)force;
 - sideRadioTarget:sender;
 - updateLineInspector;
 
-- (IBAction)monsterblockChanged:sender;
-- (IBAction)blockChanged: sender;
-- (IBAction)twosideChanged: sender;
-- (IBAction)toppegChanged: sender;
-- (IBAction)bottompegChanged: sender;
-- (IBAction)secretChanged:sender;
-- (IBAction)soundBlkChanged:sender;
-- (IBAction)dontDrawChanged:sender;
-- (IBAction)specialChanged: sender;
-- (IBAction)tagChanged: sender;
-- (IBAction)sideChanged: sender;
+- monsterblockChanged:sender;
+- blockChanged: sender;
+- twosideChanged: sender;
+- toppegChanged: sender;
+- bottompegChanged: sender;
+- secretChanged:sender;
+- soundBlkChanged:sender;
+- dontDrawChanged:sender;
+- specialChanged: sender;
+- tagChanged: sender;
+- sideChanged: sender;
 
 - getFromTP:sender;
 - setTP:sender;
@@ -58,10 +58,10 @@ extern	id	lineSpecialPanel_i;
 - (int)getTagValue;
 
 // FIRSTCOL CALCULATOR
-- (IBAction)setFCVal:sender;
-- (IBAction)popUpCalc:sender;
-- (IBAction)incFirstCol:sender;
-- (IBAction)decFirstCol:sender;
+- setFCVal:sender;
+- popUpCalc:sender;
+- incFirstCol:sender;
+- decFirstCol:sender;
 
 -baseLine: (worldline_t *)line;
 

@@ -4,8 +4,8 @@
 
 @interface TextLog:Object
 {
-	id			text_i;
-	NSWindow	*window_i;
+	IBOutlet NSTextView		*text_i;
+	NSWindow				*window_i;
 }
 
 - initTitle:(NSString *)title;

@@ -16,12 +16,13 @@
 - initWithFrame:(NSRect)frame
 //- initFrame:(const NXRect *)frameRect
 {
+	self = [super	initWithFrame:frame];
+
 	dividers_i = [	[ Storage alloc ]
 				initCount:		0
 				elementSize:	sizeof (divider_t )
 				description:	NULL ];
-				
-	[super	initWithFrame:frame];
+	printf("texturePalView initWithFrame\n");
 	return self;
 }
 

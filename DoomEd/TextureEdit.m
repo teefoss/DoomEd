@@ -57,7 +57,7 @@ id	texturePatches;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[NSBundle loadNibNamed:@"TextureEdit.nib" owner:self];
+		[NSBundle loadNibNamed:@"textureedit" owner:self];
 		
 		[window_i	setDelegate:self];
 		[self		computePatchDocView:&dvf];
@@ -106,7 +106,8 @@ id	texturePatches;
 	}
 	
 	[self	newSelection:currentTexture];
-	[window_i	makeKeyAndOrderFront:NULL];
+	//[window_i	makeKeyAndOrderFront:NULL];
+	[window_i makeKeyAndOrderFront:self];
 	return self;
 }
 
@@ -1246,12 +1247,9 @@ id	texturePatches;
 			// load vertically compressed patch and convert to an NXImage
 			//
 			patch = [wadfile_i	loadLump:i];
-			
-			const char *test = [wadfile_i lumpname:i];
-			printf("lumpname: %s\n", test);
-			
+						
 			memset(&p,0,sizeof(p));
-			strcpy(p.name,[wadfile_i  lumpname:i]);
+			strncpy(p.name,[wadfile_i  lumpname:i],8);
 			p.name[8] = 0;
 			p.image = patchToImage(patch,shortpal,&s,p.name);
 			p.image_x2 = NULL;

@@ -43,7 +43,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Create A New Texture" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="50" userLabel="CreatePanel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -210,14 +210,14 @@
                         <rect key="frame" x="-3" y="338" width="662" height="238"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="contentView" id="hlM-rt-bBm">
-                            <rect key="frame" x="3" y="3" width="656" height="232"/>
+                            <rect key="frame" x="0.0" y="0.0" width="662" height="238"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="33">
-                                    <rect key="frame" x="5" y="5" width="652" height="187"/>
+                                    <rect key="frame" x="5" y="5" width="658" height="193"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" autoresizesSubviews="NO" id="Six-R6-Dfw">
-                                        <rect key="frame" x="1" y="1" width="650" height="185"/>
+                                        <rect key="frame" x="1" y="1" width="656" height="191"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView id="18" customClass="TextureView">
@@ -227,16 +227,16 @@
                                         </subviews>
                                     </clipView>
                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.53521126508712769" horizontal="YES" id="190">
-                                        <rect key="frame" x="1" y="170" width="650" height="16"/>
+                                        <rect key="frame" x="1" y="176" width="656" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.52112674713134766" horizontal="NO" id="191">
-                                        <rect key="frame" x="635" y="1" width="16" height="185"/>
+                                        <rect key="frame" x="641" y="1" width="16" height="191"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
                                 <textField verticalHuggingPriority="750" id="4">
-                                    <rect key="frame" x="9" y="192" width="147" height="46"/>
+                                    <rect key="frame" x="9" y="198" width="147" height="46"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" alignment="center" id="178">
                                         <font key="font" size="18" name="Helvetica"/>
@@ -247,7 +247,7 @@ Texture</string>
                                     </textFieldCell>
                                 </textField>
                                 <box borderType="bezel" title="Box" titlePosition="noTitle" id="19">
-                                    <rect key="frame" x="164" y="196" width="492" height="39"/>
+                                    <rect key="frame" x="170" y="202" width="492" height="39"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="IVq-7T-qnZ">
                                         <rect key="frame" x="3" y="3" width="486" height="33"/>
@@ -343,14 +343,14 @@ Texture</string>
                         <rect key="frame" x="-2" y="-3" width="662" height="336"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="contentView" id="6wg-yV-BfH">
-                            <rect key="frame" x="3" y="3" width="656" height="330"/>
+                            <rect key="frame" x="0.0" y="0.0" width="662" height="336"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="68">
-                                    <rect key="frame" x="5" y="102" width="652" height="204"/>
+                                    <rect key="frame" x="5" y="102" width="658" height="210"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" autoresizesSubviews="NO" id="fr3-0g-KXP">
-                                        <rect key="frame" x="1" y="1" width="650" height="202"/>
+                                        <rect key="frame" x="1" y="1" width="656" height="208"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView id="39" customClass="TexturePatchView">
@@ -364,12 +364,12 @@ Texture</string>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="189">
-                                        <rect key="frame" x="635" y="1" width="16" height="202"/>
+                                        <rect key="frame" x="641" y="1" width="16" height="208"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
                                 <textField verticalHuggingPriority="750" id="60">
-                                    <rect key="frame" x="10" y="309" width="176" height="23"/>
+                                    <rect key="frame" x="10" y="315" width="176" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" alignment="center" title="Patch Palette" id="146">
                                         <font key="font" size="18" name="Helvetica"/>
@@ -441,7 +441,7 @@ Texture</string>
                                             <button verticalHuggingPriority="750" imageHugsTitle="YES" id="26">
                                                 <rect key="frame" x="3" y="1" width="145" height="20"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <buttonCell key="cell" type="push" title="Locate patch in textures" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="153">
+                                                <buttonCell key="cell" type="square" title="Locate patch in textures" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="153">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" size="12" name="Helvetica"/>
                                                 </buttonCell>
@@ -454,7 +454,7 @@ Texture</string>
                                     <font key="titleFont" size="12" name="Helvetica"/>
                                 </box>
                                 <box title="Texture" id="28">
-                                    <rect key="frame" x="575" y="5" width="81" height="93"/>
+                                    <rect key="frame" x="581" y="5" width="81" height="93"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <view key="contentView" id="VWN-V9-ULR">
                                         <rect key="frame" x="3" y="3" width="75" height="74"/>
@@ -463,7 +463,7 @@ Texture</string>
                                             <button verticalHuggingPriority="750" imageHugsTitle="YES" id="42">
                                                 <rect key="frame" x="6" y="35" width="66" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                <buttonCell key="cell" type="push" title="Create Texture" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="154">
+                                                <buttonCell key="cell" type="square" title="Create Texture" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="154">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" size="12" name="Helvetica"/>
                                                 </buttonCell>
@@ -490,7 +490,7 @@ DQ
                                     <font key="titleFont" size="12" name="Helvetica"/>
                                 </box>
                                 <box title="Texture Patches in Editor" id="2">
-                                    <rect key="frame" x="377" y="5" width="194" height="93"/>
+                                    <rect key="frame" x="381" y="5" width="194" height="93"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <view key="contentView" id="WLy-VL-5VK">
                                         <rect key="frame" x="3" y="3" width="188" height="74"/>
@@ -542,7 +542,7 @@ DQ
                                     <font key="titleFont" size="12" name="Helvetica"/>
                                 </box>
                                 <box title="Texture Editor - Patch" id="30">
-                                    <rect key="frame" x="174" y="5" width="196" height="93"/>
+                                    <rect key="frame" x="176" y="5" width="196" height="93"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <view key="contentView" id="tFE-Cb-LK9">
                                         <rect key="frame" x="3" y="3" width="190" height="74"/>
@@ -645,7 +645,7 @@ DQ
                                             <button verticalHuggingPriority="750" imageHugsTitle="YES" id="76">
                                                 <rect key="frame" x="9" y="1" width="125" height="20"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <buttonCell key="cell" type="push" title="Find selected patch" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="170">
+                                                <buttonCell key="cell" type="square" title="Find selected patch" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="170">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" size="12" name="Helvetica"/>
                                                 </buttonCell>
@@ -691,7 +691,7 @@ DQ
                                     <font key="titleFont" size="12" name="Helvetica"/>
                                 </box>
                                 <textField verticalHuggingPriority="750" id="10">
-                                    <rect key="frame" x="478" y="310" width="106" height="21"/>
+                                    <rect key="frame" x="483" y="316" width="106" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="174">
                                         <font key="font" size="12" name="Helvetica"/>
@@ -703,7 +703,7 @@ DQ
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="58">
-                                    <rect key="frame" x="377" y="313" width="104" height="15"/>
+                                    <rect key="frame" x="381" y="319" width="104" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" alignment="center" title="Search for patch:" id="175">
                                         <font key="font" size="12" name="Helvetica"/>
@@ -712,9 +712,9 @@ DQ
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" imageHugsTitle="YES" id="37">
-                                    <rect key="frame" x="592" y="308" width="56" height="24"/>
+                                    <rect key="frame" x="598" y="314" width="56" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="176">
+                                    <buttonCell key="cell" type="square" title="Search" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="176">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="12" name="Helvetica"/>
                                     </buttonCell>
@@ -723,7 +723,7 @@ DQ
                                     </connections>
                                 </button>
                                 <box borderType="bezel" title="Title" titlePosition="noTitle" id="35">
-                                    <rect key="frame" x="204" y="308" width="159" height="24"/>
+                                    <rect key="frame" x="206" y="314" width="159" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="G6O-Cc-UNz">
                                         <rect key="frame" x="3" y="3" width="153" height="18"/>

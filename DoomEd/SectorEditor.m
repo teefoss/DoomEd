@@ -16,7 +16,9 @@ id	sectorEdit_i;
 
 - init
 {
-	self = [super init];
+	self = [super init]; 		// TF
+	if (!self)
+		printf("SectorEditor failed to init");
 	window_i = NULL;
 	sectorEdit_i = self;
 	currentFlat = -1;
@@ -64,7 +66,8 @@ id	sectorEdit_i;
 		return self;
 	}
 	
-	[window_i	orderFront:NULL];
+	//[window_i	orderFront:NULL];
+	[window_i makeKeyAndOrderFront:self];
 	return self;
 }
 
@@ -109,7 +112,7 @@ id	sectorEdit_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[NSBundle loadNibNamed:@"SectorEditor.nib" owner:self];
+		[NSBundle loadNibNamed:@"sectoreditor" owner:self];
 		[self	setupEditor];
 		//[window_i	setAvoidsActivation:YES];	DNE ?
 	}
@@ -531,7 +534,7 @@ id	sectorEdit_i;
 			f.image = flatToImage(flat,shortpal);
 			f.r.size.width = 64;
 			f.r.size.height = 64;
-			strcpy(f.name,[wadfile_i	lumpname:i]);
+			strncpy(f.name,[wadfile_i	lumpname:i],8);
 			f.name[8] = 0;
 			[flatImages	addElement:&f];
 			free(flat);
