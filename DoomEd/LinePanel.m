@@ -77,10 +77,10 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- activateSpecialList:sender
+- (IBAction)activateSpecialList:sender
 {
 	[lineSpecialPanel_i	displayPanel];
-	return self;
+	//return self;
 }
 
 /*
@@ -100,7 +100,7 @@ id	lineSpecialPanel_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[NSBundle loadNibNamed:@"line" owner:self];
+		[NSBundle loadNibNamed:@"line2" owner:self];
 		[window_i	setFrameUsingName:@"LineInspector"];
 		[firstColCalc_i		setFrameUsingName:@"FirstColCalc"];
 	}
@@ -119,10 +119,10 @@ id	lineSpecialPanel_i;
 ==============
 */
 
-- sideRadioTarget:sender
+- (IBAction)sideRadioTarget:sender
 {
 	[self updateInspector: NO];
-	return self;
+	//return self;
 }
 
 
@@ -138,12 +138,25 @@ id	lineSpecialPanel_i;
 
 - getSide: (worldside_t *)side
 {
-	side->flags = [sideform_i intValueAt: 0];
-	//side->flags = [sideform_i int]
-	side->firstcollumn = [sideform_i intValueAt: 1];
-	strncpy (side->toptexture, [sideform_i stringValueAt: 2], 9);
-	strncpy (side->midtexture, [sideform_i stringValueAt: 3], 9);
-	strncpy (side->bottomtexture, [sideform_i stringValueAt: 4], 9);
+//	side->flags = [sideform_i intValueAt: 0];
+//	//side->flags = [sideform_i int]
+//	side->firstcollumn = [sideform_i intValueAt: 1];
+//	strncpy (side->toptexture, [sideform_i stringValueAt: 2], 9);
+//	strncpy (side->midtexture, [sideform_i stringValueAt: 3], 9);
+//	strncpy (side->bottomtexture, [sideform_i stringValueAt: 4], 9);
+//	memset (&side->ends,0,sizeof(side->ends));
+//
+//	return self;
+	
+	NSString *top = [[[sideform_i cellAtIndex:2] contentView] stringValue];
+	NSString *middle = [[[sideform_i cellAtIndex:3] contentView] stringValue];
+	NSString *bottom = [[[sideform_i cellAtIndex:4] contentView] stringValue];
+
+	side->flags = [[[sideform_i cellAtIndex:0] contentView] intValue];
+	side->firstcollumn = [[[sideform_i cellAtIndex:1] contentView] intValue];
+	strncpy (side->toptexture, [top UTF8String], 9);
+	strncpy (side->midtexture, [middle UTF8String], 9);
+	strncpy (side->bottomtexture, [bottom UTF8String], 9);
 	memset (&side->ends,0,sizeof(side->ends));
 
 	return self;
@@ -170,11 +183,11 @@ id	lineSpecialPanel_i;
 	NSString *mid = [[NSString alloc] initWithCString:side->midtexture encoding:NSUTF8StringEncoding];
 	NSString *bot = [[NSString alloc] initWithCString:side->bottomtexture encoding:NSUTF8StringEncoding];
 
-	[[sideform_i cellAtRow:0 column:0] setIntValue:side->flags];
-	[[sideform_i cellAtRow:1 column:0] setIntValue:side->firstcollumn];
-	[[sideform_i cellAtRow:2 column:0] setStringValue:top];
-	[[sideform_i cellAtRow:3 column:0] setStringValue:mid];
-	[[sideform_i cellAtRow:4 column:0] setStringValue:bot];
+	[[[sideform_i cellAtIndex:0] contentView] setIntValue:side->flags];
+	[[[sideform_i cellAtIndex:1] contentView] setIntValue:side->firstcollumn];
+	[[[sideform_i cellAtIndex:2] contentView] setStringValue:top];
+	[[[sideform_i cellAtIndex:3] contentView] setStringValue:mid];
+	[[[sideform_i cellAtIndex:4] contentView] setStringValue:bot];
 
 	return self;
 }
@@ -269,71 +282,71 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- monsterblockChanged: sender
+- (IBAction)monsterblockChanged: sender
 {
 	int	state;
 	state = [monsterblock_i state];	
 	[self changeLineFlag: ~ML_MONSTERBLOCK  to: ML_MONSTERBLOCK*state];
-	return self;
+	//return self;
 }
 
-- blockChanged: sender
+- (IBAction)blockChanged: sender
 {
 	int	state;
 	state = [pblock_i state];	
 	[self changeLineFlag: ~ML_BLOCKMOVE  to: ML_BLOCKMOVE*state];
-	return self;
+	//return self;
 }
 
-- secretChanged:sender
+- (IBAction)secretChanged:sender
 {
 	int	state;
 	state = [secret_i	state];
 	[self	changeLineFlag: ~ML_SECRET	to:ML_SECRET*state];
-	return self;
+	//return self;
 }
 
-- dontDrawChanged:sender
+- (IBAction)dontDrawChanged:sender
 {
 	int	state;
 	state = [dontdraw_i	state];
 	[self	changeLineFlag: ~ML_DONTDRAW	to:ML_DONTDRAW*state];
-	return self;
+	//return self;
 }
 
-- soundBlkChanged:sender
+- (IBAction)soundBlkChanged:sender
 {
 	int	state;
 	state = [soundblock_i	state];
 	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:ML_SOUNDBLOCK*state];
-	return self;
+	//return self;
 }
 
-- twosideChanged: sender
+- (IBAction)twosideChanged: sender
 {
 	int	state;
 	state = [twosided_i state];	
 	[self changeLineFlag: ~ML_TWOSIDED  to: ML_TWOSIDED*state];
-	return self;
+	//return self;
 }
 
-- toppegChanged: sender
+- (IBAction)toppegChanged: sender
 {
 	int	state;
 	state = [toppeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGTOP  to: ML_DONTPEGTOP*state];
-	return self;
+	//return self;
 }
 
-- bottompegChanged: sender
+- (IBAction)bottompegChanged: sender
 {
 	int	state;
 	state = [bottompeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: ML_DONTPEGBOTTOM*state];
-	return self;
+	//return self;
 }
 
-- specialChanged: sender
+- (IBAction)specialChanged: sender
 {
 	int		i,value;
 	
@@ -347,11 +360,11 @@ id	lineSpecialPanel_i;
 	
 	[lineSpecialPanel_i	setSpecial:[special_i	intValue]];
 	[editworld_i updateWindows];
-	return self;
+	//return self;
 }
 
 
-- tagChanged: sender
+- (IBAction)tagChanged: sender
 {
 	int		i,value;
 	
@@ -364,11 +377,11 @@ id	lineSpecialPanel_i;
 		}
 	
 	[editworld_i updateWindows];
-	return self;
+	//return self;
 }
 
 
-- sideChanged: sender
+- (IBAction)sideChanged: sender
 {
 	int		i,side;
 	worldside_t	new;
@@ -388,42 +401,44 @@ id	lineSpecialPanel_i;
 		}
 	
 	[editworld_i updateWindows];
-	return self;
+	//return self;
 }
 
-- getFromTP:sender
+- (IBAction)getFromTP:sender
 {
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[[sideform_i cellAtRow:2+tag column:0] setStringValue:CastNSString([texturePalette_i getSelTextureName])];
+	
+	NSString *name = [[NSString alloc] initWithCString:[texturePalette_i getSelTextureName] encoding:NSUTF8StringEncoding];
+	[[[sideform_i cellAtIndex:2+tag] contentView] setStringValue:name];
 	//[[sideform_i	cellAt:2+tag :0] setStringValue:[texturePalette_i  getSelTextureName]];
 	[self	sideChanged:NULL];
-	return self;
+	//return self;
 }
 
-- setTP:sender
+- (IBAction)setTP:sender
 {
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
 	//[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
 
-	const char *name = [[[sideform_i cellAtRow:2+tag column:0] stringValue] UTF8String];
+	char *name = (char *)[[[[sideform_i cellAtIndex:2+tag] contentView] stringValue] UTF8String];
 //	[texturePalette_i setSelTexture:(char *)[[sideform_i cellAtRow:2+tag column:0] stringValue]];
 	[texturePalette_i setSelTexture:name];
-	return self;
+	//return self;
 }
 
-- zeroEntry:sender
+- (IBAction)zeroEntry:sender
 {
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[[sideform_i cellAtRow:2+tag column:0] setStringValue:@"-"];
+	[[[sideform_i cellAtIndex:2+tag] contentView] setStringValue:@"-"];
 	//[[sideform_i	cellAt:2+tag :0] setStringValue:"-"];
 	[self	sideChanged:NULL];
-	return self;
+	//return self;
 }
 
 //==========================================================
@@ -431,7 +446,7 @@ id	lineSpecialPanel_i;
 // Suggest a new tag value for this map
 //
 //==========================================================
-- suggestTagValue:sender
+- (IBAction)suggestTagValue:sender
 {
 	int	i, val, found;
 	
@@ -452,7 +467,7 @@ id	lineSpecialPanel_i;
 			break;
 		}
 	}
-	return self;
+	//return self;
 }
 
 - (int)getTagValue
@@ -465,38 +480,38 @@ id	lineSpecialPanel_i;
 //	Firstcol Calculator code
 //
 //==========================================================
-- popUpCalc:sender
+- (IBAction)popUpCalc:sender
 {
 	[firstColCalc_i		makeKeyAndOrderFront:NULL];
-	return self;
+	//return self;
 }
 
-- setFCVal:sender
+- (IBAction)setFCVal:sender
 {
-	[fc_currentVal_i  setIntValue:[[sideform_i  cellAtRow:1 column:0]  intValue]];
-	return self;
+	[fc_currentVal_i  setIntValue:[[[sideform_i  cellAtIndex:1] contentView]  intValue]];
+	//return self;
 }
 
-- incFirstCol:sender
+- (IBAction)incFirstCol:sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
 	val += [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
+	[[[sideform_i cellAtIndex:1] contentView]  setIntValue:val];
 	[self	sideChanged:NULL];
-	return self;
+	//return self;
 }
 
-- decFirstCol:sender
+- (IBAction)decFirstCol:sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
 	val -= [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
+	[[[sideform_i cellAtIndex:1] contentView]  setIntValue:val];
 	[self	sideChanged:NULL];
-	return self;
+	//return self;
 }
 
 
@@ -554,10 +569,11 @@ id	lineSpecialPanel_i;
 ===================
 */
 
-- windowDidUpdate:sender
+- (void)windowDidUpdate:(NSNotification *)notification
+//- windowDidUpdate:sender
 {
 	[self updateInspector: YES];
-	return self;
+	//return self;
 }
 
 

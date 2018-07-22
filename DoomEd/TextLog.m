@@ -21,7 +21,7 @@
 //				withNames:		NO
 //				];
 	
-	[window_i	setTitle:title ];
+	//[window_i	setTitle:title ];
 	return self;
 }
 

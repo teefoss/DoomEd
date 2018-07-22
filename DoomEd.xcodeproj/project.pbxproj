@@ -91,6 +91,7 @@
 		3095F6A820F6AAE700570C92 /* remapper.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A720F6AAE600570C92 /* remapper.nib */; };
 		3095F6AB20F6AB2500570C92 /* thingpalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A920F6AB2400570C92 /* thingpalette.nib */; };
 		3095F6AC20F6AB2500570C92 /* thingpalview.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6AA20F6AB2500570C92 /* thingpalview.nib */; };
+		30E7504421052FCF0043F6EA /* line2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E7504321052FCF0043F6EA /* line2.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +228,7 @@
 		3095F6A720F6AAE600570C92 /* remapper.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = remapper.nib; sourceTree = "<group>"; };
 		3095F6A920F6AB2400570C92 /* thingpalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalette.nib; sourceTree = "<group>"; };
 		3095F6AA20F6AB2500570C92 /* thingpalview.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalview.nib; sourceTree = "<group>"; };
+		30E7504321052FCF0043F6EA /* line2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = line2.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +379,7 @@
 				3095F68D20F5442400570C92 /* findline.nib */,
 				3095F68620F5442300570C92 /* flatremapper.nib */,
 				3095F68A20F5442300570C92 /* line.nib */,
+				30E7504321052FCF0043F6EA /* line2.xib */,
 				3095F68120F5442200570C92 /* preferences.nib */,
 				3095F68220F5442200570C92 /* project.nib */,
 				3095F68920F5442300570C92 /* projectinfo.nib */,
@@ -495,6 +498,7 @@
 				3095F6AB20F6AB2500570C92 /* thingpalette.nib in Resources */,
 				3095F69620F5442500570C92 /* speciallist.nib in Resources */,
 				3095F69820F5442500570C92 /* flatremapper.nib in Resources */,
+				30E7504421052FCF0043F6EA /* line2.xib in Resources */,
 				3095F6AC20F6AB2500570C92 /* thingpalview.nib in Resources */,
 				3010A70720E708860007A544 /* DoomEd.iconheader in Resources */,
 				3095F6A520F6AA6F00570C92 /* textureedit.nib in Resources */,
