@@ -16,13 +16,15 @@
 - initWithFrame:(NSRect)frame
 //- initFrame:(const NXRect *)frameRect
 {
-	self = [super	initWithFrame:frame];
 
 	dividers_i = [	[ Storage alloc ]
 				initCount:		0
 				elementSize:	sizeof (divider_t )
 				description:	NULL ];
 	printf("texturePalView initWithFrame\n");
+	
+	self = [super	initWithFrame:frame];
+
 	return self;
 }
 
@@ -123,7 +125,8 @@
 	for (i = texcount - 1;i >= 0;i--)
 	{
 		t = [texturePalette_i		getNewTexture:i];
-		if (NXPointInRect(&loc,&t->r) == YES)
+		//if (NXPointInRect(&loc,&t->r) == YES)
+		if (NSPointInRect(loc, t->r) == YES)
 		{
 			which = [texturePalette_i	selectTextureNamed:t->name ];
 //			if (theEvent->data.mouse.click == 2)
@@ -135,6 +138,7 @@
 			}
 		}
 	}
+	[self setNeedsDisplay:YES];
 	//return self;
 }
 

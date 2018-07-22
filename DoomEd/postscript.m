@@ -62,7 +62,7 @@ void NXFrameRectWithWidth(const NXRect *aRect, NXCoord frameWidth)
 
 void PSsetrgbcolor(float red, float green, float blue)
 {
-	color = [NSColor colorWithRed:red green:green blue:blue alpha:1.0];
+	color = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:1.0];
 	[color set];
 }
 

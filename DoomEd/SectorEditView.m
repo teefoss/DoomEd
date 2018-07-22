@@ -6,7 +6,8 @@
 
 @implementation SectorEditView
 
-- drawSelf:(const NXRect *)rects :(int)rectCount
+//- drawSelf:(const NXRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
 {
 	sectordef_t	*s;
 	flat_t	*f;
@@ -53,7 +54,7 @@
 		[f->image compositeToPoint:p operation:NX_COPY];
 	}
 
-	return self;
+	//return self;
 }
 
 //- mouseDown:(NXEvent *)theEvent

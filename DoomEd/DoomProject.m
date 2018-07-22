@@ -2539,16 +2539,26 @@ void IO_Error (char *error, ...)
 //=======================================================
 void DE_DrawOutline(NXRect *r)
 {
-	PSsetrgbcolor ( 148,0,0 );
-	PSmoveto ( r->origin.x, r->origin. y );
-	PSsetlinewidth( 2.0 );
-	PSlineto (r->origin.x+r->size.width-1,r->origin.y);
-	PSlineto (r->origin.x+r->size.width-1,
-			r->origin.y+r->size.height-1);
-	PSlineto (r->origin.x,r->origin.y+r->size.height-1);
-	PSlineto (r->origin.x,r->origin.y);
-	PSstroke ();
+//	PSsetrgbcolor ( 148,0,0 );
+//	PSmoveto ( r->origin.x, r->origin. y );
+//	PSsetlinewidth( 2.0 );
+//	PSlineto (r->origin.x+r->size.width-1,r->origin.y);
+//	PSlineto (r->origin.x+r->size.width-1,
+//			r->origin.y+r->size.height-1);
+//	PSlineto (r->origin.x,r->origin.y+r->size.height-1);
+//	PSlineto (r->origin.x,r->origin.y);
+//	PSstroke ();
+//
+//	return;
+	NSBezierPath *path = [[NSBezierPath alloc] init];
+	[[NSColor colorWithCalibratedRed:148 green:0 blue:0 alpha:1] set];
+	[path setLineWidth:2.0];
+	[path moveToPoint:NSMakePoint(r->origin.x, r->origin.y)];
+	[path lineToPoint:NSMakePoint(r->origin.x+r->size.width-1,r->origin.y)];
+	[path lineToPoint:NSMakePoint(r->origin.x+r->size.width-1,
+								  r->origin.y+r->size.height-1)];
+	[path lineToPoint:NSMakePoint(r->origin.x,r->origin.y+r->size.height-1)];
+	[path lineToPoint:NSMakePoint(r->origin.x,r->origin.y)];
+	[path stroke];
 
-	return;	
 }
-

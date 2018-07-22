@@ -14,7 +14,7 @@
 				elementSize:	sizeof (divider_t )
 				description:	NULL ];
 				
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	return self;
 }
 
@@ -36,7 +36,8 @@
 	return self;
 }
 
-- drawSelf:(const NXRect *)rects :(int)rectCount
+//- drawSelf:(const NXRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
 {
 	flat_t	*f;
 	int	max, i, cf;
@@ -59,7 +60,7 @@
 	for (i = 0; i < max; i++)
 	{
 		f = [sectorEdit_i	getFlat:i];
-		if (NXIntersectsRect(&rects[0],&f->r))
+		if (NXIntersectsRect(&dirtyRect,&f->r))
 			//[f->image	composite:NX_COPY	toPoint:&f->r.origin];
 			[f->image compositeToPoint:f->r.origin operation:NSCompositingOperationCopy];
 	}
@@ -88,7 +89,7 @@
 		PSstroke ();
 	}
 	
-	return self;
+	//return self;
 }
 
 - (void)mouseDown:(NSEvent *)event
@@ -97,9 +98,10 @@
 	int	i,max,oldwindowmask;
 	flat_t	*f;
 
-	event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseDragged];
-	loc = [event locationInWindow];
-	[self convertPoint:loc	fromView:NULL];
+//	event = [[self window] nextEventMatchingMask:NSEventMaskLeftMouseDragged];
+//	loc = [event locationInWindow];
+//	[self convertPoint:loc	fromView:NULL];
+	loc = [self convertPoint:[event locationInWindow] fromView:nil];
 	
 	max = [sectorEdit_i	getNumFlats];
 	for (i = 0;i < max; i++)
@@ -118,6 +120,7 @@
 	}
 	//[window	setEventMask:oldwindowmask];
 	//return self;
+	[self setNeedsDisplay:YES];
 }
 
 @end
