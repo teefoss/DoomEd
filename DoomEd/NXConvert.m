@@ -120,7 +120,8 @@ NXColor *NXConvertRGBAToColor(float red, float green, float blue, float alpha)
 
 NXColor *NXConvertRGBToColor(float red, float green, float blue)
 {
-	NSColor *new = [NSColor colorWithRed:red green:green blue:blue alpha:1.0];
+	NSColor *new = [[NSColor alloc] init];
+	new = [NSColor colorWithCalibratedRed:red green:green blue:blue alpha:1.0];
 	return new;
 }
 

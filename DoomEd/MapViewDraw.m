@@ -189,7 +189,6 @@
 	li = lines;
 	for (i=0 ; i<numlines ; i++, li++)
 	{
-		printf("line %i selected = %i",i,li->selected);
 		NSBezierPath *linepath = [[NSBezierPath alloc] init];
 		NSBezierPath *normalpath = [[NSBezierPath alloc] init];
 
@@ -266,6 +265,9 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 			wp->origin.y > top || 
 			wp->origin.y < bottom)
 			continue;
+//		NSColor *c = [[NSColor alloc] init];
+//		c = [thingpanel_i getThingColor:wp->type];
+//		printf("color = %f %f %f\n", [c redComponent], [c greenComponent], [c blueComponent]);
 		
 		// Only draw correct difficulties
 		if (diff != DIFF_ALL)

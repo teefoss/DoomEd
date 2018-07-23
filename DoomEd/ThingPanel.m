@@ -350,11 +350,12 @@ id	thingpanel_i;
 	for (i = 0; i < max; i++)
 	{
 		t = [masterList_i	elementAt:i];
+		NSString *name = [[NSString alloc] initWithCString:t->name encoding:NSUTF8StringEncoding];
 		//[matrix	insertRowAt:i];
 		[matrix insertRow:i];
 		//cell = [matrix	cellAt:i	:0];
 		cell = [matrix cellAtRow:i column:0];
-		[cell	setStringValue:CastNSString(t->name)];
+		[cell	setStringValue:name];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
@@ -460,7 +461,11 @@ id	thingpanel_i;
 	thing->option |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
 	thing->option |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
 	thing->option |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
-	thing->color = [thingColor_i	color];
+//	thing->color = [thingColor_i	color];		// TODO revert
+	thing->color[0] = [[thingColor_i color] redComponent];
+	thing->color[1] = [[thingColor_i color] greenComponent];
+	thing->color[2] = [[thingColor_i color] blueComponent];
+
 	strcpy(thing->iconname,CastCString([iconField_i	stringValue]));
 	if (!thing->iconname[0])
 		strcpy(thing->iconname,"NOICON");
@@ -553,14 +558,27 @@ id	thingpanel_i;
 	return self;
 }
 
-- (NXColor *)getThingColor:(int)type
+- (NSColor *)getThingColor:(int)type
 {
+//	int	index;
+//
+//	index = [self  searchForThingType:type];
+//	if (index < 0)
+//		return [prefpanel_i colorFor: SELECTED_C];
+//	return	((thinglist_t *)[masterList_i	elementAt:index])->color;
+	
 	int	index;
+	float r,g,b;
 	
 	index = [self  searchForThingType:type];
 	if (index < 0)
 		return [prefpanel_i colorFor: SELECTED_C];
-	return	((thinglist_t *)[masterList_i	elementAt:index])->color;
+//	return	((thinglist_t *)[masterList_i	elementAt:index])->color;
+	r = ((thinglist_t *)[masterList_i	elementAt:index])->color[0];
+	g = ((thinglist_t *)[masterList_i	elementAt:index])->color[1];
+	b = ((thinglist_t *)[masterList_i	elementAt:index])->color[2];
+	
+	return NXConvertRGBToColor(r, g, b);
 }
 
 //
@@ -589,7 +607,10 @@ id	thingpanel_i;
 //	[fields_i	setIntValue:thing->value	at:1];
 	[[fields_i cellAtRow:1 column:0] setIntValue:thing->value];
 	[nameField_i	setStringValue:CastNSString(thing->name)];
-	[thingColor_i	setColor:thing->color];
+//	[thingColor_i	setColor:thing->color];
+	NSColor *color = [[NSColor alloc] init];
+	color = [NSColor colorWithCalibratedRed:thing->color[0] green:thing->color[1] blue:thing->color[2] alpha:1];
+	[thingColor_i	setColor:color];
 	[iconField_i	setStringValue:CastNSString(thing->iconname)];
 	
 	basething.type = thing->value;
@@ -733,18 +754,32 @@ id	thingpanel_i;
 			thing->name,&thing->angle,&thing->value,&thing->option,
 			&r,&g,&b,thing->iconname) != 8)
 		return NO;
-	thing->color = NXConvertRGBToColor(r,g,b);
+	//thing->color = NXConvertRGBToColor(r,g,b);		// TODO revert
+	thing->color[0] = r;
+	thing->color[1] = g;
+	thing->color[1] = b;
 	return YES;
 }
 
 - writeThing:(thinglist_t *)thing	from:(FILE *)stream
 {
+//	float	r,g,b;
+//
+//	NXConvertColorToRGB(thing->color,&r,&g,&b);
+//	fprintf(stream,"%s = %d %d %d (%f %f %f) %s\n",thing->name,thing->angle,thing->value,
+//			thing->option,r,g,b,thing->iconname);
+//	return self;
 	float	r,g,b;
-	
-	NXConvertColorToRGB(thing->color,&r,&g,&b);
+
+//	NXConvertColorToRGB(thing->color,&r,&g,&b);
+	r = thing->color[0];
+	g = thing->color[1];
+	b = thing->color[2];
+
 	fprintf(stream,"%s = %d %d %d (%f %f %f) %s\n",thing->name,thing->angle,thing->value,
 			thing->option,r,g,b,thing->iconname);
 	return self;
+
 }
 
 //

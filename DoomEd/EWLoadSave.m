@@ -20,10 +20,13 @@
 
 	memset (line, 0, sizeof(*line));
 
-	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
+//	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
+//		,&p1->x, &p1->y,&p2->x, &p2->y,&line->flags, &line->special, &line->tag) != 7)
+//		return NO;
+	if (fscanf (file,"(%lf,%lf) to (%lf,%lf) : %d : %d : %d\n"
 		,&p1->x, &p1->y,&p2->x, &p2->y,&line->flags, &line->special, &line->tag) != 7)
 		return NO;
-	
+
 	for (i=0 ; i<=  ( (line->flags&ML_TWOSIDED) != 0) ; i++)
 	{
 		s = &line->side[i];	
@@ -197,7 +200,10 @@
 	for (i=0 ; i<linecount ; i++)
 	{
 		if (![self readLine: &p1 : &p2 : &line from: file])
+		{
+			printf("failed to read line\n");
 			return nil;
+		}
 		[self newLine: &line from: &p1 to: &p2];
 	}
 		
@@ -210,7 +216,10 @@
 	for (i=0 ; i<thingcount ; i++)
 	{
 		if (![self readThing: &thing from: file])
+		{
+			printf("failed to read thing\n");
 			return nil;
+		}
 		[self newThing: &thing];
 	}
 

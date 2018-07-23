@@ -1098,10 +1098,6 @@
 		break;
 	}
 	
-	printf("==============\n");
-	for (int i=0; i<numlines; i++)
-		printf("line %i selected = %i\n",i,lines[i].selected);
-			
 	[editworld_i updateWindows];
 	//return(self);
 }
@@ -1121,10 +1117,6 @@
 		break;
 	}
 	
-	printf("==============\n");
-	for (int i=0; i<numlines; i++)
-		printf("line %i selected = %i\n",i,lines[i].selected);
-
 	[self setNeedsDisplay:YES];		// TF TODO why doesn't updateWindows redraw mapview?
 	[editworld_i updateWindows];
 	//return self;

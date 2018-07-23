@@ -6,12 +6,20 @@
 
 extern	id	thingpanel_i;
 
-typedef struct
+//typedef struct
+//{
+//	char		name[32];
+//	char		iconname[9];
+//	NSColor		*color;
+//	int		value, option,angle;
+//} thinglist_t;
+
+typedef struct	// TODO revert
 {
 	char		name[32];
 	char		iconname[9];
-	NXColor	*color;
-	int		value, option,angle;
+	float		color[3];
+	int			value, option, angle;
 } thinglist_t;
 
 #define	THINGNAME	@"ThingInspector"

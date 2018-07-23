@@ -47,6 +47,11 @@ BOOL	linecross[9][9];
 
 -initFromEditWorld
 {
+	worldpoint_t *pt_p;
+	pt_p = points;
+	for (int i=0; i<numpoints; i++, pt_p++)
+		printf("pt %i: %f, %f\n", i,pt_p->pt.x,pt_p->pt.y);
+
 	NXRect	aRect;
 
 	 if (![editworld_i loaded])
@@ -432,9 +437,9 @@ printf ("Done\n");
 		
 		//[self sizeTo: newbounds.size.width*scale : newbounds.size.height*scale];
 		[self setFrameSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
-		[self setBoundsSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
+		//[self setBoundsSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
 
-		[self setNeedsDisplay:YES];
+		//[self setNeedsDisplay:YES];
 	}
 
 	if (
@@ -452,7 +457,7 @@ printf ("Done\n");
 		//[self setDrawOrigin: newbounds.origin.x : newbounds.origin.y];
 		[self setBoundsOrigin:newbounds.origin];
 		[self setFrameOrigin:newbounds.origin];
-		[self setNeedsDisplay:YES];
+//		[self setNeedsDisplay:YES];
 	}
 		
 	return self;
