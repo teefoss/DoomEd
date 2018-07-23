@@ -344,7 +344,6 @@ int LineByPoint (NXPoint *ptin, int *side)
 		return nil;
 	}
 	
-			
 	win = [[MapWindow alloc] initFromEditWorld];
 	if (!win)
 		return NULL;
@@ -619,6 +618,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 	if (!dirtyrect.size.width)
 		return self;		// nothing to update
 
+	printf("Editworld updateWindows with positive dirtyrect\n"); // REM
 	count = [windowlist_i count];
 	while (--count > -1)
 		[[windowlist_i objectAtIndex: count] reDisplay: &dirtyrect];
@@ -631,6 +631,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - redrawWindows
 {
+	printf("redrawWindows called\n");
 	[windowlist_i makeObjectsPerformSelector:@selector(display)];
 
 	dirtyrect.size.width = dirtyrect.size.height = 0;

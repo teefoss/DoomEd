@@ -189,6 +189,7 @@
 	li = lines;
 	for (i=0 ; i<numlines ; i++, li++)
 	{
+		printf("line %i selected = %i",i,li->selected);
 		NSBezierPath *linepath = [[NSBezierPath alloc] init];
 		NSBezierPath *normalpath = [[NSBezierPath alloc] init];
 
