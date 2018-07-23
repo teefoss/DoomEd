@@ -58,7 +58,7 @@ id	thingpanel_i;
 //			owner:			self
 //			withNames:		NO
 //		];
-		[NSBundle loadNibNamed:@"thing.nib" owner:self];
+		[NSBundle loadNibNamed:@"thing2" owner:self];
 		[window_i	setFrameUsingName:THINGNAME];
 		[window_i	setDelegate:self];
 		[thingBrowser_i	reloadColumn:0];
@@ -127,11 +127,12 @@ id	thingpanel_i;
 		return NULL;
 	}
 	
-	cell = [fields_i cellAtRow:1 column:0];
+//	cell = [fields_i cellAtRow:1 column:0];
+	cell = [[fields_i cellAtIndex:1] contentView];
 	//thing.value = [fields_i		intValueAt:1];
 	thing.value = [cell intValue];
-	strcpy(thing.name,CastCString([nameField_i stringValue]));
-	strcpy(thing.iconname,CastCString([iconField_i	stringValue]));
+	strcpy(thing.name,[[nameField_i stringValue] UTF8String]);
+	strcpy(thing.iconname,[[iconField_i	stringValue] UTF8String]);
 
 	return &thing;	// TODO check this
 }
@@ -151,7 +152,7 @@ id	thingpanel_i;
 //	Change the difficulty of Things to view
 //
 //===================================================================
-- changeDifficultyDisplay:sender
+- (IBAction)changeDifficultyDisplay:sender
 {
 	id				cell;
 	
@@ -163,7 +164,7 @@ id	thingpanel_i;
 	[editworld_i	redrawWindows];
 	[self	currentThingCount];
 	
-	return self;
+	//return self;
 }
 
 //===================================================================
@@ -247,11 +248,11 @@ id	thingpanel_i;
 //	Unlink icon from this Thing
 //
 //===================================================================
-- unlinkIcon:sender
+- (IBAction)unlinkIcon:sender
 {
 	[iconField_i	setStringValue:@"NOICON"];
 	[updateButton_i	performClick:self];
-	return self;
+	//return self;
 }
 
 //===================================================================
@@ -259,7 +260,7 @@ id	thingpanel_i;
 //	Assign icon selected in Thing Palette to current thing data
 //
 //===================================================================
-- assignIcon:sender
+- (IBAction)assignIcon:sender
 {
 	int		iconnum;
 	icon_t	*icon;
@@ -268,13 +269,14 @@ id	thingpanel_i;
 	if (iconnum < 0)
 	{
 		NXBeep();
-		return self;
+		return;// self;
 	}
 	icon = [thingPalette_i	getIcon:iconnum];
-	[iconField_i	setStringValue:CastNSString(icon->name)];
+	NSString *iconname = [[NSString alloc] initWithCString:icon->name encoding:NSUTF8StringEncoding];
+	[iconField_i	setStringValue:iconname];
 	[updateButton_i	performClick:self];
 	
-	return self;
+	//return self;
 }
 
 //===================================================================
@@ -282,23 +284,24 @@ id	thingpanel_i;
 //	Verify a correct icon name input
 //
 //===================================================================
-- verifyIconName:sender
+- (IBAction)verifyIconName:sender
 {
 	char	name[10];
 	int		which;
 	
-	strcpy(name,CastCString([iconField_i	stringValue]));
+	strcpy(name,[[iconField_i	stringValue] UTF8String]);
 	strupr(name);
 	which = [thingPalette_i	findIcon:name];
 	if (which < 0)
 	{
 		NXBeep();
 		[iconField_i	setStringValue:@"NOICON"];
-		return self;
+		return;// self;
 	}
-	[iconField_i	setStringValue:CastNSString(name)];
+	NSString *name_ns = [[NSString alloc] initWithCString:name encoding:NSUTF8StringEncoding];
+	[iconField_i	setStringValue:name_ns];
 	
-	return self;
+	//return self;
 }
 
 //===================================================================
@@ -306,7 +309,7 @@ id	thingpanel_i;
 //	Suggest a new type for a new Thing
 //
 //===================================================================
-- suggestNewType:sender
+- (IBAction)suggestNewType:sender
 {
 	int	num,i,found,max;
 	id cell;
@@ -323,13 +326,14 @@ id	thingpanel_i;
 			}
 		if (!found)
 		{
-			cell = [fields_i cellAtRow:1 column:0];
+			//cell = [fields_i cellAtRow:1 column:0];
+			cell = [[fields_i cellAtIndex:1] contentView];
 			//[fields_i	setIntValue:num	at:1];
 			[cell setIntValue:num];
-			return self;
+			return;// self;
 		}
 	}
-	return self;
+	//return self;
 }
 
 //
@@ -375,7 +379,7 @@ id	thingpanel_i;
 	
 	cell = [thingBrowser_i	selectedCell];
 	if (cell)
-		strcpy(name,CastCString([cell	stringValue]));
+		strcpy(name,[[cell	stringValue] UTF8String]);
 	max = [masterList_i	count];
 	
 	do
@@ -416,7 +420,7 @@ id	thingpanel_i;
 //
 // update current thing with current data
 //
-- updateThingData:sender
+- (IBAction)updateThingData:sender
 {
 	id	cell;
 	int	which;
@@ -426,9 +430,9 @@ id	thingpanel_i;
 	if (!cell)
 	{
 		NXBeep();
-		return self;
+		return;// self;
 	}
-	which = [self	findThing:(char *)[cell	stringValue]];
+	which = [self	findThing:(char *)[[cell	stringValue] UTF8String]];
 	t = [masterList_i	elementAt:which];
 	[self	fillThingData:t];
 	[thingBrowser_i	reloadColumn:0];
@@ -437,7 +441,7 @@ id	thingpanel_i;
 	[[thingBrowser_i	matrixInColumn:0] selectCellAtRow:which column:0];
 	[doomproject_i	setDirtyProject:TRUE];
 	
-	return self;
+	//return self;
 }
 
 //
@@ -447,15 +451,17 @@ id	thingpanel_i;
 {
 	id angleCell, valueCell;
 	
-	angleCell = [fields_i cellAtRow:0 column:0];
-	valueCell = [fields_i cellAtRow:1 column:0];
-	
+//	angleCell = [fields_i cellAtRow:0 column:0];
+//	valueCell = [fields_i cellAtRow:1 column:0];
+	angleCell = [[fields_i cellAtIndex:0] contentView];
+	valueCell = [[fields_i cellAtIndex:1] contentView];
+
 //	thing->angle = [fields_i		intValueAt:0];
 //	thing->value = [fields_i		intValueAt:1];
 	thing->angle = [angleCell		intValue];
 	thing->value = [valueCell		intValue];
 	[self	confirmCorrectNameEntry:NULL];
-	strcpy(thing->name,CastCString([nameField_i	stringValue]));
+	strcpy(thing->name,[[nameField_i	stringValue] UTF8String]);
 	thing->option = [ambush_i	intValue]<<3;
 	thing->option |= ([network_i	intValue]&1)<<4;
 	thing->option |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
@@ -466,7 +472,7 @@ id	thingpanel_i;
 	thing->color[1] = [[thingColor_i color] greenComponent];
 	thing->color[2] = [[thingColor_i color] blueComponent];
 
-	strcpy(thing->iconname,CastCString([iconField_i	stringValue]));
+	strcpy(thing->iconname,[[iconField_i	stringValue] UTF8String]);
 	if (!thing->iconname[0])
 		strcpy(thing->iconname,"NOICON");
 	return self;
@@ -475,22 +481,23 @@ id	thingpanel_i;
 //
 // corrects any wrongness in namefield
 //
-- confirmCorrectNameEntry:sender
+- (IBAction)confirmCorrectNameEntry:sender
 {
 	char		name[32];
 	int	i;
 
 	bzero(name,32);
-	if (strlen(CastCString([nameField_i	stringValue])) > 31)
-		strncpy(name,CastCString([nameField_i	stringValue]),31);
+	if (strlen([[nameField_i	stringValue] UTF8String]) > 31)
+		strncpy(name,[[nameField_i	stringValue] UTF8String],31);
 	else
-		strcpy(name,CastCString([nameField_i	stringValue]));
+		strcpy(name,[[nameField_i	stringValue] UTF8String]);
 		
 	for (i = 0; i < strlen(name);i++)
 		if (name[i] == ' ')
 			name[i] = '_';
-	[nameField_i	setStringValue:CastNSString(name)];
-	return self;
+	NSString *name_ns = [[NSString alloc] initWithCString:name encoding:NSUTF8StringEncoding];
+	[nameField_i	setStringValue:name_ns];
+	//return self;
 }
 
 //
@@ -498,8 +505,8 @@ id	thingpanel_i;
 //
 - getThing:(worldthing_t	*)thing
 {
-	thing->angle = [[fields_i cellAtRow:0 column:0]	intValue];	// TF
-	thing->type = [[fields_i cellAtRow:1 column:0]	intValue];	// TF
+	thing->angle = [[[fields_i cellAtIndex:0] contentView]	intValue];
+	thing->type = [[[fields_i cellAtIndex:1] contentView]	intValue];
 	thing->options = [ambush_i	intValue]<<3;
 	thing->options |= ([network_i	intValue]&1)<<4;
 	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
@@ -550,12 +557,12 @@ id	thingpanel_i;
 	return self;
 }
 
-- setAngle:sender
+- (IBAction)setAngle:sender
 {
-	[[fields_i cellAtRow:0 column:0] setIntValue:[[sender selectedCell] tag]];
+	[[[fields_i cellAtIndex:0] contentView] setIntValue:[[sender selectedCell] tag]];
 	//[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
 	[self		formTarget:NULL];
-	return self;
+	//return self;
 }
 
 - (NSColor *)getThingColor:(int)type
@@ -605,13 +612,18 @@ id	thingpanel_i;
 - fillDataFromThing:(thinglist_t *)thing
 {
 //	[fields_i	setIntValue:thing->value	at:1];
-	[[fields_i cellAtRow:1 column:0] setIntValue:thing->value];
-	[nameField_i	setStringValue:CastNSString(thing->name)];
+	[[[fields_i cellAtIndex:1] contentView] setIntValue:thing->value];
+
+	NSString *thingname = [[NSString alloc] initWithCString:thing->name encoding:NSUTF8StringEncoding];
+	[nameField_i	setStringValue:thingname];
+	
 //	[thingColor_i	setColor:thing->color];
 	NSColor *color = [[NSColor alloc] init];
 	color = [NSColor colorWithCalibratedRed:thing->color[0] green:thing->color[1] blue:thing->color[2] alpha:1];
 	[thingColor_i	setColor:color];
-	[iconField_i	setStringValue:CastNSString(thing->iconname)];
+	
+	NSString *iconname = [[NSString alloc] initWithCString:thing->iconname encoding:NSUTF8StringEncoding];
+	[iconField_i	setStringValue:iconname];
 	
 	basething.type = thing->value;
 	
@@ -626,7 +638,7 @@ id	thingpanel_i;
 	[self	fillDataFromThing:thing];
 	
 	//[fields_i	setIntValue:thing->angle	at:0];
-	[[fields_i cellAtRow:0 column:0] setIntValue:thing->angle];
+	[[[fields_i cellAtIndex:0] contentView] setIntValue:thing->angle];
 	[ambush_i	setIntValue:((thing->option)>>3)&1];
 	[network_i	setIntValue:((thing->option)>>4)&1];
 	[[difficulty_i cellAtRow:0 column:0] setIntValue:(thing->option)&1];
@@ -642,7 +654,7 @@ id	thingpanel_i;
 //
 // Add "type" to thing list
 //
-- addThing:sender
+- (IBAction)addThing:sender
 {
 	thinglist_t		t;
 	int	which;
@@ -658,7 +670,7 @@ id	thingpanel_i;
 		NXBeep();
 		NXRunAlertPanel("Oops!",
 			"You already have a THING by that name!","OK",NULL,NULL,NULL);
-		return self;
+		return;// self;
 	}
 	
 	[masterList_i	addElement:&t];
@@ -671,7 +683,7 @@ id	thingpanel_i;
 	[matrix scrollCellToVisibleAtRow:which column:0];
 	[doomproject_i	setDirtyProject:TRUE];
 	
-	return self;
+	//return self;
 }
 
 #if 0
@@ -719,7 +731,7 @@ id	thingpanel_i;
 // user chose an item in the thingBrowser_i.
 // stick the info in the "name" and "type" fields.
 //
-- chooseThing:sender
+- (IBAction)chooseThing:sender
 {
 	id		cell;
 	int		which;
@@ -727,14 +739,14 @@ id	thingpanel_i;
 	
 	cell = [sender	selectedCell];
 	if (!cell)
-		return self;
+		return;// self;
 		
-	which = [self	findThing:(char *)[cell	stringValue]];
+	which = [self	findThing:(char *)[[cell	stringValue] UTF8String]];
 	if (which < 0)
 	{
 		NXBeep();
 		printf("Whoa! Can't find that thing!\n");
-		return self;
+		return;// self;
 	}
 
 	t = [masterList_i	elementAt:which];
@@ -743,7 +755,7 @@ id	thingpanel_i;
 	which = [thingPalette_i	findIcon:t->iconname];
 	if (which >= 0)
 		[thingPalette_i	setCurrentIcon:which];
-	return self;
+	//return self;
 }
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream
@@ -845,8 +857,8 @@ id	thingpanel_i;
 	
 //	[fields_i setIntValue: basething.angle at: 0];
 //	[fields_i setIntValue: basething.type at: 1];
-	[[fields_i cellAtRow:0 column:0] setIntValue:basething.angle];
-	[[fields_i cellAtRow:0 column:0] setIntValue:basething.type];
+	[[[fields_i cellAtIndex:0] contentView] setIntValue:basething.angle];
+	[[[fields_i cellAtIndex:1] contentView] setIntValue:basething.type];
 	[ambush_i	setIntValue:((basething.options)>>3)&1];
 	[network_i	setIntValue:((basething.options)>>4)&1];
 	[[difficulty_i	cellAtRow:0 column:0] setIntValue:(basething.options)&1];
@@ -877,8 +889,8 @@ id	thingpanel_i;
 	
 //	basething.angle = [fields_i intValueAt: 0];
 //	basething.type = [fields_i intValueAt: 1];
-	basething.angle = [[fields_i cellAtRow:0 column:0] intValue];
-	basething.type = [[fields_i cellAtRow:1 column:0] intValue];
+	basething.angle = [[[fields_i cellAtIndex:0] contentView] intValue];
+	basething.type = [[[fields_i cellAtIndex:1] contentView] intValue];
 	basething.options = [ambush_i	intValue]<<3;
 	basething.options |= ([network_i	intValue]&1)<<4;
 	basething.options |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;

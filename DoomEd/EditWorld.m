@@ -603,9 +603,11 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 			[self	saveWorld:NULL];
 	}
 	
-	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
-	[windowlist_i removeObject: sender];
-
+	if ([windowlist_i count] > 0)	// TF
+	{
+		[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
+		[windowlist_i removeObject: sender];
+	}
 //	[self	closeWorld];
 	return self;
 }

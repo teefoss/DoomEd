@@ -92,6 +92,7 @@
 		3095F6AB20F6AB2500570C92 /* thingpalette.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6A920F6AB2400570C92 /* thingpalette.nib */; };
 		3095F6AC20F6AB2500570C92 /* thingpalview.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3095F6AA20F6AB2500570C92 /* thingpalview.nib */; };
 		30E7504421052FCF0043F6EA /* line2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E7504321052FCF0043F6EA /* line2.xib */; };
+		30E7504621065B430043F6EA /* thing2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30E7504521065B430043F6EA /* thing2.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -229,6 +230,7 @@
 		3095F6A920F6AB2400570C92 /* thingpalette.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalette.nib; sourceTree = "<group>"; };
 		3095F6AA20F6AB2500570C92 /* thingpalview.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = thingpalview.nib; sourceTree = "<group>"; };
 		30E7504321052FCF0043F6EA /* line2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = line2.xib; sourceTree = "<group>"; };
+		30E7504521065B430043F6EA /* thing2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = thing2.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +393,7 @@
 				3095F6A420F6AA6E00570C92 /* texturepalette.nib */,
 				3095F68F20F5442400570C92 /* textureremapper.nib */,
 				3095F68520F5442300570C92 /* thing.nib */,
+				30E7504521065B430043F6EA /* thing2.xib */,
 				3095F6A920F6AB2400570C92 /* thingpalette.nib */,
 				3095F6AA20F6AB2500570C92 /* thingpalview.nib */,
 				3095F67F20F5442200570C92 /* thingstripper.nib */,
@@ -502,6 +505,7 @@
 				3095F6AC20F6AB2500570C92 /* thingpalview.nib in Resources */,
 				3010A70720E708860007A544 /* DoomEd.iconheader in Resources */,
 				3095F6A520F6AA6F00570C92 /* textureedit.nib in Resources */,
+				30E7504621065B430043F6EA /* thing2.xib in Resources */,
 				3010A73E20E708860007A544 /* PB.gdbinit in Resources */,
 				3010A72720E708860007A544 /* Pop.snd in Resources */,
 				3010A70620E708860007A544 /* DEStart.snd in Resources */,

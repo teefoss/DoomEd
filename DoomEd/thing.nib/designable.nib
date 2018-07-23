@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="101400" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14306.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ThingPanel">
+        <customObject id="-2" userLabel="File's Owner">
             <connections>
                 <outlet property="addButton_i" destination="29" id="50"/>
                 <outlet property="ambush_i" destination="4" id="68"/>
@@ -25,7 +25,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Thing Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="11" userLabel="ThingPanel" customClass="ThingWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -69,7 +69,7 @@
                             <action selector="formTarget:" target="-2" id="48"/>
                         </connections>
                     </form>
-                    <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="-1" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" id="9">
+                    <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" id="9">
                         <rect key="frame" x="9" y="6" width="219" height="131"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
@@ -77,7 +77,7 @@
                             <outlet property="delegate" destination="-2" id="52"/>
                         </connections>
                     </browser>
-                    <button misplaced="YES" imageHugsTitle="YES" id="29">
+                    <button imageHugsTitle="YES" id="29">
                         <rect key="frame" x="79" y="266" width="76" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Add to List" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="84">
@@ -93,7 +93,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </colorWell>
-                    <button misplaced="YES" imageHugsTitle="YES" id="37">
+                    <button imageHugsTitle="YES" id="37">
                         <rect key="frame" x="8" y="142" width="152" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="Update Thing data" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="85">
@@ -104,7 +104,7 @@
                             <action selector="updateThingData:" target="-2" id="56"/>
                         </connections>
                     </button>
-                    <matrix verticalHuggingPriority="750" misplaced="YES" mode="highlight" allowsEmptySelection="NO" id="39">
+                    <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" id="39">
                         <rect key="frame" x="10" y="414" width="90" height="39"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -259,7 +259,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button misplaced="YES" imageHugsTitle="YES" id="20">
+                                <button imageHugsTitle="YES" id="20">
                                     <rect key="frame" x="11" y="25" width="120" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Assign Icon" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="88">
@@ -270,7 +270,7 @@
                                         <action selector="assignIcon:" target="-2" id="64"/>
                                     </connections>
                                 </button>
-                                <button misplaced="YES" imageHugsTitle="YES" id="15">
+                                <button imageHugsTitle="YES" id="15">
                                     <rect key="frame" x="11" y="3" width="120" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Unlink Icon" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="89">
