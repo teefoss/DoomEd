@@ -182,8 +182,6 @@
 //	StartPath (TWOSIDED_C);
 //	StartPath (SELECTED_C);
 //	StartPath (SPECIAL_C);
-	NSBezierPath *linepath = [[NSBezierPath alloc] init];
-	NSBezierPath *normalpath = [[NSBezierPath alloc] init];
 
 
 // only draw the lines that might intersect the visible rect
@@ -191,6 +189,9 @@
 	li = lines;
 	for (i=0 ; i<numlines ; i++, li++)
 	{
+		NSBezierPath *linepath = [[NSBezierPath alloc] init];
+		NSBezierPath *normalpath = [[NSBezierPath alloc] init];
+
 		if (li->selected == -1)
 			continue;		// deleted line
 		if (!linecross[ clippoint[ li->p1] ][ clippoint[ li->p2] ])
@@ -216,10 +217,10 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 						points[li->p2].pt.y);
 		AddLineToPath (normalpath, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
 }
+		[linepath stroke];
+		[normalpath stroke];
 	}
 
-	[linepath stroke];
-	[normalpath stroke];
 //	FinishPath (ONESIDED_C);
 //	FinishPath (TWOSIDED_C);
 //	FinishPath (SELECTED_C);
@@ -435,9 +436,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 		[NSBezierPath setDefaultLineWidth:FRAMEWIDTH];
 		[NSBezierPath strokeRect:*selbox];
 		[NSBezierPath setDefaultLineWidth:1.0];
-	}
-	
-	//return self;
+	}	
 }
 
 @end

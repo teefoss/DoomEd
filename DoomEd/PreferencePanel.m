@@ -87,7 +87,7 @@ int			openupValues[NUMOPENUP];
 	
 	sscanf (string,"%f:%f:%f",&r,&g,&b);
 	NSColor *new = [[NSColor alloc] init];
-	new = [NSColor colorWithRed:r green:g blue:b alpha:1.0];
+	new = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
 	//*clr = NXConvertRGBToColor(r,g,b);
 	return new;
 }

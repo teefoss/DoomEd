@@ -1071,7 +1071,7 @@
 	switch ( tool )
 	{
 	case SELECT_TOOL:
-		[self pointSelect: event];
+		[self pointSelect: event];			
 		break;
 	case LINE_TOOL:
 		[self lineDrag: event];
